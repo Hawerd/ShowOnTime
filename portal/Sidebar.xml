@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
-    Name:   Tree.xml
+    Name:   Sidebar.xml
     Autor:  Hawerd Gonzalez
-    Desc:   Estructura xml para la formacion del sidebar en Portal-V
+    Date:   22-May-2016
+    Desc:   Estructura xml para la formacion del sidebar en Portal-V.
+    
+    Autor:  Luis castaño
+    Date:   22-May-2016  
+    Desc:   Se ajusta historial de comentarios.
+    
 -->
 
 <sidebar>

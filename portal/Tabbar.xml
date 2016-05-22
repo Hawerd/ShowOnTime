@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+    Name:   Tabbar.xml
+    Autor:  Hawerd Gonzalez
+    Date:   22-May-2016
+    Desc:   Estructura de los Tabs principales del Portal-V.
+
+    Autor:  Luis castaño
+    Date:   22-May-2016  
+    Desc:   Se renombra el archivo tabbar y se le agrega el historial al programa. 
+
 -->
 
 <tabbar margin="5"  align="left" offset="20" tabstyle="terrace" hrefmode="iframe">

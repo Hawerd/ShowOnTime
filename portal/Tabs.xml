@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<tabbar margin="5"  align="left" offset="20" tabstyle="terrace" hrefmode="iframe">
+    <tab id="stock"  width="auto" href="../portal/markets/Markets-V.php">Stock</tab>
+    <tab id="clientes" width="auto" selected="true"  href="../portal/productos/Productos.html">
+        Clientes
+    </tab>
+    <tab id="eventos"     width="auto">Eventos</tab>
+    <tab id="remisiones"  disabled="true" width="auto">Remisiones</tab>
+    <tab id="documentos"  disabled="true" width="auto">Documentos</tab>
+</tabbar>

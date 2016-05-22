@@ -14,7 +14,7 @@
 <sidebar>
     <item id="stock"        text="Stock"        icon="cart.png"/>
     <item id="clientes"     text="Clientes"     icon="store.png"/>
-    <item id="eventos"      text="Eventos"      icon="groceries.png" selected="true"/>
+    <item id="eventos"      text="Eventos"      icon="groceries.png"/>
     <item id="remisiones"   text="Remisiones"   icon="offerts.png"/>
     <item id="documentos"   text="Documentos"   icon="offerts.png"/>
 </sidebar>

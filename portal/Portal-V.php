@@ -39,7 +39,10 @@ dhtmlxEvent(window,"load",function(){
     //setup size
     siderbarWidth   = 200;
     
+/* END INICIALITATION */   
+    
 /* INSTANTIATION  */
+
     portalLayout = new dhtmlXLayoutObject(portal,"2U");
 
     dashBoardLayoutContainer = portalLayout.cells(dashboardCell);

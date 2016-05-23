@@ -7,9 +7,11 @@
 
     Autor:  Luis castaño
     Date:   22-May-2016  
-    Desc:   Se ajusta  el codigo del portal, se agrega la seccion 
-            INICIALIZACION.
-            Se agrega evento onTabClick.
+    Desc:   * Se ajusta  el codigo del portal, se agrega la seccion 
+              INICIALIZACION.
+            * Se agrega evento onTabClick.
+            * Se agrega switch en el Evento onClickTab para cargar o recargar cada tab
+              de manera independiente.
     
 -->
 <html>
@@ -28,8 +30,13 @@ dhtmlxEvent(window,"load",function(){
     //Static XML
     tabbarXML       = "Tabbar.xml";       //tabs principales
     sidebarXML      = "Sidebar.xml";      //Sidebar
-  
-    //Routes
+    
+    //Tabs-V load php
+    tabStockLoad    = "../portal/cellsC-Center/Events/Stock-V.php";
+    tabClientsLoad  = "../portal/cellsC-Center/Events/Clients-V.php";
+    tabEventsLoad   = "../portal/cellsC-Center/Events/Events-V.php";
+    
+    //General Routes
     icons           = "../resource/icons/"; //rutas de iconos
     
     //Cells
@@ -79,7 +86,17 @@ dhtmlxEvent(window,"load",function(){
    
    /* Evento onTabClick del CenterTab*/
     centerTabs.attachEvent("onTabClick", function(id) {
-       centerTabs.tabs(id).reloadURL();
+       switch(id){
+           case "stock":
+               centerTabs.tabs(id).attachURL(tabStockLoad);
+               break;
+           case "clients":
+               centerTabs.tabs(id).attachURL(tabClientsLoad);
+               break;
+           case "events":
+               centerTabs.tabs(id).attachURL(tabEventsLoad);
+               break;    
+       }//fin del switch 
     });//fin del evento onTabClick
 
 /* END EVENTS */     

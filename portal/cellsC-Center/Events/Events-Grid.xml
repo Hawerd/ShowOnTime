@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Events-Grid.xml
+    Autor:  Luis Castaño
+    Date:   22-May-2016
+    Desc:   Estructura xml para la Grilla de el modulo Eventos.
+  
+-->
+<rows>
+    <head>
+        <beforeInit>
+            <call command='setEditable'>
+                <param>false</param>
+            </call>
+            <call command='enableMultiline'>
+                <param>true</param>
+            </call>
+        </beforeInit>
+        <column type="ro"   id="CodeOfEvent"	width="80"     >Codigo de Evento        </column>
+        <column type="ro"   id="NameOfClient"  	width="150"    >Nombre de Cliente	</column>
+        <column type="ro"   id="IdCardClient"   width="80"     >Cedula de Cliente	</column>
+        <column type="ro"   id="NameOfEmployee" width="150"    >Nombre de Empleado	</column>
+        <column type="ro"   id="NumOfRemission" width="100"    >Numero de Remision	</column>
+        <column type="ro"   id="NameOfEvent"  	width="130"    >Nombre de Evento	</column>
+        <column type="ro"   id="CityOfEvent" 	width="110"    >Ciudad de Evento	</column>
+        <column type="ro"   id="AddrOfEvent"  	width="110"    >Dirrecion de Evento	</column>
+        <column type="ro"   id="DateOfMounting" width="80"     >Fecha de Montaje	</column>
+        <column type="ro"   id="DateOfStart" 	width="80"     >Fecha de Inicio         </column>
+        <column type="ro"   id="DateFinal"                     >Fecha Final		</column>
+        <column type='ro'   id='method'		hidden="true"  >method	  		</column>	
+        <column type='ro'   id='op'             hidden="true"  >op			</column>	
+    </head>
+</rows>

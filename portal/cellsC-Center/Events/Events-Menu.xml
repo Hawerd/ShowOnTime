@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Events-Menu.xml
+    Autor:  Luis Castaño
+    Date:   22-May-2016
+    Desc:   Estructura xml para el Menu de el modulo Eventos.
+  
+-->
+<menu>
+    <item id="addEvent"     text="Agregar Evento"   disabled="true" />
+    <item id="editEvent"    text="Editar Evento"    disabled="true" />
+    <item id="removeEvent"  text="Eliminar Evento"  disabled="true" />
+</menu>

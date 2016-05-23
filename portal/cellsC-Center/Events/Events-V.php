@@ -4,25 +4,71 @@
     Autor:  Luis F Castaño
     Date:   22-May-2016
     Desc:   Modulos principal de Eventos.
+
+    Autor:  Luis castaño
+    Date:   22-May-2016  
+    Desc:   Se realiza logica del modulo.
    
 -->
 <html>
 <head>
-<title>Show On Time</title>
+<title>Eventos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<link href="../codebase/skyblue/dhtmlx.css" rel="stylesheet" type="text/css"/>
-<script src="../codebase/dhtmlx.js" type="text/javascript"></script>
+<link href="../../../codebase/skyblue/dhtmlx.css" rel="stylesheet" type="text/css"/>
+<script src="../../../codebase/dhtmlx.js" type="text/javascript"></script>
 <script type="text/javascript">
 
-//Function main dhtmlxEvent
+//Function dhtmlxEvent
 dhtmlxEvent(window,"load",function(){
-    
-/* INICIALITATION  */    
+    //execute dhtmlx init
+    eventsInit();
+});//end function dhtmlxEvent
 
+function eventsInit(){
+   
+/* INICIALITATION  */  
+    
+    /* Static XML */
+    eventsGridXML   = "Events-Grid.xml";
+    eventsMenuXML   = "Events-Menu.xml";
+    
+    /* Cells */
+    gridCell    = "a";
+    formCell    = "b";
+    
+    /* Routes Img */
+    gridImg     = "../../../codebase/imgs/";
+    menuImg     = "../../../codebase/skyblue/imgs";
+    
 /* END INICIALITATION */   
 
 /* INSTANTIATION  */
-
+    
+    //Layout Main 
+    pattern         = "2E";
+    eventsLayout    = new dhtmlXLayoutObject("eventsLayoutDiv",pattern);
+    
+    //Grid Container 
+    eventsGridContainer    = eventsLayout.cells(gridCell);
+    eventsGridContainer.hideHeader();
+    
+    //Form Container
+    eventsFormContainer    = eventsLayout.cells(formCell);
+    eventsFormContainer.hideHeader();
+    
+    //Menu
+    eventsMenu  = eventsGridContainer.attachMenu();
+    eventsMenu.setIconsPath(menuImg);
+    eventsMenu.setSkin("dhx_skyblue");
+    
+    //Grid
+    eventsGrid  = eventsGridContainer.attachGrid();
+    eventsGrid.setImagePath(gridImg);
+    eventsGrid.init();
+  
+    //Form
+    eventsForm = eventsFormContainer.attachForm();
+  
 /* END INSTANTIATION */       
 
 /* EVENTS */
@@ -30,19 +76,25 @@ dhtmlxEvent(window,"load",function(){
 /* END EVENTS */     
 
 /* LOADS  */
-
+    
+    //load struct menu
+    eventsMenu.loadStruct(eventsMenuXML);
+    
+    //load struct grid
+    eventsGrid.load(eventsGridXML);
+    
+    
 /* END LOADS */
 
 /* FUNCTIONS */
 
 /* END FUNCTIONS */
-
-});//end function main dhtmlxEvent
-
+    
+}//fin de la funcion eventsInit
 </script>
 </head>
 <body>
-<div id="portal" style="position: fixed; height: 95%; width: 90%;"></div>
+<div id="eventsLayoutDiv" style="position: fixed; height: 100%; width: 100%;"></div>
 </body>
 </html>
 

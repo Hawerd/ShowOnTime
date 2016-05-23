@@ -9,6 +9,7 @@
     Date:   22-May-2016  
     Desc:   Se ajusta  el codigo del portal, se agrega la seccion 
             INICIALIZACION.
+            Se agrega evento onTabClick.
     
 -->
 <html>
@@ -42,8 +43,9 @@ dhtmlxEvent(window,"load",function(){
 /* END INICIALITATION */   
     
 /* INSTANTIATION  */
-
-    portalLayout = new dhtmlXLayoutObject(portal,"2U");
+    
+    pattern      = "2U";
+    portalLayout = new dhtmlXLayoutObject("portalLayoutDiv",pattern);
 
     dashBoardLayoutContainer = portalLayout.cells(dashboardCell);
     dashBoardLayoutContainer.setWidth(siderbarWidth);
@@ -69,11 +71,17 @@ dhtmlxEvent(window,"load",function(){
 /* END INSTANTIATION */       
 
 /* EVENTS */
-
+    
+    /* Evento onSelect del portal Sidebar */
     portalSidebar.attachEvent("onSelect",function(id){
         centerTabs.tabs(id).setActive();
-    });
-    
+    });//fin del evento onSelect
+   
+   /* Evento onTabClick del CenterTab*/
+    centerTabs.attachEvent("onTabClick", function(id) {
+       centerTabs.tabs(id).reloadURL();
+    });//fin del evento onTabClick
+
 /* END EVENTS */     
 
 /* LOADS  */
@@ -91,6 +99,6 @@ dhtmlxEvent(window,"load",function(){
 </script>
 </head>
 <body>
-<div id="portal" style="position: fixed; height: 95%; width: 90%;"></div>
+<div id="portalLayoutDiv" style="position: fixed; height: 95%; width: 90%;"></div>
 </body>
 </html>

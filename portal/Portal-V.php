@@ -13,6 +13,10 @@
             * Se agrega switch en el Evento onClickTab para cargar o recargar cada tab
               de manera independiente.
     
+    Autor:  Luis castaño
+    Date:   23-May-2016  
+    Desc:   Se ajusta los tamaños del div principal portalLayoutDiv.
+    
 -->
 <html>
 <head>
@@ -116,6 +120,6 @@ dhtmlxEvent(window,"load",function(){
 </script>
 </head>
 <body>
-<div id="portalLayoutDiv" style="position: fixed; height: 95%; width: 90%;"></div>
+<div id="portalLayoutDiv" style="position: fixed; height: 100%; width: 100%;"></div>
 </body>
 </html>

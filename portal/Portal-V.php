@@ -36,9 +36,9 @@ dhtmlxEvent(window,"load",function(){
     sidebarXML      = "Sidebar.xml";      //Sidebar
     
     //Tabs-V load php
-    tabStockLoad    = "../portal/cellsC-Center/Stock/Stock-V.php";
-    tabClientsLoad  = "../portal/cellsC-Center/Events/Clients-V.php";
-    tabEventsLoad   = "../portal/cellsC-Center/Events/Events-V.php";
+    tabStockLoad    = "../portal/cellsC-Center/stock/Stock-V.php";
+    tabClientsLoad  = "../portal/cellsC-Center/clients/Clients-V.php";
+    tabEventsLoad   = "../portal/cellsC-Center/events/Events-V.php";
     
     //General Routes
     icons           = "../resource/icons/"; //rutas de iconos

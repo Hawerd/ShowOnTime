@@ -4,10 +4,17 @@
     Autor:  Luis Castaño
     Date:   22-May-2016
     Desc:   Estructura xml para el Menu de el modulo Eventos.
+    
+    Autor:  Luis castaño
+    Date:   23-May-2016  
+    Desc:   Se agregan separadores.
   
 -->
 <menu>
     <item id="addEvent"     text="Agregar Evento"   disabled="true" />
+    <item id="sp1" type="separator"/>
     <item id="editEvent"    text="Editar Evento"    disabled="true" />
+    <item id="sp2" type="separator"/>
     <item id="removeEvent"  text="Eliminar Evento"  disabled="true" />
+    <item id="sp3" type="separator"/>
 </menu>

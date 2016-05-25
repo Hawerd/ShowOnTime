@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<tabbar margin="5"          align="left" offset="20" tabstyle="terrace" hrefmode="iframe">
+    <tab id="general"       width="auto"                    >General</tab>
+    <tab id="audio"         width="auto"    selected="true" >Audio</tab>
+    <tab id="luces"         width="auto"    disabled="true" >Luces</tab>
+    <tab id="structuras"    width="auto"    disabled="true" >Structuras</tab>
+</tabbar>
+
+

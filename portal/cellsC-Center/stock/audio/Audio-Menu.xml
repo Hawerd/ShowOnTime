@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Stock-V.php
+    Autor:  Hawerd Gonzalez
+    Date:   24-May-2016
+    Desc:   Menu principal de Audio
+-->
+<menu>
+    <item id="add"     text="Agregar"/>
+    <item id="edit"     text="Editar"/>
+    <item id="remove"   text="Eliminar"/>
+</menu>

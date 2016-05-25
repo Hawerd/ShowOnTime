@@ -36,7 +36,7 @@ dhtmlxEvent(window,"load",function(){
     sidebarXML      = "Sidebar.xml";      //Sidebar
     
     //Tabs-V load php
-    tabStockLoad    = "../portal/cellsC-Center/Events/Stock-V.php";
+    tabStockLoad    = "../portal/cellsC-Center/Stock/Stock-V.php";
     tabClientsLoad  = "../portal/cellsC-Center/Events/Clients-V.php";
     tabEventsLoad   = "../portal/cellsC-Center/Events/Events-V.php";
     

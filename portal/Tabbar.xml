@@ -10,13 +10,14 @@
     Desc:   * Se renombra el archivo tabbar y se le agrega el historial al programa.
             * Se retiran las rutas href de los tab, solo se deja la predeterminada del
               tab clients.
+            * se ajusta ruta de Eventos  
 
 -->
 
 <tabbar margin="5"        align="left"   offset="20" tabstyle="terrace" hrefmode="iframe">
     <tab id="stock"         width="auto"                        >Stock</tab>
     <tab id="clients"       width="auto"                        >Clientes</tab>
-    <tab id="events"        width="auto"  selected="true"       >Eventos</tab>
+    <tab id="events"        width="auto"  selected="true" href="../portal/cellsC-Center/events/Events-V.php" >Eventos</tab>
     <tab id="remissions"    width="auto"  disabled="true"       >Remisiones</tab>
     <tab id="documents"     width="auto"  disabled="true"       >Documentos</tab>
 </tabbar>

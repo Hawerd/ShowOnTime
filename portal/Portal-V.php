@@ -16,6 +16,11 @@
     Autor:  Luis castaño
     Date:   23-May-2016  
     Desc:   Se ajusta los tamaños del div principal portalLayoutDiv.
+
+    Autor:  Luis castaño
+    Date:   27-May-2016  
+    Desc:   Se ajusta el evento onclik del objeto centerTabs para
+            determinar si es necesario o No cargar el tab clickeado.
     
 -->
 <html>
@@ -26,8 +31,14 @@
 <script src="../codebase/dhtmlx.js" type="text/javascript"></script>
 <script type="text/javascript">
 
-//Function main dhtmlxEvent
+//Function dhtmlxEvent
 dhtmlxEvent(window,"load",function(){
+    //execute dhtmlx init
+    portalInit();
+});//end function dhtmlxEvent
+
+//Function Portal Init
+function portalInit(){
     
 /* INICIALITATION  */    
    
@@ -35,19 +46,19 @@ dhtmlxEvent(window,"load",function(){
     tabbarXML       = "Tabbar.xml";       //tabs principales
     sidebarXML      = "Sidebar.xml";      //Sidebar
     
-    //Tabs-V load php
-    tabStockLoad    = "../portal/cellsC-Center/stock/Stock-V.php";
-    tabClientsLoad  = "../portal/cellsC-Center/clients/Clients-V.php";
-    tabEventsLoad   = "../portal/cellsC-Center/events/Events-V.php";
-    
-    //General Routes
+    //Array of tabs main 
+    portalTabs      = [{tab:"stock",route:"../portal/cellsC-Center/stock/Stock-V.php"},
+                       {tab:"clients",route:"../portal/cellsC-Center/clients/Clients-V.php"},
+                       {tab:"events",route:"../portal/cellsC-Center/events/Events-V.php"}];
+                   
+    //icons route
     icons           = "../resource/icons/"; //rutas de iconos
     
     //Cells
     dashboardCell   = "a";
     tabbarCell      = "b";
     sidebarCell     = "a";
-    
+
     //setup size
     siderbarWidth   = 200;
     
@@ -90,17 +101,15 @@ dhtmlxEvent(window,"load",function(){
    
    /* Evento onTabClick del CenterTab*/
     centerTabs.attachEvent("onTabClick", function(id) {
-       switch(id){
-           case "stock":
-               centerTabs.tabs(id).attachURL(tabStockLoad);
-               break;
-           case "clients":
-               centerTabs.tabs(id).attachURL(tabClientsLoad);
-               break;
-           case "events":
-               centerTabs.tabs(id).attachURL(tabEventsLoad);
-               break;    
-       }//fin del switch 
+        var tabActive = centerTabs.getActiveTab(); 
+        if(tabActive != id){
+            for(var i=0;i<portalTabs.length;i++){
+                if( portalTabs[i].tab == id ){
+                    centerTabs.tabs(id).attachURL(portalTabs[i].route);
+                    break;
+                }
+            }//fin del ciclo
+        }//fin de la condicion tabActive
     });//fin del evento onTabClick
 
 /* END EVENTS */     
@@ -115,8 +124,7 @@ dhtmlxEvent(window,"load",function(){
 /* FUNCTIONS */
 /* END FUNCTIONS */
 
-});//end function main dhtmlxEvent
-
+};//end function Init
 </script>
 </head>
 <body>

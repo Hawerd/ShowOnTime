@@ -15,9 +15,9 @@
 -->
 
 <tabbar margin="5"        align="left"   offset="20" tabstyle="terrace" hrefmode="iframe">
-    <tab id="stock"         width="auto"                        >Stock</tab>
+    <tab id="stock"         width="auto"                  href="../portal/cellsC-Center/stock/Stock-V.php">Stock</tab>
     <tab id="clients"       width="auto"                        >Clientes</tab>
-    <tab id="events"        width="auto"  selected="true" href="../portal/cellsC-Center/events/Events-V.php" >Eventos</tab>
+    <tab id="events"        width="auto"  selected="true" href="../portal/cellsC-Center/events/Events-V.php">Eventos</tab>
     <tab id="remissions"    width="auto"  disabled="true"       >Remisiones</tab>
     <tab id="documents"     width="auto"  disabled="true"       >Documentos</tab>
 </tabbar>

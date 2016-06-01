@@ -52,7 +52,7 @@ function portalInit(){
                        {tab:"events",route:"../portal/cellsC-Center/events/Events-V.php"}];
                    
     //icons route
-    icons           = "../resource/icons/"; //rutas de iconos
+    icons           = "../resources/image/icons/"; //rutas de iconos
     
     //Cells
     dashboardCell   = "a";

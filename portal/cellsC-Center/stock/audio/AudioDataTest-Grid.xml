@@ -5,9 +5,10 @@
         <cell>Bajo</cell>
         <cell>D.A.S</cell>
         <cell>BX275W500</cell>
-        <cell>Conexion XLR</cell>
-        <cell>No</cell>
-        <cell>8</cell>
+        <cell>Bueno</cell>
+        <cell>Si</cell>
+        <cell>EV000001</cell>
+        <cell>Si</cell>
         <cell></cell>
         <cell></cell>
     </row>
@@ -16,21 +17,35 @@
         <cell>Bajo Dole</cell>
         <cell>Mackie</cell>
         <cell>conexion speakon</cell>
-        <cell>Bss801W900</cell>
-        <cell>No</cell>
-        <cell>4</cell>
+        <cell>Regular</cell>
+        <cell>Si</cell>
+        <cell>EV000003</cell>
+        <cell>Si</cell>
         <cell></cell>
         <cell></cell>
     </row>     
     <row id="3">
-        <cell>AU000002</cell>
+        <cell>AU000003</cell>
         <cell>Line Array</cell>
         <cell>RCF</cell>
         <cell>IPS 3700:	2 x 1500 W</cell>
-        <cell>1500 W por par</cell>
-        <cell>Si</cell>
-        <cell>16</cell>
+        <cell>Dañado</cell>
+        <cell>No</cell>
+        <cell></cell>
+        <cell>No</cell>
         <cell></cell>
         <cell></cell>
-    </row>     
+    </row>  
+    <row id="4">
+        <cell>AU000004</cell>
+        <cell>Line Array</cell>
+        <cell>RCF</cell>
+        <cell>IPS 3800:	2 x 1500 W</cell>
+        <cell>En Reparacion</cell>
+        <cell>No</cell>
+        <cell></cell>
+        <cell>No</cell>
+        <cell></cell>
+        <cell></cell>
+    </row>      
 </rows>

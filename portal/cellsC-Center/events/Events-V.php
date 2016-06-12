@@ -20,6 +20,11 @@
     Desc:   Se realizan los callback de los componentes existentes
             Se crean las funciones de apoyo como form y menu setup
             Se agregan eventos como el onClik y onRowSelect.
+
+    Autor:  Luis castaño
+    Date:   12-Jun-2016  
+    Desc:   Se ajusta el id del setItemFocus en el evento onClik
+            del menu.
    
 -->
 <html>
@@ -103,7 +108,7 @@ function eventsInit(){
             case "addEvent":
                 eventsForm.clear();
                 eventsForm.unlock();
-                eventsForm.setItemFocus("IdCardClient");
+                eventsForm.setItemFocus("NameOfClient");
                 break;
             case "editEvent":
                 eventsForm.unlock();

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   StockTabbar.xml
+    Autor:  Hawerd Gonzales
+    Date:   27-May-2016
+    Desc:   Estructura xml de tabs del modulo Stock.
+    
+    Autor: Luis F Castaño 
+    Date:  12-Jun-2016 
+    Desc:  Se renombra el archivo a StockTabbar, se configura el tab
+           general para que sea el que inicie predeterminado.
+           
+  
+-->
+<tabbar margin="5"          align="left" offset="20" tabstyle="terrace" hrefmode="iframe">
+    <tab id="general"       width="auto"    selected="true" href="../../../portal/cellsC-Center/stock/general/General-V.php">General</tab>
+    <tab id="audio"         width="auto"                    >Audio</tab>
+    <tab id="lights"        width="auto"    disabled="true" >Luces</tab>
+    <tab id="structures"    width="auto"    disabled="true" >Estructuras</tab>
+</tabbar>
+
+

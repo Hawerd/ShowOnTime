@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-    Name:   Stock-V.php
+    Name:   Audio-V.php
     Autor:  Hawerd Gonzalez
     Date:   24-May-2016
     Desc:   Modulos principal de Audio

@@ -12,6 +12,16 @@
     Autor:  Luis F Castaño
     Date:   27-May-2016
     Desc:   Se agrega  logica para activar los tabs
+
+    Autor:  Luis F Castaño
+    Date:   12-Jun-2016
+    Desc:   Se renombrar variables de los componentes, no
+            se usa grilla ni forma.
+
+    Autor:  Luis F Castaño
+    Date:   13-Jun-2016
+    Desc:   Se agrega al Array stockTabs la ruta del Modulo
+            lights para funcionamiento.
    
 -->
 <html>
@@ -34,25 +44,28 @@ function stockInit(){
 /* INICIALITATION  */ 
     
     //Static XML 
-    stockBarXML     = "StockBar.xml";
+    stockTabbarXML  = "StockTabbar.xml";
     
     //Array of tabs main 
-    stockTabs       = [{tab:"audio",route:"../../../portal/cellsC-Center/stock/audio/Audio-V.php"}];
+    stockTabs       = [{tab:"audio",route:"../../../portal/cellsC-Center/stock/audio/Audio-V.php"},
+                       {tab:"lights",route:"../../../portal/cellsC-Center/stock/lights/Lights-V.php"}];
 
     //Cells
-    stockGridCell   = "a";
-    stockFormCell   = "b";
-    
+    tabbarCell      = "a";
+   
 /* END INICIALITATION */   
       
 /* INSTANTIATION  */
     
+    /* main layout */
     stockLayout = new dhtmlXLayoutObject("stockLayoutDiv","1C");
     
-    stockGridContainer = stockLayout.cells(stockGridCell);
-    stockGridContainer.hideHeader();
+    /* Container Tabbar */
+    stockTabbarContainer = stockLayout.cells(tabbarCell);
+    stockTabbarContainer.hideHeader();
     
-    stockTabbar    = stockGridContainer.attachTabbar();
+    /* Tabbar */
+    stockTabbar    = stockTabbarContainer.attachTabbar();
 
 /* END INSTANTIATION */       
     
@@ -73,7 +86,7 @@ function stockInit(){
 /* END EVENTS */     
 
 /* LOADS  */
-    stockTabbar.loadStruct(stockBarXML);
+    stockTabbar.loadStruct(stockTabbarXML);
 /* END LOADS */
 
 /* FUNCTIONS */

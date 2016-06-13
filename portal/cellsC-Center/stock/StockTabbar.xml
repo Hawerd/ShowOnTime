@@ -10,12 +10,17 @@
     Desc:  Se renombra el archivo a StockTabbar, se configura el tab
            general para que sea el que inicie predeterminado.
            
+    Autor: Luis F Castaño 
+    Date:  13-Jun-2016 
+    Desc:  Se cambia la seleccion por defecto de la estructura, cambia de
+           tab Audio a general.
+           
   
 -->
 <tabbar margin="5"          align="left" offset="20" tabstyle="terrace" hrefmode="iframe">
     <tab id="general"       width="auto"    selected="true" href="../../../portal/cellsC-Center/stock/general/General-V.php">General</tab>
-    <tab id="audio"         width="auto"                    >Audio</tab>
-    <tab id="lights"        width="auto"    disabled="true" >Luces</tab>
+    <tab id="audio"         width="auto"    >Audio</tab>
+    <tab id="lights"        width="auto"    >Luces</tab>
     <tab id="structures"    width="auto"    disabled="true" >Estructuras</tab>
 </tabbar>
 

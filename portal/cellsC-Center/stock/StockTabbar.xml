@@ -14,6 +14,10 @@
     Date:  13-Jun-2016 
     Desc:  Se cambia la seleccion por defecto de la estructura, cambia de
            tab Audio a general.
+    
+    Autor: Luis F Castaño 
+    Date:  14-Jun-2016 
+    Desc:  Se retira el atributo disabled del tab structures            
            
   
 -->
@@ -21,7 +25,7 @@
     <tab id="general"       width="auto"    selected="true" href="../../../portal/cellsC-Center/stock/general/General-V.php">General</tab>
     <tab id="audio"         width="auto"    >Audio</tab>
     <tab id="lights"        width="auto"    >Luces</tab>
-    <tab id="structures"    width="auto"    disabled="true" >Estructuras</tab>
+    <tab id="structures"    width="auto"    >Estructuras</tab>
 </tabbar>
 
 

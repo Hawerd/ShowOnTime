@@ -22,6 +22,11 @@
     Date:   13-Jun-2016
     Desc:   Se agrega al Array stockTabs la ruta del Modulo
             lights para funcionamiento.
+
+    Autor:  Luis F Castaño
+    Date:   14-Jun-2016
+    Desc:   Se agrega al Array stockTabs la ruta del Modulo
+            structure para su funcionamiento.
    
 -->
 <html>
@@ -48,7 +53,8 @@ function stockInit(){
     
     //Array of tabs main 
     stockTabs       = [{tab:"audio",route:"../../../portal/cellsC-Center/stock/audio/Audio-V.php"},
-                       {tab:"lights",route:"../../../portal/cellsC-Center/stock/lights/Lights-V.php"}];
+                       {tab:"lights",route:"../../../portal/cellsC-Center/stock/lights/Lights-V.php"},
+                       {tab:"structures",route:"../../../portal/cellsC-Center/stock/structure/Structure-V.php"}];
 
     //Cells
     tabbarCell      = "a";

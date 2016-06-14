@@ -25,6 +25,11 @@
     Date:   12-Jun-2016  
     Desc:   Se ajusta el id del setItemFocus en el evento onClik
             del menu.
+
+    Autor:  Luis castaño
+    Date:   14-Jun-2016  
+    Desc:   Se ajusta el style.textAlign del input dateOfStart 
+            en la funcion eventsFormCallback 
    
 -->
 <html>
@@ -198,7 +203,7 @@ function eventsInit(){
     /* funcion callback de la estructura del formulario */
     function eventsFormCallback(){
         eventsForm.getInput("DateOfMounting").style.textAlign = "right";
-        eventsForm.getInput("DateOfMounting").style.textAlign = "right";
+        eventsForm.getInput("DateOfStart").style.textAlign = "right";
         eventsForm.getInput("DateFinal").style.textAlign = "right";
     }//fin de la funcion eventsFormCallback
     

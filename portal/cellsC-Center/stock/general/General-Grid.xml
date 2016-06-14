@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Stock-V.php
+    Autor:  Hawerd Gonzalez
+    Date:   24-May-2016
+    Desc:   Estructura de grilla.
+  
+-->
+<rows>
+    <head>
+        <column type="ro"   id="code"           width="80">Codigo               </column>
+        <column type="ro"   id="elementName"    width="100">Nombre              </column>
+        <column type="ro"   id="elementMarket"  width="80">Marca                </column>
+        <column type="ro"   id="elementRef"     width="150">Referencia          </column>
+        <column type="ro"   id="elementDesc"    width="150">Descripcion         </column>
+        <column type="ro"   id="quantity"       width="70">Cantidad             </column>       
+        <column type="ro"   id="active"         width="60">Activo               </column>
+        <column type='ro'   id='method'		hidden="true" >method	  	</column>	
+        <column type='ro'   id='op'             hidden="true">op		</column>
+    </head>
+</rows>

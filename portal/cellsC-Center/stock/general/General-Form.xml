@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Events-Form.xml
+    Autor:  Luis F Castaño
+    Date:   24-May-2016
+    Desc:   Estructura xml para el formulario de el modulo Eventos.
+    
+    Autor:  Luis castaño
+    Date:   11-Jun-2016  
+    Desc:   Se retira el campo Cedula y el se esconde el campo numero de remision.
+
+-->
+<items>
+    <!--  Fieldset Info Events -->
+    <item type="fieldset" name="fieldsetEvents" label="Por favor, ingrese los siguientes campos necesarios para crear o actualizar un elemento" width="auto" offsetLeft="5" offsetTop="5">
+
+        <item type="block" width="auto" blockOffset="0" >
+            <item type="input" name="elementName"   label="Elemento:"   labelWidth="120"  inputWidth="200" />
+            <item type="input" name="elementMarket" label="Marca:"      labelWidth="120"  inputWidth="200" />
+            <item type="input" name="elementRef"    label="Referencia:" labelWidth="120"  inputWidth="200" />
+            <item type="newcolumn" offset="20" />
+            <item type="input" name="elementDesc"   label="Descripcion:" labelWidth="120" inputWidth="200" />
+            <item type="input" name="quantity"      label="Cantidad:"    labelWidth="120" inputWidth="200" />
+        </item>
+         
+        <item type="label" label="" labelHeight="1"/>
+
+        <item type="block" width="auto" blockOffset="190">
+            <item type="button" name="update" width="110" value="Aceptar" tooltip=""/>
+            <item type="newcolumn" offset="5" />
+            <item type="button" name="clear"  width="110" value="Limpiar Cambios"   tooltip="" />
+            <item type="newcolumn" offset="5" />
+            <item type="button" name="cancel" width="100" value="Cancelar"  tooltip="" />
+        </item>
+        
+    </item>
+    <item type="hidden" name ="method" value=""/>
+    <item type="hidden" name="op"/>  
+</items>

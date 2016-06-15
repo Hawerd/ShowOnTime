@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<items>
+    <item type="settings" labelWidth="110" labelAlign="left" inputWidth="170"/>
+    
+        <item type="fieldset"   name="formProducto" label="Informacion del producto" 
+              labelWidth="120"  offsetLeft="5"  offsetTop="5" width="auto" >
+
+            <item type="input" 	name="ProductName"      maxLength="55"  label="Nombre Producto:"/>
+            <item type="input" 	name="RawCost"          maxLength="55"  label="Precio Costo:"/>
+            <item type="input" 	name="SalePrice"        maxLength="55"  label="Precio Venta:"/>
+
+        <item type="newcolumn" offset="20"/>
+
+            <item type="input" 	name="FK_IVACode"       maxLength="55"  label="Iva:"/>
+            <item type="input" 	name="PublicPrice"      maxLength="55"  label="Valor:"/>
+            <item type="input" 	name="ProductDesc"      maxLength="255" label="Descripcion:"/>
+
+            <item type="block" width="auto" blockOffset="0">        
+                <item type="button" name="update" 	value="Guardar" width="70"/>
+                <item type="newcolumn" offset="20"/>
+                <item type="button" name="cancel" 	value="Cancel" width="80"/>
+            </item>  
+   
+    </item>
+    <item type="hidden"    name ="method"  value="submitProducts"/>
+    <item type="hidden"    name ="ProductID"/>
+    <item type="hidden"    name ="ProductCodeUUID"/>
+    <item type="hidden"    name ="sortSeq"/>
+</items>

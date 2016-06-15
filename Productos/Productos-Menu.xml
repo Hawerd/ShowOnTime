@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<toolbar>
+   <item id="add"       type="button" text="Add"    img="add.png"/>
+   <item id="edit"      type="button" text="Edit"   img="edit.png"/>
+   <item id="remove"   type="button" text="Remover"   img="delete.png"/>
+</toolbar>

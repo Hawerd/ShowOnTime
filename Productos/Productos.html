@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+    <title>Productos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../codebase/dhtmlx.js" type="text/javascript"></script>
+    <link href="../codebase/dhtmlx.css" rel="stylesheet" type="text/css"/>
+    <link href="../codebase/dhtmlxgrid.css" rel="stylesheet" type="text/css"/>
+    
+    <script type="text/javascript">
+            
+    nav     = "a";
+    grid    = "b";
+    form    = "c";
+
+    productosMenuXML    = "Productos-Menu.xml";
+    productosGridXML    = "Productos-Grid.xml?etc=";
+    productosFormXML    = "Productos-Form.xml?etc=";
+    productosMsgFormXML = "ProductosMsg-Form.xml?etc=";
+
+    dataxml             = "ProductosData.php?format=grid&etc=";
+    productosFormdp     = "ProductosData.php?format=form";
+    
+    rowId               = 0;
+    hasNewRow           = "";
+    
+    // Variables para control de flujo.
+    firstTime           = true;
+
+    dhtmlxEvent(window,"load",function(){
+
+        productoslayout = new dhtmlXLayoutObject(productos,"3L");
+
+        pruductosNavContainer   = productoslayout.cells(nav);
+        pruductosNavContainer.setWidth(250);
+
+        /*  Contenedor de la grilla */
+        productosGridContainer  = productoslayout.cells(grid);
+        productosGridContainer.setText("Productos existentes");
+        
+
+        /*  Contenedor del formulario   */
+        productosFormContainer  = productoslayout.cells(form);
+        productosFormContainer.setText("Formulario de Productos");
+        
+
+        /*  Menu en la cabecera de la grilla    */
+        productosMenu   = productosGridContainer.attachToolbar(); 
+        productosMenu.setIconsPath("../resource/");
+        //productosMenu.setSkin(productoslayout.dhtmlxskin);
+
+        productosGrid   = productosGridContainer.attachGrid();
+        productosGrid.init();
+
+        productosForm   = productosFormContainer.attachForm();
+        
+//Eventos
+
+        productosMenu.attachEvent("onClick", function(id){
+            
+            switch (id){
+                case "add":
+                    addNewRow();
+                    productosForm.unlock();
+                    break;
+                case "edit":
+                    productosForm.setItemValue("method", "updateProductosForm");
+                    productosForm.unlock();
+                    break;
+                case "remove":
+                    productosForm.setItemValue("method", "removeProductosForm");
+                    productosForm.save();
+                    break;
+            
+            }
+
+        });
+
+        // ProgressOn 
+        productosGrid.attachEvent("onXLS", function(grid){
+            productosGridContainer.progressOn();
+        });
+        //ProgressOff
+        productosGrid.attachEvent("onXLE", function(grid){
+            productosGridContainer.progressOff();
+        });
+        
+        productosGrid.attachEvent("onRowSelect", function(id){
+            
+            backupForm  = productosForm.saveBackup();
+           
+        });
+
+        productosForm.attachEvent("onButtonClick", function(id){
+            switch(id){
+                case "update":
+                    productosForm.save();
+                    break;
+                case "cancel":
+                    if(hasNewRow){
+                       hasNewRow = false; 
+                       productosGrid.deleteSelectedRows();
+                       productosGrid.selectRowById(selectedRowId,false,true,true); 
+                    }    
+                    productosGrid.selectRowById(selectedRowId,false,true,true); 
+                    productosForm.lock();
+                    break;
+            }
+
+        }); 
+
+        //  Load de estructuta  
+        productosMenu.loadStruct(productosMenuXML);
+        productosGrid.load(productosGridXML + new Date().getTime(),productosGridCallback);
+        productosForm.loadStruct(productosFormXML,callbakForm);
+
+        // Carga de los datos para la grilla.
+        function productosGridCallback(){
+
+            if(firstTime){
+                productosGrid.load(dataxml + new Date().getTime(),productosGridDataCallback);
+            } else {
+                productosGrid.clearAndLoad(dataxml + new Date().getTime(),productosGridDataCallback);
+            }
+        }
+        
+        function productosGridDataCallback(){
+            // Obtengo el numero de filas o registros en la grilla.
+            if(firstTime){
+                var rowNum = productosGrid.getRowsNum();
+                if(rowNum) {
+                    selectedRowId   = productosGrid.getRowId(0);
+                    productosGrid.selectRowById(selectedRowId,false,true,true);    
+                } else {
+                    addNewRow();
+                }
+            } else {
+                productosGrid.selectRowById(selectedRowId,false,true,true);
+            }
+            
+        }
+
+        function callbakForm(){
+
+            productosForm.bind(productosGrid);
+
+                function productosFormReturn(node){
+                    resp            = node.action;
+                    returnTid   = node.tid;
+                    switch(resp){
+                        case "success":
+                            firstTime   = false;
+                            selectedRowId = returnTid;
+                            productosGridCallback();  
+                            break;
+                }
+            }
+            
+            productosForm.lock();
+            dp = new dataProcessor(productosFormdp);
+            dp.init(productosForm)
+            dp.defineAction("success",productosFormReturn);
+            dp.defineAction("fail",productosFormReturn);
+            dp.defineAction("error",productosFormReturn);
+            dp.defineAction("inserted",productosFormReturn);
+   
+        }
+        
+        function addNewRow(){
+            productosForm.unlock();
+            rowId = productosGrid.uid();
+            productosGrid.addRow(rowId,["","","","","","","","","",""]);
+            productosGrid.selectRowById(rowId,false,true,true); 
+            productosForm.setItemValue("method", "submitProductsForm");
+            hasNewRow = true;
+        }
+        
+
+    });
+            
+    </script>
+    </head>
+    <body>
+        
+        <div id="productos"  style="position: fixed; height: 100%; width: 85%;"></div>
+    </body>
+</html>

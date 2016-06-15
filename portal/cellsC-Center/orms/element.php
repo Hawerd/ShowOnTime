@@ -12,7 +12,7 @@
  * @author Hawerd
  */
 
-require_once '../portal/cellsC-Center/dataSource/MC_conexion.php/';
+require_once '../dataSource/MC_conexion.php';
 class element {
     private $elementID;
     private $elementUUID;
@@ -32,7 +32,8 @@ class element {
     
     
     public function entityLoad(){
-        header('Content-Type: application/xml');
+        $con = new conexion();
+//        header('Content-Type: application/xml');
         $res = $con->insertar("select * from codClientType where active = true order by elementName");
         echo $res;
     }

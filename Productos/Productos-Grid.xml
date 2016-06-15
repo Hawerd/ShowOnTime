@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rows>
+    <head>
+        <column type="ro" 	width="70"	id="ProductID">ID                   </column>
+        <column type="ro" 	width="100"	id="ProductCodeUUID">UUID</column>
+        <column type="ro" 	width="100"	id="ProductName">Nombre Producto    </column>
+        <column type="ro" 	hidden="true"	id="sortSeq"/>
+        <column type="ro" 	width="400"  	id="ProductDesc">Descripcion        </column>
+        <column type="ro" 	width="100"	id="RawCost">Valor                  </column>	
+        <column type="ro" 	width="100"	id="SalePrice">Precio               </column>
+        <column type="ro" 	width="100"	id="FK_IVACode">IVA                 </column>	
+        <column type="ro" 	width="100"	id="PublicPrice">Precio Publico     </column>
+        <!--    Hidden column   -->
+        <column type="ro" 	hidden="true"	id="Active"/>
+    </head>
+</rows>

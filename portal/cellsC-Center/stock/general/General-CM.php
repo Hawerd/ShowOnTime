@@ -33,10 +33,12 @@
     }
     
     function entityLoad(){
-        $con = new conexion();
+        $c = new element();
         //header('Content-Type: application/xml');
-        $res = $con->insertar("select * from codClientType");
-        echo $res;
+        $c->entityLoad();
+        echo $c;
+//        $con = new conexion();
+//        $res = $con->consultar("select * from ufproduct where active = true order by ProductName");
     }
         
     function form(){

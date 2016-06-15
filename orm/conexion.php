@@ -1,6 +1,7 @@
 <?php
 
 class conexion {
+    
     private $servidor;
     private $baseDatos;
     private $user;
@@ -9,12 +10,9 @@ class conexion {
 
     function conexion() {
         $this->servidor = "localhost";
-//        $this->baseDatos = "u2818434_Tmichuleta";
-//        $this->user = "u2818434";
-//        $this->pass = "jmoo?K1cH6";
-        $this->baseDatos = "ufqye";
+        $this->baseDatos = "sistShowOnTime_Dev";
         $this->user = "root";
-        $this->pass = "";
+        $this->pass = "sol12345";
         $this->conectar();
     }
     

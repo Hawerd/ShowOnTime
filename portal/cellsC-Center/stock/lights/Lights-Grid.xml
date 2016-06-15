@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Lights-Grid.xml
+    Autor:  Luis F castaño
+    Date:   13-Jun-2016
+    Desc:   Estructura para la grilla del Modulo Lights.
+
+-->
+<rows>
+    <head>
+        <column type="ro"   id="CodeOfLights"   width="80"      >Codigo de Luces   </column>
+        <column type="ro"   id="ElementName"    width="210"     >Nombre            </column>
+        <column type="ro"   id="ElementBrand"   width="210"     >Marca             </column>
+        <column type="ro"   id="Reference"      width="210"     >Referencia        </column>
+        <column type="ro"   id="State"          width="110"     >Estado            </column>
+        <column type="ro"   id="Scheduled"      width="80"      >Elemento Agendado </column>
+        <column type="ro"   id="CodeOfEvent"    width="80"      >Codigo de Evento  </column>
+        <column type="ro"   id="Active"         width="80"      >Elemento Activo   </column>
+        <column type='ro'   id='method'		hidden="true"   >method            </column>	
+        <column type='ro'   id='op'             hidden="true"   >op		   </column>
+        <afterInit> 	
+            <call command="attachHeader"> 	
+                <param>#text_filter,#text_filter,#select_filter,#select_filter,#select_filter,#select_filter,#text_filter,#select_filter</param>	
+            </call>
+        </afterInit>
+    </head>
+</rows>

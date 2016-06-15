@@ -20,6 +20,16 @@
     Desc:   Se realizan los callback de los componentes existentes
             Se crean las funciones de apoyo como form y menu setup
             Se agregan eventos como el onClik y onRowSelect.
+
+    Autor:  Luis castaño
+    Date:   12-Jun-2016  
+    Desc:   Se ajusta el id del setItemFocus en el evento onClik
+            del menu.
+
+    Autor:  Luis castaño
+    Date:   14-Jun-2016  
+    Desc:   Se ajusta el style.textAlign del input dateOfStart 
+            en la funcion eventsFormCallback 
    
 -->
 <html>
@@ -103,7 +113,7 @@ function eventsInit(){
             case "addEvent":
                 eventsForm.clear();
                 eventsForm.unlock();
-                eventsForm.setItemFocus("IdCardClient");
+                eventsForm.setItemFocus("NameOfClient");
                 break;
             case "editEvent":
                 eventsForm.unlock();
@@ -193,7 +203,7 @@ function eventsInit(){
     /* funcion callback de la estructura del formulario */
     function eventsFormCallback(){
         eventsForm.getInput("DateOfMounting").style.textAlign = "right";
-        eventsForm.getInput("DateOfMounting").style.textAlign = "right";
+        eventsForm.getInput("DateOfStart").style.textAlign = "right";
         eventsForm.getInput("DateFinal").style.textAlign = "right";
     }//fin de la funcion eventsFormCallback
     

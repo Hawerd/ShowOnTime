@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Name:   Audio-Menu.xml
-    Autor:  Hawerd Gonzalez
-    Date:   24-May-2016
-    Desc:   Menu principal de Audio
-    
+    Name:   Lights-Menu.xml
     Autor:  Luis F Castaño
-    Date:   12-Jun-2016
-    Desc:   Se ajustan id de los botones y se agregan userDatas
-            con los header de la forma.
-    
+    Date:   13-Jun-2016
+    Desc:   Menu principal del Modulo Lights.
+ 
 -->
 <menu>
     <item id="addElement"     text="Agregar Elemento"   disabled="true" />

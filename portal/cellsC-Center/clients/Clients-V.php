@@ -36,7 +36,7 @@ function clientsInit() {
     clientsMenuXML          = "Clients-Menu.xml";
     
     /* CM XML */
-    eventsGridLoad          = "ClientsData-Grid.xml";
+    clientsGridLoad          = "ClientsData-Grid.xml";
     
     /* Cells */
     gridCell                = "a";
@@ -45,6 +45,12 @@ function clientsInit() {
     /* Routes Img */
     gridImg                 = "../../../codebase/imgs/";
     menuImg                 = "../../../codebase/skyblue/imgs";
+    
+    /* Variables Generales */
+    selectedRow             = "";   // contiene el id a seleccionar en la grilla
+    
+    /* Flags Generales */ 
+    firstTime               = true;
     
 /* END INITIALIZATION */
 
@@ -65,6 +71,11 @@ function clientsInit() {
     clientsMenu             = clientsGridContainer.attachMenu();
     clientsMenu.setIconsPath(menuImg);
     clientsMenu.setSkin("dhx_skyblue");
+    
+    //Grid
+    clientsGrid             = clientsGridContainer.attachGrid();
+    clientsGrid.setImagePath(gridImg);
+    clientsGrid.init();
 
 /* END INSTANTIATION */ 
 
@@ -75,17 +86,26 @@ function clientsInit() {
         switch (id) {
             case "addEvent":
                 /*
-                eventsForm.clear();
-                eventsForm.unlock();
-                eventsForm.setItemFocus("NameOfClient");
+                clientsForm.clear();
+                clientsForm.unlock();
+                clientsForm.setItemFocus("NameOfClient");
                 */
                 break;
             case "editEvent":
-                //eventsForm.unlock();
+                //clientsForm.unlock();
                 break;
         }//fin del switch
     });//fin del evento onClick
-
+    
+    /* Evento onXLS de la Grilla */
+    clientsGrid.attachEvent("onXLS", function(grid){
+        clientsGridContainer.progressOn();
+    });
+    /* Evento onXLE de la Grilla */
+    clientsGrid.attachEvent("onXLE", function(grid){
+        clientsGridContainer.progressOff();
+    });//fin del evento onXLS y onXLE
+    
 /* END EVENTS */     
 
 /* LOADS  */
@@ -93,24 +113,47 @@ function clientsInit() {
     //load struct menu
     clientsMenu.loadStruct(clientsMenuXML, clientsMenuCallback);
     
+    //load struct grid
+    clientsGrid.load(clientsGridXML, clientsGridCallback);
+    
 /* END LOADS */
 
 /* FUNCTIONS */
 
     /* Función callback de la estructura del menu encargada de obtener el valor de los userdata 
-     * correspondiente a los header
-     */
+     * correspondientes a los "headers" */
     function clientsMenuCallback(){
         /*
-        var headerForm          = eventsMenu.getUserData("sp3","headerForm");
-        var headerFormCollapse  = eventsMenu.getUserData("sp3","headerFormCollapse");
+        var headerForm          = clientsMenu.getUserData("sp3","headerForm");
+        var headerFormCollapse  = clientsMenu.getUserData("sp3","headerFormCollapse");
         
         //Se configura header del formualrio
-        eventsFormContainer.setText(headerForm);
-        eventsLayout.cells(formCell).setCollapsedText(headerFormCollapse);
+        clientsFormContainer.setText(headerForm);
+        clientsLayout.cells(formCell).setCollapsedText(headerFormCollapse);
         */
-    }//fin de la funcion eventsMenuCallback
-
+    }//fin de la funcion clientsMenuCallback
+    
+    /* Función callback de la estructura de la grilla que se encarga de cargar los datos  */
+    function clientsGridCallback(){
+    /*  datos cargados por primera vez(cuando se inicia el modulo)
+        caso contrario se limpiara la estructura y se cargara datos */
+        if( firstTime ){
+            clientsGrid.load(clientsGridLoad,clientsGridDataCallback);
+        }else{
+            clientsGrid.clearAndLoad(clientsGridLoad,clientsGridDataCallback);
+        }
+    }//fin de la funcion clientsGridCallback
+    
+    /* funcion que manipula la Data de la Grilla*/
+    function clientsGridDataCallback(){
+        //Obtiene el id de la primera fila de la grilla
+        selectedRow = clientsGrid.getRowId(0);
+       
+        //Selecciona la Fila (Dispara Evento onRowSelect). 
+        clientsGrid.selectRowById(selectedRow,false,true,true);
+	clientsGrid.showRow( selectedRow );	
+    }//fin de la funcion clientsGridDataCallback
+    
 }
     
 </script>

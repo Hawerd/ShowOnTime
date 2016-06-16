@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Clients-Form.xml
+    Autor:  Victor Gutierrez
+    Date:   16-Jun-2016
+    Desc:   Estructura xml para el formulario del modulo de clientes.
+    
+***************************************************************************************
+    
+    Autor:  
+    Date:     
+    Desc:   
+    
+-->
+<items>
+    <!--  Fieldset Info Clients -->
+    <item type="fieldset" name="fieldsetClients" label="Por favor, ingrese los siguientes campos necesarios para crear o actualizar la información de un cliente" width="auto" offsetLeft="5" offsetTop="5">
+
+        <item type="block" width="auto" blockOffset="0" >
+            <item type="input" name="TypeClient"     label="Tipo de cliente:"   labelWidth="120"  inputWidth="150" readonly="true" disabled ="true" />
+            <item type="input" name="TypeIdClient"   label="Tipo identificación:"    labelWidth="120" inputWidth="150" />
+            <item type="input" name="CityClient"     label="Ciudad:" labelWidth="120"  inputWidth="150" />
+            
+            <item type="newcolumn" offset="20" />
+            
+            <item type="input" name="NameClient"     label="Nombre de Cliente:"  labelWidth="150"  inputWidth="180" />
+            <item type="input" name="IdClient"       label="Número de identificación:"  labelWidth="150" inputWidth="180" />
+            
+            <item type="block" width="auto" blockOffset="0" >
+                <item type="input" name="AddressClient"  label="Direccion:" labelWidth="60" inputWidth="180" />
+                
+                <item type="newcolumn" offset="20" />
+            
+                <item type="input" name="PhoneClient" label="Telefono:"    labelWidth="60" inputWidth="75" />
+            </item>
+            
+        </item>
+         
+        <item type="label" label="" labelHeight="1"/>
+
+        <item type="block" width="auto" blockOffset="190">
+            <item type="button" name="update" width="110" value="Actualizar Cliente" tooltip=""/>
+            <item type="newcolumn" offset="5" />
+            <item type="button" name="clear"  width="110" value="Limpiar Cambios"   tooltip="" />
+            <item type="newcolumn" offset="5" />
+            <item type="button" name="cancel" width="100" value="Cancelar"  tooltip="" />
+        </item>
+        
+    </item>
+    <item type="hidden" name="NumOfRemission" value=""/>
+    <item type="hidden" name="method" value=""/>
+    <item type="hidden" name="op" value=""/>  
+</items>

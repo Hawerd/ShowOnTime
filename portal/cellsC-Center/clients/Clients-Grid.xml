@@ -7,9 +7,9 @@
     
 ***************************************************************************************
     
-    Autor:  
-    Date:     
-    Desc:   
+    Autor:  Victor Gutierrez
+    Date:   16-Jun-2016
+    Desc:   Se ajustó el tamaño de las diversas columnas de la grilla.
     
 -->
 <rows>
@@ -22,13 +22,13 @@
                 <param>true</param>
             </call>
         </beforeInit>
-        <column type="ro"   id="TypeClient"     width="180"    >Tipo de Cliente             </column>
-        <column type="ro"   id="NameClient"  	width="180"    >Nombre de Cliente           </column>
-        <column type="ro"   id="TypeIdClient"   width="100"    >Tipo identificación         </column>
-        <column type="ro"   id="IdClient"	width="100"    >Número de identificación    </column>
-        <column type="ro"   id="CityClient"     width="100"    >Ciudad                      </column>
-        <column type="ro"   id="AddressClient"  width="180"    >Dirección                   </column>
-        <column type="ro"   id="PhoneClient"    width="180"    >Telefono                    </column>
+        <column type="ro"   id="TypeClient"     width="140"    >Tipo de Cliente             </column>
+        <column type="ro"   id="NameClient"  	width="250"    >Nombre de Cliente           </column>
+        <column type="ro"   id="TypeIdClient"   width="140"    >Tipo identificación         </column>
+        <column type="ro"   id="IdClient"	width="140"    >Número de identificación    </column>
+        <column type="ro"   id="CityClient"     width="120"    >Ciudad                      </column>
+        <column type="ro"   id="AddressClient"  width="220"    >Dirección                   </column>
+        <column type="ro"   id="PhoneClient"    width="120"    >Telefono                    </column>
         <column type='ro'   id='method'		hidden="true"  >method                      </column>	
         <column type='ro'   id='op'             hidden="true"  >op                          </column>
         <afterInit> 	

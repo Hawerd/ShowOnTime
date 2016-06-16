@@ -7,10 +7,14 @@
 
 ***************************************************************************************
 
-    Autor: 
-    Date:
-    Desc:
+    Autor:  Victor Gutierrez
+    Date:   15-Jun-2016
+    Desc:   Se Implementaron el tab bar y la grid del modulo de clientes.
     
+    Autor:  Victor Gutierrez
+    Date:   16-Jun-2016
+    Desc:   Se Implementó el formulario del modulo de clientes.
+
 -->
 
 <html>
@@ -34,6 +38,7 @@ function clientsInit() {
     /* Static XML */
     clientsGridXML          = "Clients-Grid.xml";
     clientsMenuXML          = "Clients-Menu.xml";
+    clientsFormXML          = "Clients-Form.xml";
     
     /* CM XML */
     clientsGridLoad          = "ClientsData-Grid.xml";
@@ -76,6 +81,12 @@ function clientsInit() {
     clientsGrid             = clientsGridContainer.attachGrid();
     clientsGrid.setImagePath(gridImg);
     clientsGrid.init();
+    
+    //Form
+    clientsForm             = clientsFormContainer.attachForm();
+    
+    // Bind to Grid 	
+    clientsForm.bind(clientsGrid);
 
 /* END INSTANTIATION */ 
 
@@ -85,14 +96,12 @@ function clientsInit() {
     clientsMenu.attachEvent("onClick", function(id) {
         switch (id) {
             case "addEvent":
-                /*
                 clientsForm.clear();
                 clientsForm.unlock();
-                clientsForm.setItemFocus("NameOfClient");
-                */
+                clientsForm.setItemFocus("NameClient");
                 break;
             case "editEvent":
-                //clientsForm.unlock();
+                clientsForm.unlock();
                 break;
         }//fin del switch
     });//fin del evento onClick
@@ -106,6 +115,26 @@ function clientsInit() {
         clientsGridContainer.progressOff();
     });//fin del evento onXLS y onXLE
     
+    /* Evento onRowSelect de la Grilla */
+    clientsGrid.attachEvent("onRowSelect", function(id){
+        clientsFormSetup();
+    });//fin del evento onRowSelect
+    
+    /* Evento onButtonClik del formulario de Eventos */
+    clientsForm.attachEvent("onButtonClick", function(id) {
+        switch(id){
+            case "update":
+                break;
+            case "clear":
+                clientsForm.restoreBackup(clientsFormBackup);
+                break;
+            case "cancel":
+                clientsForm.restoreBackup(clientsFormBackup);
+                clientsForm.lock();
+                break;
+        } // fin del switch	
+    });//fin del evento onbuttonClick
+    
 /* END EVENTS */     
 
 /* LOADS  */
@@ -116,6 +145,9 @@ function clientsInit() {
     //load struct grid
     clientsGrid.load(clientsGridXML, clientsGridCallback);
     
+    //load struct form
+    clientsForm.loadStruct(clientsFormXML, clientsFormCallback);
+    
 /* END LOADS */
 
 /* FUNCTIONS */
@@ -123,14 +155,12 @@ function clientsInit() {
     /* Función callback de la estructura del menu encargada de obtener el valor de los userdata 
      * correspondientes a los "headers" */
     function clientsMenuCallback(){
-        /*
         var headerForm          = clientsMenu.getUserData("sp3","headerForm");
         var headerFormCollapse  = clientsMenu.getUserData("sp3","headerFormCollapse");
         
         //Se configura header del formualrio
         clientsFormContainer.setText(headerForm);
         clientsLayout.cells(formCell).setCollapsedText(headerFormCollapse);
-        */
     }//fin de la funcion clientsMenuCallback
     
     /* Función callback de la estructura de la grilla que se encarga de cargar los datos  */
@@ -153,6 +183,34 @@ function clientsInit() {
         clientsGrid.selectRowById(selectedRow,false,true,true);
 	clientsGrid.showRow( selectedRow );	
     }//fin de la funcion clientsGridDataCallback
+    
+    /* funcion callback de la estructura del formulario */
+    function clientsFormCallback(){
+        //clientsForm.getInput("DateOfMounting").style.textAlign = "right";
+        //clientsForm.getInput("DateOfStart").style.textAlign = "right";
+        //clientsForm.getInput("DateFinal").style.textAlign = "right";
+    }//fin de la funcion clientsFormCallback
+    
+    /* funcion que configura los inputs de la forma */
+    function clientsFormSetup(){
+        //Se bloquea el formulario
+        clientsForm.lock();
+        
+        //backups de la fila seleccionada
+        clientsFormBackup          = clientsForm.saveBackup();
+        clientsFormOriginalValues  = clientsForm.getFormData();
+   
+        //Se configuran botones del Menu
+        clientsMenuButtonSetup();
+    }//fin de la funcion clientsFormSetup
+    
+    /* funcion que configura los botones del menu */
+    function clientsMenuButtonSetup(){
+        //deshabilitado todos los botones
+        clientsMenu.setItemEnabled("addClient");
+        clientsMenu.setItemEnabled("editClient");
+        clientsMenu.setItemEnabled("removeClient"); 
+    }//fin de la funcion clientsMenuButtonSetup
     
 }
     

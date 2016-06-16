@@ -57,7 +57,7 @@ function eventsInit(){
     
     /* CM XML */
     eventsGridLoad  = "EventsData-Grid.xml";
-        
+    
     /* Cells */
     gridCell        = "a";
     formCell        = "b";

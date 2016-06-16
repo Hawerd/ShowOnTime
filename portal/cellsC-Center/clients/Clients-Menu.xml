@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Clients-Menu.xml
+    Autor:  Victor Gutierrez
+    Date:   14-Jun-2016
+    Desc:   Estructura xml para el Menu del modulo Clientes.
+    
+***************************************************************************************
+    
+    Autor:  
+    Date:     
+    Desc:   
+    
+-->
+<menu>
+    <item id="addClient"     text="Agregar Cliente"   disabled="true" />
+    <item id="sp1" type="separator"/>
+    <item id="editClient"    text="Editar Cliente"    disabled="true" />
+    <item id="sp2" type="separator"/>
+    <item id="removeClient"  text="Eliminar Cliente"  disabled="true" />
+    <item id="sp3" type="separator" >
+        <userdata name="headerForm" >Formulario - Detalle de Cliente</userdata>
+        <userdata name="headerFormCollapse">Haga click para el formulario - Detalle de Cliente</userdata>
+    </item>
+</menu>

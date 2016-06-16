@@ -31,7 +31,85 @@ function clientsInit() {
     
 /* INITIALIZATION */
 
+    /* Static XML */
+    clientsGridXML          = "Clients-Grid.xml";
+    clientsMenuXML          = "Clients-Menu.xml";
+    
+    /* CM XML */
+    eventsGridLoad          = "ClientsData-Grid.xml";
+    
+    /* Cells */
+    gridCell                = "a";
+    formCell                = "b";
+    
+    /* Routes Img */
+    gridImg                 = "../../../codebase/imgs/";
+    menuImg                 = "../../../codebase/skyblue/imgs";
+    
 /* END INITIALIZATION */
+
+/* INSTANTIATION  */
+
+    //Layout Main 
+    pattern                 = "2E";
+    clientsLayout           = new dhtmlXLayoutObject("clientsLayoutDiv", pattern);
+    
+    //Grid Container 
+    clientsGridContainer    = clientsLayout.cells(gridCell);
+    clientsGridContainer.hideHeader();
+    
+    //Form Container
+    clientsFormContainer    = clientsLayout.cells(formCell);
+    
+    //Menu
+    clientsMenu             = clientsGridContainer.attachMenu();
+    clientsMenu.setIconsPath(menuImg);
+    clientsMenu.setSkin("dhx_skyblue");
+
+/* END INSTANTIATION */ 
+
+/* EVENTS */
+
+    /* Evento onClick del Menu */
+    clientsMenu.attachEvent("onClick", function(id) {
+        switch (id) {
+            case "addEvent":
+                /*
+                eventsForm.clear();
+                eventsForm.unlock();
+                eventsForm.setItemFocus("NameOfClient");
+                */
+                break;
+            case "editEvent":
+                //eventsForm.unlock();
+                break;
+        }//fin del switch
+    });//fin del evento onClick
+
+/* END EVENTS */     
+
+/* LOADS  */
+
+    //load struct menu
+    clientsMenu.loadStruct(clientsMenuXML, clientsMenuCallback);
+    
+/* END LOADS */
+
+/* FUNCTIONS */
+
+    /* Función callback de la estructura del menu encargada de obtener el valor de los userdata 
+     * correspondiente a los header
+     */
+    function clientsMenuCallback(){
+        /*
+        var headerForm          = eventsMenu.getUserData("sp3","headerForm");
+        var headerFormCollapse  = eventsMenu.getUserData("sp3","headerFormCollapse");
+        
+        //Se configura header del formualrio
+        eventsFormContainer.setText(headerForm);
+        eventsLayout.cells(formCell).setCollapsedText(headerFormCollapse);
+        */
+    }//fin de la funcion eventsMenuCallback
 
 }
     

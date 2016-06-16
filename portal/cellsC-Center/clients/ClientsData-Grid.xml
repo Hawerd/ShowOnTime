@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rows>
+    <row id="1">
+        <cell>Persona Natural</cell>
+        <cell>Luis Fernando Castaño Rodriguez</cell>
+        <cell>Cedula Ciudadania</cell>
+        <cell>11186756768</cell>
+        <cell>Cali</cell>
+        <cell>Calle 52 #10-04</cell>
+        <cell>4436789</cell>
+        <cell></cell>
+        <cell></cell>
+    </row>
+    <row id="2">
+        <cell>Persona Natural</cell>
+        <cell>Victor Gutierrez Garcia</cell>
+        <cell>Cedula Ciudadania</cell>
+        <cell>580989090</cell>
+        <cell>Yumbo</cell>
+        <cell>Calle 8 #9-89</cell>
+        <cell>6754343</cell>
+        <cell></cell>
+        <cell></cell>
+    </row>     
+    <row id="3">
+        <cell>Persona Natural</cell>
+        <cell>Hawerd Gonzalez</cell>
+        <cell>Cedula Ciudadania</cell>
+        <cell>684930494</cell>
+        <cell>Cali</cell>
+        <cell>Av. Siempre viva #123</cell>
+        <cell>6574433</cell>
+        <cell></cell>
+        <cell></cell>
+    </row>
+    <row id="4">
+        <cell>Cliente corporativo</cell>
+        <cell>HyperMega</cell>
+        <cell>Nit</cell>
+        <cell>5443534677</cell>
+        <cell>Cali</cell>
+        <cell>Av 3 #60-56</cell>
+        <cell>5674356</cell>
+        <cell></cell>
+        <cell></cell>
+    </row>     
+</rows>

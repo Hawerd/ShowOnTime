@@ -27,6 +27,11 @@
     Date:   14-Jun-2016
     Desc:   Se agrega al Array stockTabs la ruta del Modulo
             structure para su funcionamiento.
+
+    Autor:  Luis F Castaño
+    Date:   16-Jun-2016
+    Desc:   Se agrega al Array stockTabs la ruta del Modulo
+            general para su funcionamiento.
    
 -->
 <html>
@@ -52,7 +57,8 @@ function stockInit(){
     stockTabbarXML  = "StockTabbar.xml";
     
     //Array of tabs main 
-    stockTabs       = [{tab:"audio",route:"../../../portal/cellsC-Center/stock/audio/Audio-V.php"},
+    stockTabs       = [{tab:"general",route:"../../../portal/cellsC-Center/stock/general/General-V.php"},
+                       {tab:"audio",route:"../../../portal/cellsC-Center/stock/audio/Audio-V.php"},
                        {tab:"lights",route:"../../../portal/cellsC-Center/stock/lights/Lights-V.php"},
                        {tab:"structures",route:"../../../portal/cellsC-Center/stock/structure/Structure-V.php"}];
 

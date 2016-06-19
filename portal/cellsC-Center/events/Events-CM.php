@@ -4,6 +4,11 @@
     Autor:  Luis F Castaño
     Date:   17-Jun-2016
     Desc:   Controlador para el Modulo Eventos.
+  
+    Autor:  Luis F Castaño
+    Date:   19-Jun-2016
+    Desc:   Se realiza la carga de datos en la funcion loadDataGrid utilizando
+            las ORM
    
 */
 
@@ -17,8 +22,14 @@ try{
     
     //Variables Globales del Modulo
     $unexpError = "This is an Unexpected Error";
+    $rootORM    = "/../../../orm/";
     $respXml    = "";
     $respMsg    = "";
+    
+    //Variables que contiene clases.
+    $eventsClass;
+    $clientsClass;
+    $empleoyesClass;
 
     //Variables Globales para el Metodo
     $retXml     = "";
@@ -90,7 +101,16 @@ try{
     switch($methodVal){
         case "loadDataGrid":
         case "submitDataForm":
-            $actualFlds = count($_POST);
+            $actualFlds  = count($_POST);                 //Obtengo el numero total de campos del formulario  
+            
+            require_once $rootORM."sist/SistEvents.php";    //Adjunta archivo ORM
+            require_once $rootORM."sist/SistClients.php";   //Adjunta archivo ORM
+            require_once $rootORM."sist/SistEmpleoyes.php"; //Adjunta archivo ORM
+            //
+            //Se instancias clases necesarias 
+            $eventsClass    = new sistEvents();           //Instancia la clase sitsEvent de la ORM.
+            $clientsClass   = new sistClients();          //Instancia la clase sitsClients de la ORM.
+            $empleoyesClass = new sistEmpleoyes();        //Instancia la clase sitsEmpleoyes de la ORM.
             break;
         case "":
             $respMsg = "Method is blank";
@@ -139,56 +159,72 @@ try{
     function loadDataGrid(){ 
         
         $gridErrMsg = "";
+        
         global $retXml;
-       
+        global $eventsClass;
+        global $clientsClass;
+        global $empleoyesClass;
+        global $eventsDataObj;
+        global $clientDataObj;
+        global $empleoyesDataObj;
+        
         try{
-            
+
+            //Cargo los datos de las tablas de base de Datos.
+            $eventsObj      = $eventsClass->entityLoad("Active = true");
+
+            //Se Valida que no haya Error en la Carga de datos.
+            if($eventsObj['error']){
+                throw new Exception($message=$eventsObj['msg']);
+            }
+
+            //Obtengo los datos del objeto cargado $eventsObj
+            $eventDataObj       = $eventsObj['data'];
+
             header('Content-Type: application/xml');
             $retXml = "<rows>";
-                $retXml .= "<row id='1'>";
-                    $retXml .= "<cell>EV000001</cell>";
-                    $retXml .= "<cell>Luis Fernando Castaño Rodriguez</cell>";
-                    $retXml .= "<cell>Juan Pablo Ramirez Alvarado</cell>";
-                    $retXml .= "<cell>Cumpl.Sr Osorio</cell>";
-                    $retXml .= "<cell>Cali</cell>";
-                    $retXml .= "<cell>Cll 20 No 22-23</cell>";
-                    $retXml .= "<cell>28-May-2016</cell>";
-                    $retXml .= "<cell>29-May-2016</cell>";
-                    $retXml .= "<cell>31-May-2016</cell>";
-                    $retXml .= "<cell></cell>";
-                    $retXml .= "<cell>submitDataForm</cell>";
-                    $retXml .= "<cell>update</cell>";
+            for($i=0; $i<count($eventDataObj); $i++){
+
+                $recActual = $eventDataObj[$i];
+                
+                $retXml .= "<row id='$i'>";
+                   $retXml .= '<cell>'.$recActual['eventUUID'].'</cell>';
+                   
+                   //cargo los datos del cliente actual
+                   $clientObj = $clientsClass->entityLoad("clientUUID = '".$recActual['FK_ClientUUID']."'",true);
+                   
+                   if($clientObj['error']){
+                        throw new Exception($message=$clientObj['msg']);
+                   }
+                   
+                   //Obtengo los datos del objeto cargado del cliente
+                   $clientDataObj  = $clientObj['data']; 
+                   $retXml .= '<cell>'.$clientDataObj['clientFirstName'].'</cell>';
+             
+                   //cargo los datos del empleado actual
+                   $empleoyesObj   = $empleoyesClass->entityLoad("empleoyeUUID = '".$recActual['FK_employeUUID']."'",true);
+                   if($empleoyesObj['error']){
+                       throw new Exception($message=$empleoyesObj['msg']);
+                   }
+                   
+                   //Obtengo los datos del objeto cargado del empleado
+                   $empleoyesDataObj   = $empleoyesObj['data'];
+                   $retXml .= '<cell>'.$empleoyesDataObj['empleoyeFirstName'].'</cell>';
+                   
+                   $retXml .= '<cell>'.$recActual['eventName'].'</cell>';
+                   $retXml .= '<cell>'.$recActual['eventCity'].'</cell>';
+                   $retXml .= '<cell>'.$recActual['eventAddress'].'</cell>';
+                   $retXml .= '<cell>'.$recActual['eventMountingDate'].'</cell>';
+                   $retXml .= '<cell>'.$recActual['eventInitDate'].'</cell>';
+                   $retXml .= '<cell>'.$recActual['eventFinishDate'].'</cell>';
+                   $retXml .= "<cell></cell>";
+                   $retXml .= "<cell>submitDataForm</cell>";
+                   $retXml .= "<cell>update</cell>";
                 $retXml .= "</row>";
-                $retXml .= "<row id='2'>";
-                    $retXml .= "<cell>EV000002</cell>";
-                    $retXml .= "<cell>Victor Gutierrez Garcia</cell>";
-                    $retXml .= "<cell>Maria Veronica Pulido Castillo</cell>";
-                    $retXml .= "<cell>Concierto Sinf. Kraken</cell>";
-                    $retXml .= "<cell>Palmira</cell>";
-                    $retXml .= "<cell>Cll 100 No 50-55</cell>";
-                    $retXml .= "<cell>31-May-2016</cell>";
-                    $retXml .= "<cell>01-Jun-2016</cell>";
-                    $retXml .= "<cell>02-Jun-2016</cell>";
-                    $retXml .= "<cell></cell>";
-                    $retXml .= "<cell>submitDataForm</cell>";
-                    $retXml .= "<cell>update</cell>";
-                $retXml .= "</row>";
-                $retXml .= "<row id='3'>";
-                    $retXml .= "<cell>EV000003</cell>";
-                    $retXml .= "<cell>Hawerd Gonzales</cell>";
-                    $retXml .= "<cell>Andres Alejandro Nieto</cell>";
-                    $retXml .= "<cell>Concierto Mana</cell>";
-                    $retXml .= "<cell>Florida</cell>";
-                    $retXml .= "<cell>Cra 1 No 12-22A</cell>";
-                    $retXml .= "<cell>10-Jun-2016</cell>";
-                    $retXml .= "<cell>11-Jun-2016</cell>";
-                    $retXml .= "<cell>12-Jun-2016</cell>";
-                    $retXml .= "<cell></cell>";
-                    $retXml .= "<cell>submitDataForm</cell>";
-                    $retXml .= "<cell>update</cell>";
-                $retXml .= "</row>";
+                
+            }//fin del ciclo
             $retXml .= "</rows>";
-            
+       
         }catch(Exception $e){
             
             global $unexpError;

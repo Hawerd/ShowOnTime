@@ -324,12 +324,39 @@ try{
        
        $retStruct   = Array();
        $funcStage   = "";
+       global $eventsClass;
+       global $eventsDataObj;
+       global $ids;
        
        try{
            
            $funcStage   = "EntityNew";
            
-           
+           $eventsObj   = $eventsClass->entityNew();
+           if($eventsObj['error']){
+               throw new Exception($message = $eventsObj['msg']);
+           }
+
+           //Obtengo mi entidad vacia de la tabla para poblarla
+           $eventsDataObj = $eventsObj['data'];
+
+           $eventsDataObj['eventName']          = $_POST[$ids.'_NameOfEvent'];
+           $eventsDataObj['eventCity']          = $_POST[$ids.'_CityOfEvent'];
+           $eventsDataObj['eventAddress']       = $_POST[$ids.'_AddrOfEvent'];
+           $eventsDataObj['eventMountingDate']  = "2016-06-20";
+           $eventsDataObj['eventInitDate']      = "2016-06-22 10:42:30";
+           $eventsDataObj['eventFinishDate']    = "2016-06-23 10:42:30";
+           $eventsDataObj['FK_EventTypeCode']   = "PT"; 
+           $eventsDataObj['FK_employeUUID']     = "12356-12346-5554-9966";
+           $eventsDataObj['FK_ClientUUID']      = "25212-525663-52256-5221";
+           $eventsDataObj['Active']             = true; 
+
+           //Guarda el registro
+           $eventsSaveObj   = $eventsClass->entitySave($eventsDataObj);
+           if($eventsSaveObj['error']){
+               throw new Exception($message = $eventsSaveObj['msg']);
+           }
+
            $funcStage           = "Finish";
            $retStruct['msg']    = "El registro se ha Agregado satisfactoriamente.";
            $retStruct['error']  = false;

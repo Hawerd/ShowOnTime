@@ -139,6 +139,8 @@ function eventsInit(){
                 eventsForm.clear();
                 eventsForm.unlock();
                 eventsForm.setItemFocus("NameOfClient");
+                eventsForm.setItemValue("method", "submitDataForm");
+                eventsForm.setItemValue("op", "add");
                 break;
             case "editEvent":
                 eventsForm.unlock();

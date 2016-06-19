@@ -8,7 +8,7 @@
  
 */
 
-require_once 'Conexion.php';
+require_once 'ConexionPDO.php';
 
 class methods{
     

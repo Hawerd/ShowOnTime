@@ -21,7 +21,7 @@ class sistEmpleoyes extends methods{
         $this->nameTable = "sistempleoyes"; //Definir nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['empleoyeUUID']         = "";
+        $this->entityObj['empleoyeUUID']         = uniqid(mt_rand(),true);
         $this->entityObj['empleoyeFirstName']    = "";
         $this->entityObj['empleoyeLastName']     = "";
         $this->entityObj['empleoyeNumberID']     = "";

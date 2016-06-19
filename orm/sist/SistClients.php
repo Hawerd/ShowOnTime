@@ -21,7 +21,7 @@ class sistClients extends methods{
         $this->nameTable = "sistclients";    //Definir nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['clientUUID']         = "";
+        $this->entityObj['clientUUID']         = uniqid(mt_rand(),true);
         $this->entityObj['clientFirstName']    = "";
         $this->entityObj['clientLastName']     = "";
         $this->entityObj['clientNumberID']     = "";

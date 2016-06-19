@@ -21,7 +21,7 @@ class sistEvents extends methods{
         $this->nameTable = "sistevents";    //Definir nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['eventUUID']           = "";
+        $this->entityObj['eventUUID']           = uniqid(mt_rand(),true);
         $this->entityObj['eventName']           = "";
         $this->entityObj['eventCity']           = "";
         $this->entityObj['eventAddress']        = "";

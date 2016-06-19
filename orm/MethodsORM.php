@@ -4,8 +4,9 @@
     Name:   MethodsORM.php
     Autor:  Luis F Castaño
     Date:   18-Jun-2016
-    Desc:   Contiene los metodos que podran utilizar las ORMs
- 
+    Desc:   Contiene los metodos que podran utilizar las ORMs.
+            Se agrega en la funcion entitySave() la cofiguracion $obj['UpdatedDT'].
+  
 */
 
 require_once 'ConexionPDO.php';
@@ -161,6 +162,13 @@ class methods{
                    $retStruct['error']  = false;
  
                 }else{
+                    
+                   //Se establece zona horaria
+                   date_default_timezone_set("America/Bogota" ) ; 
+                   $today = date("Y-m-d H:i:s");
+                   
+                   //Se establece la fecha de actualizacion del registro
+                   $obj['UpdatedDT'] = $today;
   
                    $updateSql = $this->connObj->prepare("UPDATE ".$this->nameTable." SET Active = false WHERE ".$binField[0]." = '".$obj[$binField[0]]."'");
                    $insertSql = $this->connObj->prepare("INSERT INTO ".$this->nameTable." ($fieldName) VALUES ($fieldBind)");

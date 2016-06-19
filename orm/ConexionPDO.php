@@ -6,6 +6,10 @@
     Desc:   Clase Principal para la conexion de la base de datos
             atravez de PDO.
   
+    Autor:  Luis F Castaño
+    Date:   18-Jun-2016
+    Desc:   Se agrega control de Error al Objeto conexion: setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);      
+  
  */
 
 /* Define la clase conexion */
@@ -35,6 +39,7 @@ class conexion{
            
            //Se realiza conexion a la base de datos a traves de PDO
            $conn = new PDO('mysql:host='.$this->server.';dbname='.$this->dbname,$this->username,$this->pass);
+           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
            
            //Se retorna Array con los valores Obtenido si no hay Error
            $this->retStruct['msg']    = "success";

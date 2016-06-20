@@ -6,6 +6,8 @@
     Date:   18-Jun-2016
     Desc:   Contiene los metodos que podran utilizar las ORMs.
             Se agrega en la funcion entitySave() la cofiguracion $obj['UpdatedDT'].
+            Se agregan comentarios para las funciones de la clase, ademas se agrega mas
+            logica a la funcion entitySave.
   
 */
 
@@ -23,7 +25,10 @@ class methods{
         
     }//fin de la funcion constructor_ObjORM
 
-    //funcion que carga los datos de la tabla requerida
+    /* funcion que carga los datos de la tabla requerida. 
+       param: sqlFilter: filtro para la realizacion de la sentencia de consulta.
+              sqlUnique: true, si se quiere obtener un registro unico. 
+                         false por defecto,si se quiere obtener un conjunto de varios registros. */
     public function entityLoad($sqlfilter=null,$sqlUnique=false){
 
         $retStruct = Array();
@@ -73,7 +78,7 @@ class methods{
         return $retStruct;
     }//fin de la funcion entityLoad
     
-    //funcion que se encarga de crear una entidad(Array)vacia de la tabla
+    /* funcion que se encarga de crear una entidad(Array)vacia de la tabla requerida. */
     public function entityNew(){
 
         $retStruct = Array();
@@ -111,8 +116,12 @@ class methods{
         return $retStruct; 
     }//fin de la funcion entityNew
     
-    //funcion que se encarga de crear una entidad(Array)vacia de la tabla
-    public function entitySave($obj=null){
+    /* funcion que se encarga de crear una entidad(Array)vacia de la tabla.
+       Param: $obj: Objeto(Array) de la entidad que se quiere guardar en la base de datos.
+              $rmv: true, si se quiere desactivar el registro u objeto que se provee por parametro.
+                    false por defecto, Se hara una nueva inserccion o actualizacion sobre el registro 
+                    u bojeto que se provee por parametro. */
+    public function entitySave($obj=null,$rmv=false){
         
         $retStruct = Array();
         $fieldName = "";
@@ -166,26 +175,37 @@ class methods{
                    //Se establece zona horaria
                    date_default_timezone_set("America/Bogota" ) ; 
                    $today = date("Y-m-d H:i:s");
-                   
-                   //Se establece la fecha de actualizacion del registro
-                   $obj['UpdatedDT'] = $today;
-  
-                   $updateSql = $this->connObj->prepare("UPDATE ".$this->nameTable." SET Active = false WHERE ".$binField[0]." = '".$obj[$binField[0]]."'");
-                   $insertSql = $this->connObj->prepare("INSERT INTO ".$this->nameTable." ($fieldName) VALUES ($fieldBind)");
-                   
-                   //Se adjunta los compos de la sentencia con el valor obtenido
-                   for($i=0;$i<count($binField);$i++){
-                       $insertSql->bindParam($binParam[$i],$obj[$binField[$i]]);  
-                   }
-                   
-                   $updateSql->execute();
-                   $insertSql->execute();
-                   
+
+                   if($rmv){
+                       
+                       $updateSql = $this->connObj->prepare("UPDATE ".$this->nameTable." SET Active = false, UpdatedDT = '".$today."' WHERE ".$binField[0]." = '".$obj[$binField[0]]."'");
+                       
+                       $updateSql->execute();
+                       
+                   }else{
+                       
+                       //Se establece la fecha de actualizacion del registro
+                       $obj['UpdatedDT'] = $today;
+                       
+                       $updateSql = $this->connObj->prepare("UPDATE ".$this->nameTable." SET Active = false WHERE ".$binField[0]." = '".$obj[$binField[0]]."' and Active = true");
+                       $insertSql = $this->connObj->prepare("INSERT INTO ".$this->nameTable." ($fieldName) VALUES ($fieldBind)");
+                       
+                       //Se adjunta los compos de la sentencia con el valor obtenido
+                       for($i=0;$i<count($binField);$i++){
+                           $insertSql->bindParam($binParam[$i],$obj[$binField[$i]]);  
+                       }
+
+                       $updateSql->execute();
+                       $insertSql->execute();
+                       
+                   }//fin de la condicion $rmv
+
                    $retStruct['msg']    = "successQuery";
                    $retStruct['error']  = false;
                    
-                }    
-            }
+                }//fin de la condicion $obj['New'] esta definido.
+                
+            }//fin de la condicion que evalua si ha objeto como parametro obligatorio
    
         }catch(PDOException $e){
             

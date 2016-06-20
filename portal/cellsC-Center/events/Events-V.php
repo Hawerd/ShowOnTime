@@ -145,6 +145,10 @@ function eventsInit(){
             case "editEvent":
                 eventsForm.unlock();
                 break;
+            case "removeEvent":
+                eventsForm.setItemValue("op", "remove");
+                eventsForm.save();
+                break;   
         }//fin del switch
     });//fin del evento onClick
 

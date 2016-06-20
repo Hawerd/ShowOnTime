@@ -330,7 +330,7 @@ try{
        
        try{
            
-           $funcStage   = "EntityNew";
+           $funcStage   = "LoadEntityNew";
            
            $eventsObj   = $eventsClass->entityNew();
            if($eventsObj['error']){
@@ -340,6 +340,8 @@ try{
            //Obtengo mi entidad vacia de la tabla para poblarla
            $eventsDataObj = $eventsObj['data'];
 
+           $funcStage   = "SetupEventsDataObj";
+           
            $eventsDataObj['eventName']          = $_POST[$ids.'_NameOfEvent'];
            $eventsDataObj['eventCity']          = $_POST[$ids.'_CityOfEvent'];
            $eventsDataObj['eventAddress']       = $_POST[$ids.'_AddrOfEvent'];
@@ -350,7 +352,9 @@ try{
            $eventsDataObj['FK_employeUUID']     = "12356-12346-5554-9966";
            $eventsDataObj['FK_ClientUUID']      = "25212-525663-52256-5221";
            $eventsDataObj['Active']             = true; 
-
+           
+           $funcStage   = "EntitySaveOfDataObj";
+           
            //Guarda el registro
            $eventsSaveObj   = $eventsClass->entitySave($eventsDataObj);
            if($eventsSaveObj['error']){
@@ -375,11 +379,39 @@ try{
        
        $retStruct   = Array();
        $funcStage   = "";
-       
+       global $eventsClass;
+       global $eventsDataObj;
+       global $ids;
+
        try{
            
-           $funcStage   = "LoadEntity";
+           $funcStage   = "EntityLoadOfDataObj";
            
+           //Cargo los datos de las tablas de base de Datos.
+           $eventsObj   = $eventsClass->entityLoad("eventUUID = '".$_POST[$ids.'_CodeOfEvent']."' and Active = true",true);
+
+           //Se Valida que no haya Error en la Carga de datos.
+           if($eventsObj['error']){
+               throw new Exception($message=$eventsObj['msg']);
+           }
+           
+           //Obtengo la entidad con los datos consultados
+           $eventsDataObj = $eventsObj['data'];
+           
+           $funcStage   = "SetupEventsDataObj";
+           
+           $eventsDataObj['eventName']          = $_POST[$ids.'_NameOfEvent'];
+           $eventsDataObj['eventCity']          = $_POST[$ids.'_CityOfEvent'];
+           $eventsDataObj['eventAddress']       = $_POST[$ids.'_AddrOfEvent'];
+           
+           $funcStage   = "EntitySaveOfDataObj";
+           
+           //Guarda el registro
+           $eventsSaveObj   = $eventsClass->entitySave($eventsDataObj);
+           if($eventsSaveObj['error']){
+               throw new Exception($message = $eventsSaveObj['msg']);
+           }
+
            $funcStage           = "Finish";
            $retStruct['msg']    = "El registro se ha Actualizado satisfactoriamente.";
            $retStruct['error']  = false; 
@@ -398,11 +430,34 @@ try{
        
        $retStruct   = Array();
        $funcStage   = "";
+       global $eventsClass;
+       global $eventsDataObj;
+       global $ids;
        
        try{
            
-           $funcStage   = "LoadEntity";
+           $funcStage   = "EntityLoadOfDataObj";
            
+           //Cargo los datos de las tablas de base de Datos.
+           $eventsObj   = $eventsClass->entityLoad("eventUUID = '".$_POST[$ids.'_CodeOfEvent']."' and Active = true",true);
+
+           //Se Valida que no haya Error en la Carga de datos.
+           if($eventsObj['error']){
+               throw new Exception($message=$eventsObj['msg']);
+           }
+           
+           //Obtengo la entidad con los datos consultados
+           $eventsDataObj = $eventsObj['data'];
+
+           $funcStage   = "EntitySaveOfDataObj";
+           
+           /* Activo el segundo parametro de la funcion entitySave, que le indica a la funcion
+            que quiero desactivar de la base de datos el objeto que le paso como parametro */
+           $eventsSaveObj   = $eventsClass->entitySave($eventsDataObj,true); 
+           if($eventsSaveObj['error']){
+               throw new Exception($message = $eventsSaveObj['msg']);
+           }
+
            $funcStage           = "Finish";
            $retStruct['msg']    = "El registro se ha Eliminado satisfactoriamente.";
            $retStruct['error']  = false;

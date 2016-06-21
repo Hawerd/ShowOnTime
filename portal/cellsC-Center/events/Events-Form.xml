@@ -12,6 +12,11 @@
     Autor:  Luis castaño
     Date:   14-Jun-2016  
     Desc:   Se ajusta el tamaño de algunos inputs.
+    
+    Autor:  Luis castaño
+    Date:   21-Jun-2016  
+    Desc:   Se ajustan name de los siguientes campos tipo de evento, nombre de cliente, nombre 
+            empleado ademas se agrega campo hidden eventUUID.
 
 -->
 <items>
@@ -19,17 +24,17 @@
     <item type="fieldset" name="fieldsetEvents" label="Por favor, ingrese los siguientes campos necesarios para crear o actualizar un Evento" width="auto" offsetLeft="5" offsetTop="5">
 
         <item type="block" width="auto" blockOffset="0" >
-            <item type="input" name="CodeOfEvent"    label="Codigo de Evento:"   labelWidth="120"  inputWidth="60" readonly="true" disabled ="true" />
-            <item type="input" name="NameOfClient"   label="Nombre de Cliente:"  labelWidth="120"  inputWidth="180" />
-            <item type="input" name="NameOfEmployee" label="Nombre de Empleado:" labelWidth="120"  inputWidth="180" />
+            <item type="combo" name="FK_EventTypeCode"  label="Tipo de Evento:"     labelWidth="120"  inputWidth="120" />
+            <item type="combo" name="FK_ClientUUID"     label="Nombre de Cliente:"  labelWidth="120"  inputWidth="180" />
+            <item type="combo" name="FK_employeUUID"    label="Nombre de Empleado:" labelWidth="120"  inputWidth="180" />
             <item type="newcolumn" offset="20" />
-            <item type="input" name="NameOfEvent"    label="Nombre de Evento:"    labelWidth="120" inputWidth="160" />
-            <item type="input" name="CityOfEvent"    label="Ciudad de Evento:"    labelWidth="120" inputWidth="160" />
-            <item type="input" name="AddrOfEvent"    label="Direccion de Evento:" labelWidth="120" inputWidth="160" />
+            <item type="input" name="NameOfEvent"       label="Nombre de Evento:"    labelWidth="120" inputWidth="160" />
+            <item type="input" name="CityOfEvent"       label="Ciudad de Evento:"    labelWidth="120" inputWidth="160" />
+            <item type="input" name="AddrOfEvent"       label="Direccion de Evento:" labelWidth="120" inputWidth="160" />
             <item type="newcolumn" offset="20" />
-            <item type="input" name="DateOfMounting" label="Fecha de Montaje:"    labelWidth="100" inputWidth="75" />
-            <item type="input" name="DateOfStart"    label="Fecha de Inicio:"     labelWidth="100" inputWidth="75" />
-            <item type="input" name="DateFinal"      label="Fecha Final:"         labelWidth="100" inputWidth="75" />
+            <item type="calendar" name="DateOfMounting" label="Fecha de Montaje:" readonly="true"   labelWidth="100" inputWidth="75" dateFormat="%m/%d/%Y" serverDateFormat="%Y-%m-%d" calendarPosition="bottom" weekStart="7" enableTime="false" />
+            <item type="calendar" name="DateOfStart"    label="Fecha de Inicio:"  readonly="true"   labelWidth="100" inputWidth="75" dateFormat="%m/%d/%Y" serverDateFormat="%Y-%m-%d" calendarPosition="bottom" weekStart="7" enableTime="false" />
+            <item type="calendar" name="DateFinal"      label="Fecha Final:"      readonly="true"   labelWidth="100" inputWidth="75" dateFormat="%m/%d/%Y" serverDateFormat="%Y-%m-%d" calendarPosition="bottom" weekStart="7" enableTime="false" />
         </item>
          
         <item type="label" label="" labelHeight="1"/>
@@ -43,7 +48,8 @@
         </item>
         
     </item>
-    <item type="hidden" name="NumOfRemission" value=""/>
-    <item type="hidden" name="method" value=""/>
-    <item type="hidden" name="op" value=""/>  
+    
+    <item type="hidden" name="eventUUID"      value=""/>
+    <item type="hidden" name="method"         value=""/>
+    <item type="hidden" name="op"             value=""/>  
 </items>

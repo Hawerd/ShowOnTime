@@ -27,7 +27,7 @@ class conexion{
        $this->server    = "localhost";
        $this->dbname    = "sistshowontime_dev";
        $this->username  = "root";
-       $this->pass      = "sol12345";
+       $this->pass      = "";
        $this->retStruct = Array();
 
     }//fin del contructor

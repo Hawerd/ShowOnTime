@@ -42,6 +42,7 @@
     Date:   21-Jun-2016  
     Desc:   * se agregan nuevos eventos, onBeforeSelect y onBeforeSave.
             * Se agregan nuevas funciones addNewRow y eventRemoveDialog.
+            * Se agrega como variable global rowNum.
    
 -->
 <html>
@@ -92,7 +93,8 @@ function eventsInit(){
     returnTid           = "";                                   // contiene el UUID que retorna el CM para la Seleccion en la Grilla.
     badReturn           = "";                                   // contiene el mensaje de ERROR que devuelve la data de la grilla
     checkFlagsTimer     = 0;                                    // contiene el tiempo de ejecucion de la funcion setInterval (xx/ms).
-
+    rowNum              = 0;                                    // contiene el numero de filas de la grilla.
+    
     /* Flags Generales */ 
     firstTime           = true;                                 // flag que verifica si al modulo se esat accediendo por priemra vez
     canChangeForm       = false;                                // flag que indica si el formulario esta desbloqueado (true)
@@ -298,6 +300,7 @@ function eventsInit(){
                 }else{
                     eventsForm.restoreBackup(eventsFormBackup);
                     eventsForm.lock();
+                    eventsMenuButtonSetup();
                 }  
                 break;
         } // fin del switch	
@@ -401,7 +404,7 @@ function eventsInit(){
             
         }else{
             
-           var rowNum  = eventsGrid.getRowsNum();       // numero total de filas en la grilla 
+           rowNum   = eventsGrid.getRowsNum();              // numero total de filas en la grilla 
            
            if(rowNum){
                
@@ -533,6 +536,9 @@ function eventsInit(){
         
         //si esta agregando el formulario
         if(isAdding){
+            if(!rowNum){
+                eventsForm.disableItem("cancel");
+            }
             //se desbloquea la forma
             eventsForm.unlock();
             eventsForm.setItemFocus("NameOfClient");

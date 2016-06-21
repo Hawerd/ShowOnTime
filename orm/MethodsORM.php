@@ -9,6 +9,11 @@
             Se agregan comentarios para las funciones de la clase, ademas se agrega mas
             logica a la funcion entitySave.
   
+    Autor:  Luis F Castaño
+    Date:   21-Jun-2016
+    Desc:   Se realiza ajuste en la funcion entitySave, para que actualize el campo
+            updatedDT cuando realiza una actualizacion al registro que queda false.
+  
 */
 
 require_once 'ConexionPDO.php';
@@ -187,7 +192,7 @@ class methods{
                        //Se establece la fecha de actualizacion del registro
                        $obj['UpdatedDT'] = $today;
                        
-                       $updateSql = $this->connObj->prepare("UPDATE ".$this->nameTable." SET Active = false WHERE ".$binField[0]." = '".$obj[$binField[0]]."' and Active = true");
+                       $updateSql = $this->connObj->prepare("UPDATE ".$this->nameTable." SET Active = false, UpdatedDT = '".$today."' WHERE ".$binField[0]." = '".$obj[$binField[0]]."' and Active = true");
                        $insertSql = $this->connObj->prepare("INSERT INTO ".$this->nameTable." ($fieldName) VALUES ($fieldBind)");
                        
                        //Se adjunta los compos de la sentencia con el valor obtenido

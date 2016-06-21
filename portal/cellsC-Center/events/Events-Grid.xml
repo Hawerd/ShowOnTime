@@ -13,12 +13,7 @@
     Date:   11-Jun-2016  
     Desc:   Se retia la columna cedula del cliente y se esconde 
             la columna numero de remision.
-            
-    Autor:  Luis castaño
-    Date:   21-Jun-2016  
-    Desc:   Se agregan nuevas columnas hidden.FK_EventTypeCode, FK_ClientUUID y       
-            FK_employeUUID.
-            
+
 -->
 <rows>
     <head>
@@ -30,21 +25,18 @@
                 <param>true</param>
             </call>
         </beforeInit>
-        <column type="ro"   id="NameOfClient"  	  width="180"    >Nombre de Cliente	</column>
-        <column type="ro"   id="NameOfEmployee"   width="180"    >Nombre de Empleado	</column>
-        <column type="ro"   id="NameOfEvent"  	  width="180"    >Nombre de Evento	</column>
-        <column type="ro"   id="CityOfEvent" 	  width="100"    >Ciudad de Evento	</column>
-        <column type="ro"   id="AddrOfEvent"  	  width="170"    >Dirrecion de Evento	</column>
-        <column type="ro"   id="DateOfMounting"   width="80"     >Fecha de Montaje	</column>
-        <column type="ro"   id="DateOfStart" 	  width="80"     >Fecha de Inicio       </column>
-        <column type="ro"   id="DateFinal"        width="80"     >Fecha Final		</column>
-        <column type="ro"   id="NumOfRemission"   hidden="true"  >Numero de Remision	</column>
-        <column type="ro"   id="eventUUID"        hidden="true"  >EventUUID             </column>
-        <column type="ro"   id="FK_EventTypeCode" hidden="true"  >FK_EventTypeCode      </column>
-        <column type="ro"   id="FK_ClientUUID"    hidden="true"  >FK_ClientUUID         </column>
-        <column type="ro"   id="FK_employeUUID"   hidden="true"  >FK_employeUUID        </column>
-        <column type='ro'   id='method'		  hidden="true"  >method	  	</column>	
-        <column type='ro'   id='op'               hidden="true"  >op			</column>
+        <column type="ro"   id="CodeOfEvent"	width="80"     >Codigo de Evento        </column>
+        <column type="ro"   id="NameOfClient"  	width="180"    >Nombre de Cliente	</column>
+        <column type="ro"   id="NameOfEmployee" width="180"    >Nombre de Empleado	</column>
+        <column type="ro"   id="NameOfEvent"  	width="180"    >Nombre de Evento	</column>
+        <column type="ro"   id="CityOfEvent" 	width="100"    >Ciudad de Evento	</column>
+        <column type="ro"   id="AddrOfEvent"  	width="170"    >Dirrecion de Evento	</column>
+        <column type="ro"   id="DateOfMounting" width="80"     >Fecha de Montaje	</column>
+        <column type="ro"   id="DateOfStart" 	width="80"     >Fecha de Inicio         </column>
+        <column type="ro"   id="DateFinal"      width="80"     >Fecha Final		</column>
+        <column type="ro"   id="NumOfRemission" hidden="true"  >Numero de Remision	</column>
+        <column type='ro'   id='method'		hidden="true"  >method	  		</column>	
+        <column type='ro'   id='op'             hidden="true"  >op			</column>
         <afterInit> 	
             <call command="attachHeader"> 	
                 <param>#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#select_filter,#select_filter,#select_filter,#select_filter,#select_filter,#select_filter</param>	

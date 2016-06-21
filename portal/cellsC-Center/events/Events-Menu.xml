@@ -12,10 +12,6 @@
     Autor:  Luis castaño
     Date:   24-May-2016  
     Desc:   Se agregan UserData que contiene los header de la forma
-    
-    Autor:  Luis castaño
-    Date:   24-May-2016  
-    Desc:   Se agregan nuevos userData para la ventana modal de Remover.
   
 -->
 <menu>
@@ -27,10 +23,5 @@
     <item id="sp3" type="separator" >
         <userdata name="headerForm" >Formulario - Detalle de Evento</userdata>
         <userdata name="headerFormCollapse">Haga click para el formulario - Detalle de Evento</userdata>
-        <userdata name="noChangeForm">No se presenta ningun cambio en los datos del formulario, por favor, complete o cambie los campos que son requeridos (*).</userdata>
-        <userdata name="rmvQuestTitle">Eliminar Evento</userdata>
-        <userdata name="rmvQuestText">¿Esta usted seguro que desea Eliminar este Evento?</userdata>
-        <userdata name="rmvQuestOk">Si</userdata>
-        <userdata name="rmvQuestCancel">No</userdata>
     </item>
 </menu>

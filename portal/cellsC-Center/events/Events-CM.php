@@ -9,6 +9,12 @@
     Date:   19-Jun-2016
     Desc:   Se realiza la carga de datos en la funcion loadDataGrid utilizando
             las ORM
+    
+    Autor:  Luis F Castaño
+    Date:   21-Jun-2016
+    Desc:   Se actualiza logica de prueba en las funciones internas addForm, updateForm
+            removeForm, y en la funcion loadDataGrid se agregan nuevas columnas hidden a
+            la estructura xml que se retorna.
    
 */
 
@@ -159,8 +165,8 @@ try{
     function loadDataGrid(){ 
         
         $gridErrMsg = "";
-        
         global $retXml;
+        
         global $eventsClass;
         global $clientsClass;
         global $empleoyesClass;
@@ -188,8 +194,7 @@ try{
                 $recActual = $eventDataObj[$i];
                 
                 $retXml .= "<row id='$i'>";
-                   $retXml .= '<cell>'.$recActual['eventUUID'].'</cell>';
-                   
+                
                    //cargo los datos del cliente actual
                    $clientObj = $clientsClass->entityLoad("clientUUID = '".$recActual['FK_ClientUUID']."'",true);
                    
@@ -217,7 +222,11 @@ try{
                    $retXml .= '<cell>'.$recActual['eventMountingDate'].'</cell>';
                    $retXml .= '<cell>'.$recActual['eventInitDate'].'</cell>';
                    $retXml .= '<cell>'.$recActual['eventFinishDate'].'</cell>';
-                   $retXml .= "<cell></cell>";
+                   $retXml .= '<cell>'.'</cell>';
+                   $retXml .= '<cell>'.$recActual['eventUUID'].'</cell>';
+                   $retXml .= '<cell>'.$recActual['FK_EventTypeCode'].'</cell>';
+                   $retXml .= '<cell>'.$recActual['FK_ClientUUID'].'</cell>';
+                   $retXml .= '<cell>'.$recActual['FK_employeUUID'].'</cell>';
                    $retXml .= "<cell>submitDataForm</cell>";
                    $retXml .= "<cell>update</cell>";
                 $retXml .= "</row>";
@@ -249,6 +258,7 @@ try{
         global $actualFlds;
         global $operation;
         global $ids;
+        global $tid;
         
         //Variables locales de la funcion
         $submitStage    = "";
@@ -261,7 +271,7 @@ try{
             $submitStage = "initialization";
             
             //Numero de Campos esperados por parte del Fomrulario
-            $expectedFlds = 15;
+            $expectedFlds = 18;
             
             //Chequea el numero de campos del formulario
             if($expectedFlds != $actualFlds){
@@ -272,18 +282,24 @@ try{
             //se obtiene la operation
             $operation = $_POST[$ids.'_op'];
             
-            //Se valida los campos del formulario
-            $submitStage = $operation."Validation";
-            
-            $doValidation = validateForm();
-            if($doValidation['error']){
-                throw new Exception($message = $doValidation['msg']);//retorna un error inesperado de la funcion de validacion
-            }
-            if(!$doValidation['valid']){
-                $retMsg = $doValidation['msg'];
-                throw new Exception($message = "Oops"); //retorna los mensajes de los campos no validados
-            }
-            
+            //operaciones que requieren de validaciones.(remove, no requiere).
+            switch($operation){
+                case "update":
+                case "add":
+                    //Se valida los campos del formulario
+                    $submitStage = $operation."Validation";
+
+                    $doValidation = validateForm();
+                    if($doValidation['error']){
+                        throw new Exception($message = $doValidation['msg']);//retorna un error inesperado de la funcion de validacion
+                    }
+                    if(!$doValidation['valid']){
+                        $retMsg = $doValidation['msg'];
+                        throw new Exception($message = "Oops"); //retorna los mensajes de los campos no validados
+                    }
+                    break;
+            }//fin del switch
+
             //Se invoca la funcion de segunda orden
             $submitStage = $operation;
             eval('$operationResp ='.$operation.'Form();'); 
@@ -327,11 +343,13 @@ try{
        global $eventsClass;
        global $eventsDataObj;
        global $ids;
+       global $tid;
        
        try{
            
            $funcStage   = "LoadEntityNew";
            
+           //cargamos nueva entidad de la tabla eventos     
            $eventsObj   = $eventsClass->entityNew();
            if($eventsObj['error']){
                throw new Exception($message = $eventsObj['msg']);
@@ -345,23 +363,24 @@ try{
            $eventsDataObj['eventName']          = $_POST[$ids.'_NameOfEvent'];
            $eventsDataObj['eventCity']          = $_POST[$ids.'_CityOfEvent'];
            $eventsDataObj['eventAddress']       = $_POST[$ids.'_AddrOfEvent'];
-           $eventsDataObj['eventMountingDate']  = "2016-06-20";
-           $eventsDataObj['eventInitDate']      = "2016-06-22 10:42:30";
-           $eventsDataObj['eventFinishDate']    = "2016-06-23 10:42:30";
+           $eventsDataObj['eventMountingDate']  = $_POST[$ids.'_DateOfMounting'];
+           $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
+           $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
            $eventsDataObj['FK_EventTypeCode']   = "PT"; 
-           $eventsDataObj['FK_employeUUID']     = "12356-12346-5554-9966";
-           $eventsDataObj['FK_ClientUUID']      = "25212-525663-52256-5221";
+           $eventsDataObj['FK_employeUUID']     = $_POST[$ids.'_FK_employeUUID'];
+           $eventsDataObj['FK_ClientUUID']      = $_POST[$ids.'_FK_ClientUUID'];
            $eventsDataObj['Active']             = true; 
            
            $funcStage   = "EntitySaveOfDataObj";
            
-           //Guarda el registro
+           //Guardar el registro
            $eventsSaveObj   = $eventsClass->entitySave($eventsDataObj);
            if($eventsSaveObj['error']){
                throw new Exception($message = $eventsSaveObj['msg']);
            }
 
            $funcStage           = "Finish";
+           $tid                 = $eventsDataObj['eventUUID'];
            $retStruct['msg']    = "El registro se ha Agregado satisfactoriamente.";
            $retStruct['error']  = false;
            
@@ -382,13 +401,14 @@ try{
        global $eventsClass;
        global $eventsDataObj;
        global $ids;
+       global $tid;
 
        try{
            
            $funcStage   = "EntityLoadOfDataObj";
            
            //Cargo los datos de las tablas de base de Datos.
-           $eventsObj   = $eventsClass->entityLoad("eventUUID = '".$_POST[$ids.'_CodeOfEvent']."' and Active = true",true);
+           $eventsObj   = $eventsClass->entityLoad("eventUUID = '".$_POST[$ids.'_eventUUID']."' and Active = true",true);
 
            //Se Valida que no haya Error en la Carga de datos.
            if($eventsObj['error']){
@@ -403,7 +423,10 @@ try{
            $eventsDataObj['eventName']          = $_POST[$ids.'_NameOfEvent'];
            $eventsDataObj['eventCity']          = $_POST[$ids.'_CityOfEvent'];
            $eventsDataObj['eventAddress']       = $_POST[$ids.'_AddrOfEvent'];
-           
+           $eventsDataObj['eventMountingDate']  = $_POST[$ids.'_DateOfMounting'];
+           $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
+           $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
+
            $funcStage   = "EntitySaveOfDataObj";
            
            //Guarda el registro
@@ -413,6 +436,7 @@ try{
            }
 
            $funcStage           = "Finish";
+           $tid                 = $eventsDataObj['eventUUID'];
            $retStruct['msg']    = "El registro se ha Actualizado satisfactoriamente.";
            $retStruct['error']  = false; 
            
@@ -433,13 +457,14 @@ try{
        global $eventsClass;
        global $eventsDataObj;
        global $ids;
+       global $tid;
        
        try{
            
            $funcStage   = "EntityLoadOfDataObj";
            
            //Cargo los datos de las tablas de base de Datos.
-           $eventsObj   = $eventsClass->entityLoad("eventUUID = '".$_POST[$ids.'_CodeOfEvent']."' and Active = true",true);
+           $eventsObj   = $eventsClass->entityLoad("eventUUID = '".$_POST[$ids.'_eventUUID']."' and Active = true",true);
 
            //Se Valida que no haya Error en la Carga de datos.
            if($eventsObj['error']){
@@ -459,6 +484,7 @@ try{
            }
 
            $funcStage           = "Finish";
+           $tid                 = $eventsDataObj['eventUUID'];
            $retStruct['msg']    = "El registro se ha Eliminado satisfactoriamente.";
            $retStruct['error']  = false;
            

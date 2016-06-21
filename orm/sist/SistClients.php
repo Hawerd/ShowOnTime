@@ -4,6 +4,10 @@
     Autor:  Luis F Castaño
     Date:   19-Jun-2016
     Desc:   se crea ORM para la tabla sistClients.
+  
+    Autor:  Luis F Castaño
+    Date:   21-Jun-2016
+    Desc:   Se corrgie comentario de la ORM.
  
 */
 
@@ -18,7 +22,7 @@ class sistClients extends methods{
     public function __construct(){
 
         $this->entityObj = Array();         //Array por Defecto
-        $this->nameTable = "sistclients";    //Definir nombre de la tabla
+        $this->nameTable = "sistclients";   //Definir nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
         $this->entityObj['clientUUID']         = uniqid(mt_rand(),true);
@@ -46,4 +50,4 @@ class sistClients extends methods{
 
     }//fin del constructor 
 
-}//fin de la clase sistEvents
+}//fin de la clase sistClients

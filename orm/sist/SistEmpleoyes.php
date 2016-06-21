@@ -4,6 +4,10 @@
     Autor:  Luis F Castaño
     Date:   19-Jun-2016
     Desc:   se crea ORM para la tabla sistEmpleoyes.
+  
+    Autor:  Luis F Castaño
+    Date:   21-Jun-2016
+    Desc:   Se corrgie comentario de la ORM.
  
 */
 
@@ -46,4 +50,4 @@ class sistEmpleoyes extends methods{
 
     }//fin del constructor 
 
-}//fin de la clase sistEvents
+}//fin de la clase sistEmpleoyes

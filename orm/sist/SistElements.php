@@ -4,12 +4,16 @@
     Autor:  Hawerd GOnzalez
     Date:   19-Jun-2016
     Desc:   se crea ORM para la tabla sistelements.
+  
+    Autor: Luis F Castaño
+    Date:  21-Jun-2016 
+    Desc:  Se corrige nombre de la clase de la ORM.   
  
 */
 
 require_once '/../MethodsORM.php';
 
-class sistEmpleoyes extends methods{
+class sistElements extends methods{
 
     protected  $entityObj;
     protected  $nameTable;
@@ -18,7 +22,7 @@ class sistEmpleoyes extends methods{
     public function __construct(){
 
         $this->entityObj = Array();         //Array por Defecto
-        $this->nameTable = "sistempleoyes"; //nombre de la tabla
+        $this->nameTable = "sistelements";  //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
         $this->entityObj['elementUUID']         = uniqid(mt_rand(),true);
@@ -41,4 +45,4 @@ class sistEmpleoyes extends methods{
 
     }//fin del constructor 
 
-}//fin de la clase sistEvents
+}//fin de la clase sistElements

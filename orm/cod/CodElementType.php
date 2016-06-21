@@ -7,18 +7,19 @@
     
     History change
     
-    Name:
-    Description:
-    Date:
+    Autor: Luis F Castaño
+    Date:  21-Jun-2016 
+    Desc:  Se corrige nombre de la clase de la ORM.  
  
 */
 
 require_once '/../MethodsORM.php';
 
-class sistEvents extends methods{
+class codElementType extends methods{
 
     protected  $entityObj;
     protected  $nameTable;
+    
     /* funcion constructora para definir los campos de la tabla de Base de Datos */
     public function __construct(){
 
@@ -36,10 +37,11 @@ class sistEvents extends methods{
         $this->entityObj['Active']          = "";
         $this->entityObj['ActiveDT']        = "";
         $this->entityObj['ActiveBy']        = "";
+        
         //Contructor para la conexion de los metodos
         parent::__construct();  
 
     }//fin del constructor 
 
-}//fin de la clase sistEvents
+}//fin de la clase codElementType
 

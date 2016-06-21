@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Audio-Form.xml
+    Autor:  Luis F Castaño
+    Date:   12-Jun-2016
+    Desc:   Estructura xml para el formulario de el modulo Audio.
+    
+    Autor:  Luis castaño
+    Date:   14-Jun-2016  
+    Desc:   Se ajusta el tamaño de algunos inputs.
+
+-->
+<items>
+    <!--  Fieldset Info Events -->
+    <item type="fieldset" name="fieldsetAudio" label="Por favor, ingrese los siguientes campos necesarios para crear o actualizar un elemento tipo Audio" width="auto" offsetLeft="5" offsetTop="5">
+
+        <item type="block" width="auto" blockOffset="0" >
+            <item type="input" name="CodeOfAudio"   label="Codigo de Audio:" labelWidth="100"  inputWidth="60" readonly="true" disabled ="true" />
+            <item type="input" name="ElementName"   label="Nombre:"          labelWidth="100"  inputWidth="150" />
+            <item type="input" name="ElementBrand"  label="Marca:"           labelWidth="100"  inputWidth="150" />
+            <item type="newcolumn" offset="20" />
+            <item type="input" name="Reference"     label="Referencia:"      labelWidth="100" inputWidth="150" />
+            <item type="input" name="State"         label="Estado:"          labelWidth="100" inputWidth="150" />
+            <item type="input" name="Active"        label="Elemento Activo:" labelWidth="100" inputWidth="60" />
+            <item type="newcolumn" offset="20" />
+            <item type="input" name="Scheduled"     label="Elemento Agendado:" labelWidth="120" inputWidth="60" readonly="true" disabled ="true" />
+            <item type="input" name="CodeOfEvent"   label="Codigo de Evento:"  labelWidth="120" inputWidth="60" readonly="true" disabled ="true" />
+        </item>
+         
+        <item type="label" label="" labelHeight="1"/>
+
+        <item type="block" width="auto" blockOffset="190">
+            <item type="button" name="update" width="120" value="Actualizar Elemento" tooltip=""/>
+            <item type="newcolumn" offset="5" />
+            <item type="button" name="clear"  width="110" value="Limpiar Cambios"   tooltip="" />
+            <item type="newcolumn" offset="5" />
+            <item type="button" name="cancel" width="100" value="Cancelar"  tooltip="" />
+        </item>
+        
+    </item>
+  
+    <item type="hidden" name="method" value=""/>
+    <item type="hidden" name="op" value=""/>  
+</items>
+

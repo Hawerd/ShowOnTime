@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Name:   Audio-Grid.xml
-    Autor:  Hawerd Gonzalez
-    Date:   24-May-2016
-    Desc:   Estructura para la grilla de Audio.
-    
+    Name:   Audio-V.php
     Autor:  Luis F Castaño
-    Date:   12-Jun-2016
-    Desc:   Se renombran y se agregan nuevas columnas a la grilla.
+    Date:   24-May-2016
+    Desc:   Estructura de grilla.
   
 -->
 <rows>

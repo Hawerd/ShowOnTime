@@ -15,8 +15,9 @@
     
     Autor:  Luis castaño
     Date:   21-Jun-2016  
-    Desc:   Se ajustan name de los siguientes campos tipo de evento, nombre de cliente, nombre 
-            empleado ademas se agrega campo hidden eventUUID.
+    Desc:   * Se ajustan name de los siguientes campos tipo de evento, nombre de cliente, nombre 
+              empleado ademas se agrega campo hidden eventUUID.
+            * Se agrega optiones predeterminadas a los combos.
 
 -->
 <items>
@@ -24,9 +25,15 @@
     <item type="fieldset" name="fieldsetEvents" label="Por favor, ingrese los siguientes campos necesarios para crear o actualizar un Evento" width="auto" offsetLeft="5" offsetTop="5">
 
         <item type="block" width="auto" blockOffset="0" >
-            <item type="combo" name="FK_EventTypeCode"  label="Tipo de Evento:"     labelWidth="120"  inputWidth="120" />
-            <item type="combo" name="FK_ClientUUID"     label="Nombre de Cliente:"  labelWidth="120"  inputWidth="180" />
-            <item type="combo" name="FK_employeUUID"    label="Nombre de Empleado:" labelWidth="120"  inputWidth="180" />
+            <item type="combo" name="FK_EventTypeCode"  label="Tipo de Evento:"     labelWidth="120"  inputWidth="130" >
+                <option value="?" text="Seleccione el Tipo" selected = "true"/>
+            </item>    
+            <item type="combo" name="FK_ClientUUID"     label="Nombre de Cliente:"  labelWidth="120"  inputWidth="180" >
+                <option value="?" text="Seleccione Cliente" selected = "true"/>
+            </item>    
+            <item type="combo" name="FK_employeUUID"    label="Nombre de Empleado:" labelWidth="120"  inputWidth="180" >
+                <option value="?" text="Seleccione Empleado" selected = "true"/>
+            </item> 
             <item type="newcolumn" offset="20" />
             <item type="input" name="NameOfEvent"       label="Nombre de Evento:"    labelWidth="120" inputWidth="160" />
             <item type="input" name="CityOfEvent"       label="Ciudad de Evento:"    labelWidth="120" inputWidth="160" />

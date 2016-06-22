@@ -8,7 +8,11 @@
   
     Autor:  Luis F Castaño
     Date:   18-Jun-2016
-    Desc:   Se agrega control de Error al Objeto conexion: setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);      
+    Desc:   Se agrega control de Error al Objeto conexion: setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
+    
+    Autor:  Luis F Castaño
+    Date:   22-Jun-2016
+    Desc:   Se crea coenxion externa a base de datos de prueba y desarrollo.
   
  */
 
@@ -24,10 +28,10 @@ class conexion{
     /* funcion constructora de variables generales */
     public function __construct(){
         
-       $this->server    = "localhost";
-       $this->dbname    = "sistshowontime_dev";
-       $this->username  = "root";
-       $this->pass      = "";
+       $this->server    = "sql3.freesqldatabase.com";
+       $this->dbname    = "sql3125008";
+       $this->username  = "sql3125008";
+       $this->pass      = "uHmTAQyb1U";
        $this->retStruct = Array();
 
     }//fin del contructor

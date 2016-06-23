@@ -4,6 +4,10 @@
     Autor:  Hawerd Gonzalez
     Date:   24-May-2016
     Desc:   Modulos principal de General
+
+    Autor:  Hawerd GOnzalez
+    Date:   22-Jun-2016
+    Desc:   Implementando la carga de la grilla
    
 -->
 <html>
@@ -25,12 +29,12 @@ dhtmlxEvent(window,"load",function(){
     generalGridXML  = "General-Grid.xml?etc=";
     generalFormXML  = "General-Form.xml";
     
-    generalGridData = "General-CM.php?format=grid&etc=";
+    generalGridData = "General-CM.php?format=grid&method=loadDataGrid&etc=";
     
     menuImg         = "../../../../codebase/skyblue/imgs";
     
     // dataProcesor
-    generalFormdp = "General-CM.php?format=form";
+    generalFormdp   = "General-CM.php?format=form";
     
     /*  Cells   */
     gridCell    = "a";
@@ -38,6 +42,7 @@ dhtmlxEvent(window,"load",function(){
     
     /*  flags   */
     firstTime   = true;
+    hasNewRow   = "";
 /* INICIALITATION  */    
     pattern     = "2E";
     generalLayout = new dhtmlXLayoutObject("generalLayoutDiv",pattern);
@@ -92,7 +97,6 @@ dhtmlxEvent(window,"load",function(){
 /* FUNCTIONS */
     // Carga de los datos para la grilla.
     function generalGridCallback(){
-
         if(firstTime){
             generalGrid.load(generalGridData + new Date().getTime(),generalGridDataCallback);
         } else {
@@ -108,7 +112,8 @@ dhtmlxEvent(window,"load",function(){
                 selectedRowId   = generalGrid.getRowId(0);
                 generalGrid.selectRowById(selectedRowId,false,true,true);    
             } else {
-                //addNewRow();
+                newRowData = generalGrid.getUserData("","NewRow");
+                addNewRow();
             }
         } else {
             generalGrid.selectRowById(selectedRowId,false,true,true);
@@ -129,7 +134,6 @@ dhtmlxEvent(window,"load",function(){
                         break;
             }
         }
-
         generalForm.lock();
         dp = new dataProcessor(generalFormdp);
         dp.init(generalForm)
@@ -138,6 +142,16 @@ dhtmlxEvent(window,"load",function(){
         dp.defineAction("error",generalFormReturn);
         dp.defineAction("inserted",generalFormReturn);
     }// end function callback
+    
+    function addNewRow(){
+        if (hasNewRow) {
+        } else {
+            hasNewRow = "add1"						
+            generalGrid.addRow(hasNewRow, newRowData);			
+            generalGrid.selectRowById(hasNewRow, false, true, true);	
+            isAdding = true;
+        }
+    }//end addNewRow
 
 /* END FUNCTIONS */
 

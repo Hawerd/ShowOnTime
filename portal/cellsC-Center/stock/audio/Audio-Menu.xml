@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   Audio-Menu.xml
+    Autor:  Hawerd Gonzalez
+    Date:   24-May-2016
+    Desc:   Menu principal de Audio
+    
+    Autor:  Luis F Castaño
+    Date:   12-Jun-2016
+    Desc:   Se ajustan id de los botones y se agregan userDatas
+            con los header de la forma.
+    
+-->
+<menu>
+    <item id="addElement"     text="Agregar Elemento"   disabled="true" />
+    <item id="sp1" type="separator"/>
+    <item id="editElement"    text="Editar Elemento"    disabled="true" />
+    <item id="sp2" type="separator"/>
+    <item id="removeElement"  text="Eliminar Elemento"  disabled="true" />
+    <item id="sp3" type="separator" >
+        <userdata name="headerForm" >Formulario - Detalle del Elemento</userdata>
+        <userdata name="headerFormCollapse">Haga click para el formulario - Detalle del Elemento</userdata>
+    </item>
+</menu>

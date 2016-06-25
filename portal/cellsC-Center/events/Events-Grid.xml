@@ -17,7 +17,11 @@
     Autor:  Luis castaño
     Date:   21-Jun-2016  
     Desc:   Se agregan nuevas columnas hidden.FK_EventTypeCode, FK_ClientUUID y       
-            FK_employeUUID.        
+            FK_employeUUID. 
+    
+    Autor:  Luis castaño
+    Date:   25-Jun-2016  
+    Desc:   Se ajusta tamaño de las columnas.               
 
 -->
 <rows>
@@ -30,9 +34,9 @@
                 <param>true</param>
             </call>
         </beforeInit>
-        <column type="ro"   id="NameOfClient"  	  width="180"    >Nombre de Cliente	</column>
-        <column type="ro"   id="NameOfEmployee"   width="180"    >Nombre de Empleado	</column>
-        <column type="ro"   id="NameOfEvent"  	  width="180"    >Nombre de Evento	</column>
+        <column type="ro"   id="NameOfClient"  	  width="200"    >Nombre de Cliente	</column>
+        <column type="ro"   id="NameOfEmployee"   width="200"    >Nombre de Empleado	</column>
+        <column type="ro"   id="NameOfEvent"  	  width="200"    >Nombre de Evento	</column>
         <column type="ro"   id="CityOfEvent" 	  width="100"    >Ciudad de Evento	</column>
         <column type="ro"   id="AddrOfEvent"  	  width="170"    >Dirrecion de Evento	</column>
         <column type="ro"   id="DateOfMounting"   width="80"     >Fecha de Montaje	</column>

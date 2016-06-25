@@ -15,6 +15,10 @@
     Desc:   Se actualiza logica de prueba en las funciones internas addForm, updateForm
             removeForm, y en la funcion loadDataGrid se agregan nuevas columnas hidden a
             la estructura xml que se retorna.
+  
+    Autor:  Luis F Castaño
+    Date:   25-Jun-2016
+    Desc:   Se ajusta la funcion interna addform para agregar registros.
           
    
 */
@@ -205,7 +209,7 @@ try{
                    
                    //Obtengo los datos del objeto cargado del cliente
                    $clientDataObj  = $clientObj['data']; 
-                   $retXml .= '<cell>'.$clientDataObj['clientFirstName'].'</cell>';
+                   $retXml .= '<cell>'.$clientDataObj['clientFirstName']." ".$clientDataObj['clientLastName'].'</cell>';
              
                    //cargo los datos del empleado actual
                    $empleoyesObj   = $empleoyesClass->entityLoad("empleoyeUUID = '".$recActual['FK_employeUUID']."'",true);
@@ -215,7 +219,7 @@ try{
                    
                    //Obtengo los datos del objeto cargado del empleado
                    $empleoyesDataObj   = $empleoyesObj['data'];
-                   $retXml .= '<cell>'.$empleoyesDataObj['empleoyeFirstName'].'</cell>';
+                   $retXml .= '<cell>'.$empleoyesDataObj['empleoyeFirstName']." ".$empleoyesDataObj['empleoyeLastName'].'</cell>';
                    
                    $retXml .= '<cell>'.$recActual['eventName'].'</cell>';
                    $retXml .= '<cell>'.$recActual['eventCity'].'</cell>';
@@ -367,7 +371,7 @@ try{
            $eventsDataObj['eventMountingDate']  = $_POST[$ids.'_DateOfMounting'];
            $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
            $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
-           $eventsDataObj['FK_EventTypeCode']   = "PT"; 
+           $eventsDataObj['FK_EventTypeCode']   = $_POST[$ids.'_FK_EventTypeCode']; 
            $eventsDataObj['FK_employeUUID']     = $_POST[$ids.'_FK_employeUUID'];
            $eventsDataObj['FK_ClientUUID']      = $_POST[$ids.'_FK_ClientUUID'];
            $eventsDataObj['Active']             = true; 
@@ -420,6 +424,9 @@ try{
            
            $funcStage   = "SetupEventsDataObj";
            
+           $eventsDataObj['FK_EventTypeCode']   = $_POST[$ids.'_FK_EventTypeCode']; 
+           $eventsDataObj['FK_employeUUID']     = $_POST[$ids.'_FK_employeUUID'];
+           $eventsDataObj['FK_ClientUUID']      = $_POST[$ids.'_FK_ClientUUID'];
            $eventsDataObj['eventName']          = $_POST[$ids.'_NameOfEvent'];
            $eventsDataObj['eventCity']          = $_POST[$ids.'_CityOfEvent'];
            $eventsDataObj['eventAddress']       = $_POST[$ids.'_AddrOfEvent'];
@@ -427,7 +434,6 @@ try{
            $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
            $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
 
-           
            $funcStage   = "EntitySaveOfDataObj";
            
            //Guarda el registro
@@ -512,16 +518,40 @@ try{
            //Se validan los campos del formulario
            $funcStage = "ValidationFields";
            
-           if($_POST[$ids.'_NameOfClient'] == ""){
-              $validMsg[$validIndex] = "El campo Nombre de Cliente es Requerido."; 
+           if($_POST[$ids.'_FK_EventTypeCode'] == "?"){
+              $validMsg[$validIndex] = "El campo Tipo de Evento es requerido."; 
            }
-           if($_POST[$ids.'_NameOfEmployee'] == ""){
+           if($_POST[$ids.'_FK_ClientUUID'] == "?"){
               $validIndex += 1;
-              $validMsg[$validIndex] = "El campo Nombre de Empleado es Requerido."; 
+              $validMsg[$validIndex] = "El campo Nombre de Cliente es requerido."; 
+           }
+           if($_POST[$ids.'_FK_employeUUID'] == "?"){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Nombre de Empleado es requerido."; 
            }
            if($_POST[$ids.'_NameOfEvent'] == ""){
               $validIndex += 1; 
-              $validMsg[$validIndex] = "El campo Nombre de Evento es Requerido."; 
+              $validMsg[$validIndex] = "El campo Nombre de Evento es requerido."; 
+           }
+            if($_POST[$ids.'_CityOfEvent'] == ""){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Ciudad de Evento es requerido."; 
+           }
+           if($_POST[$ids.'_AddrOfEvent'] == ""){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Direccion de Evento es requerido."; 
+           }
+           if($_POST[$ids.'_DateOfMounting'] == ""){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Fecha de Montaje es requerido."; 
+           }
+            if($_POST[$ids.'_DateOfStart'] == ""){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Fecha de Inicio es requerido."; 
+           }
+            if($_POST[$ids.'_DateFinal'] == ""){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Fecha Final es requerido."; 
            }
            
            //Se evalua la validacion de los campos 

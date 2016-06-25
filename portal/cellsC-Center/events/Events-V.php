@@ -43,6 +43,10 @@
     Desc:   * se agregan nuevos eventos, onBeforeSelect y onBeforeSave.
             * Se agregan nuevas funciones addNewRow y eventRemoveDialog.
             * Se agrega como variable global rowNum.
+
+    Autor:  Luis castaño
+    Date:   25-Jun-2016  
+    Desc:   Se agrega evento onOptionLoaded para la carga de los combos.
    
 -->
 <html>
@@ -72,6 +76,10 @@ function eventsInit(){
     /* CM XML */
     eventsGridLoad      = "Events-CM.php?format=grid&method=loadDataGrid";
     eventsDP            = "Events-CM.php?format=form";
+    
+    /* combo XML */
+    connCombos          = 3;    //Numero de combos con un conector en el formulario.
+    connCombosLoaded    = 0;    //Se utiliza para establecer un indicador de carga para los combos
     
     /* Cells */
     gridCell            = "a";
@@ -458,8 +466,9 @@ function eventsInit(){
             switch(returnAction){
                 case "success":
                 case "fail":
-                    eventsFormDP._in_progress   = {} //limpiamos el cache del dataProccess
-                    eventsFormDP.updatedRows    = [] //limpiamos el cache del dataProccess
+                    //Se limpia el cache del dataProccess
+                    eventsFormDP._in_progress   = [0]; 
+                    eventsFormDP.updatedRows    = [0];
                     eventsMsgForm.setItemLabel("textMsg", returnDetail); // Nombre del campo xml para el texto
                     eventsMsgForm.showItem("ok");
                     break;
@@ -496,8 +505,24 @@ function eventsInit(){
         eventsFormDP.defineAction("insert",  eventsFormReturn);	// should not occur
         eventsFormDP.defineAction("update",  eventsFormReturn);	// should not occur
         
-        //flag,se configura a true: estructura y tratamiento de datos propia lista
-        eventsFormLoaded = true;
+        /* El formulario no está completamente cargado hasta que todos los combos esten listos */
+        eventsForm.attachEvent("onOptionsLoaded", function(name){
+            if ( ! eventsFormLoaded ) {
+                /* for combos with connectors */
+                switch (name) {
+                    case "FK_EventTypeCode":
+                    case "FK_ClientUUID":
+                    case "FK_employeUUID":    
+                        connCombosLoaded += 1;
+                        break;
+                }
+                if (connCombosLoaded == connCombos) {
+                    //flag,se configura a true: estructura y tratamiento de data propia lista
+                    eventsFormLoaded = true
+                }
+            }
+        });
+
     }//fin de la funcion eventsFormCallback
     
     /* funcion que chequea los flags de cada componente del modulo (componentes)*/

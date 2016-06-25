@@ -9,7 +9,11 @@
     
     Autor: Luis F Castaño
     Date:  21-Jun-2016 
-    Desc:  Se corrige nombre de la clase de la ORM.  
+    Desc:  Se corrige nombre de la clase de la ORM. 
+  
+    Autor:  Luis F Castaño
+    Date:   25-Jun-2016
+    Desc:   Se corrige nombre de la Tabla. 
  
 */
 
@@ -23,8 +27,8 @@ class codElementType extends methods{
     /* funcion constructora para definir los campos de la tabla de Base de Datos */
     public function __construct(){
 
-        $this->entityObj = Array();         //Array por Defecto
-        $this->nameTable = "codelementtype";    //nombre de la tabla
+        $this->entityObj = Array();             //Array por Defecto
+        $this->nameTable = "codElementType";    //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
         $this->entityObj['elementTypeUUID'] = uniqid(mt_rand(),true);

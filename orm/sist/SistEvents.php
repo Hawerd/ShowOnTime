@@ -4,6 +4,10 @@
     Autor:  Luis F Castaño
     Date:   18-Jun-2016
     Desc:   se crea ORM para la tabla sistEvents.
+  
+    Autor:  Luis F Castaño
+    Date:   25-Jun-2016
+    Desc:   Se corrige nombre de la Tabla.
  
 */
 
@@ -18,7 +22,7 @@ class sistEvents extends methods{
     public function __construct(){
 
         $this->entityObj = Array();         //Array por Defecto
-        $this->nameTable = "sistevents";    //Definir nombre de la tabla
+        $this->nameTable = "sistEvents";    //Definir nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
         $this->entityObj['eventUUID']           = uniqid(mt_rand(),true);

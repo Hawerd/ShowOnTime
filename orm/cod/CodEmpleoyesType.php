@@ -9,7 +9,11 @@
     
     Autor: Luis F Castaño
     Date:  21-Jun-2016 
-    Desc:  Se corrige nombre de la clase de la ORM.  
+    Desc:  Se corrige nombre de la clase de la ORM.
+ 
+    Autor:  Luis F Castaño
+    Date:   25-Jun-2016
+    Desc:   Se corrige nombre de la Tabla.  
  
 */
 
@@ -24,7 +28,7 @@ class codEmpleoyesType extends methods{
     public function __construct(){
 
         $this->entityObj = Array();            //Array por Defecto
-        $this->nameTable = "codempleoyestype"; //nombre de la tabla
+        $this->nameTable = "codEmpleoyesType"; //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
         $this->entityObj['empleoyeTypeUUID']  = uniqid(mt_rand(),true);

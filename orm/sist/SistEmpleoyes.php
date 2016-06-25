@@ -9,6 +9,10 @@
     Date:   21-Jun-2016
     Desc:   Se corrgie comentario de la ORM.
  
+    Autor:  Luis F Castaño
+    Date:   25-Jun-2016
+    Desc:   Se corrige nombre de la Tabla.
+ 
 */
 
 require_once '/../MethodsORM.php';
@@ -22,7 +26,7 @@ class sistEmpleoyes extends methods{
     public function __construct(){
 
         $this->entityObj = Array();         //Array por Defecto
-        $this->nameTable = "sistempleoyes"; //Definir nombre de la tabla
+        $this->nameTable = "sistEmpleoyes"; //Definir nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
         $this->entityObj['empleoyeUUID']         = uniqid(mt_rand(),true);

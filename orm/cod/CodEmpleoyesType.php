@@ -13,7 +13,11 @@
  
     Autor:  Luis F Castaño
     Date:   25-Jun-2016
-    Desc:   Se corrige nombre de la Tabla.  
+    Desc:   Se corrige nombre de la Tabla. 
+  
+    Autor:  Luis F Castaño
+    Date:   26-Jun-2016
+    Desc:   Se agrega funcion init. 
  
 */
 
@@ -31,7 +35,7 @@ class codEmpleoyesType extends methods{
         $this->nameTable = "codEmpleoyesType"; //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['empleoyeTypeUUID']  = uniqid(mt_rand(),true);
+        $this->entityObj['empleoyeTypeUUID']  = "";
         $this->entityObj['empleoyeTypeDesc']  = "";
         $this->entityObj['empleoyeTypeCode']  = "";
         $this->entityObj['CreatedDT']         = "";
@@ -46,6 +50,11 @@ class codEmpleoyesType extends methods{
         parent::__construct();  
 
     }//fin del constructor 
+    
+    /* funcion que se encarga de inicializar datos en la estructura */
+    public function init(){
+        $this->entityObj['empleoyeTypeUUID']  = uniqid(mt_rand(),true);
+    }//fin de la funcion init
 
 }//fin de la clase codEmpleoyesType
 

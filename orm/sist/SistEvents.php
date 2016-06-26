@@ -8,6 +8,10 @@
     Autor:  Luis F Castaño
     Date:   25-Jun-2016
     Desc:   Se corrige nombre de la Tabla.
+  
+    Autor:  Luis F Castaño
+    Date:   26-Jun-2016
+    Desc:   Se agrega funcion init.
  
 */
 
@@ -25,7 +29,7 @@ class sistEvents extends methods{
         $this->nameTable = "sistEvents";    //Definir nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['eventUUID']           = uniqid(mt_rand(),true);
+        $this->entityObj['eventUUID']           = "";
         $this->entityObj['eventName']           = "";
         $this->entityObj['eventCity']           = "";
         $this->entityObj['eventAddress']        = "";
@@ -47,5 +51,10 @@ class sistEvents extends methods{
         parent::__construct();  
 
     }//fin del constructor 
+    
+    /* funcion que se encarga de inicializar datos en la estructura */
+    public function init(){
+        $this->entityObj['eventUUID']           = uniqid(mt_rand(),true);
+    }//fin de la funcion init
 
 }//fin de la clase sistEvents

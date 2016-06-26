@@ -14,6 +14,10 @@
     Autor:  Luis F Castaño
     Date:   25-Jun-2016
     Desc:   Se corrige nombre de la Tabla.
+  
+    Autor:  Luis F Castaño
+    Date:   26-Jun-2016
+    Desc:   Se agrega funcion init.
  
 */
 
@@ -31,9 +35,9 @@ class codEventType extends methods{
         $this->nameTable = "codEventType";  //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['eventTypeUUID']  = uniqid(mt_rand(),true);
-        $this->entityObj['eventTypeDesc']  = "";
-        $this->entityObj['eventTypeCode']  = "";
+        $this->entityObj['eventTypeUUID']   = "";
+        $this->entityObj['eventTypeDesc']   = "";
+        $this->entityObj['eventTypeCode']   = "";
         $this->entityObj['CreatedDT']       = "";
         $this->entityObj['CreatedBy']       = "";
         $this->entityObj['UpdatedDT']       = "";
@@ -46,6 +50,11 @@ class codEventType extends methods{
         parent::__construct();  
 
     }//fin del constructor 
+    
+    /* funcion que se encarga de inicializar datos en la estructura */
+    public function init(){
+        $this->entityObj['eventTypeUUID']   = uniqid(mt_rand(),true);
+    }//fin de la funcion init
 
 }//fin de la clase codEventType
 

@@ -14,6 +14,10 @@
     Desc:   Se realiza ajuste en la funcion entitySave, para que actualize el campo
             updatedDT cuando realiza una actualizacion al registro que queda false.
   
+    Autor:  Luis F Castaño
+    Date:   26-Jun-2016
+    Desc:   se agrega llamado de la funcion init en la funcion entityNew
+  
 */
 
 require_once 'ConexionPDO.php';
@@ -89,6 +93,8 @@ class methods{
         $retStruct = Array();
         
         try{
+            
+            $this->init(); //Inicializa datos predeterminado de la ORM.
             
             if($this->retConnObj['error']){
                 throw new PDOException($message = $this->retConnObj['msg']);      

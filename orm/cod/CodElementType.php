@@ -15,6 +15,10 @@
     Date:   25-Jun-2016
     Desc:   Se corrige nombre de la Tabla. 
  
+    Autor:  Luis F Castaño
+    Date:   26-Jun-2016
+    Desc:   Se agrega funcion init.
+ 
 */
 
 require_once '/../MethodsORM.php';
@@ -31,7 +35,7 @@ class codElementType extends methods{
         $this->nameTable = "codElementType";    //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['elementTypeUUID'] = uniqid(mt_rand(),true);
+        $this->entityObj['elementTypeUUID'] = "";
         $this->entityObj['elementTypeDesc'] = "";
         $this->entityObj['elementTypeCode'] = "";
         $this->entityObj['CreatedDT']       = "";
@@ -46,6 +50,11 @@ class codElementType extends methods{
         parent::__construct();  
 
     }//fin del constructor 
+    
+    /* funcion que se encarga de inicializar datos en la estructura */
+    public function init(){
+        $this->entityObj['elementTypeUUID'] = uniqid(mt_rand(),true);
+    }//fin de la funcion init
 
 }//fin de la clase codElementType
 

@@ -18,6 +18,10 @@
     Autor:  Luis F Castaño
     Date:   26-Jun-2016
     Desc:   Se agrega funcion init. 
+  
+    Autor:  Luis F Castaño
+    Date:   27-Jun-2016
+    Desc:   Se agrega el valor null a la estructura principal de la orm.
  
 */
 
@@ -35,16 +39,16 @@ class codEmpleoyesType extends methods{
         $this->nameTable = "codEmpleoyesType"; //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['empleoyeTypeUUID']  = "";
-        $this->entityObj['empleoyeTypeDesc']  = "";
-        $this->entityObj['empleoyeTypeCode']  = "";
-        $this->entityObj['CreatedDT']         = "";
-        $this->entityObj['CreatedBy']         = "";
-        $this->entityObj['UpdatedDT']         = "";
-        $this->entityObj['UpdatedBy']         = "";
-        $this->entityObj['Active']            = "";
-        $this->entityObj['ActiveDT']          = "";
-        $this->entityObj['ActiveBy']          = "";
+        $this->entityObj['empleoyeTypeUUID']  = null;
+        $this->entityObj['empleoyeTypeDesc']  = null;
+        $this->entityObj['empleoyeTypeCode']  = null;
+        $this->entityObj['CreatedDT']         = null;
+        $this->entityObj['CreatedBy']         = null;
+        $this->entityObj['UpdatedDT']         = null;
+        $this->entityObj['UpdatedBy']         = null;
+        $this->entityObj['Active']            = null;
+        $this->entityObj['ActiveDT']          = null;
+        $this->entityObj['ActiveBy']          = null;
         
         //Contructor para la conexion de los metodos
         parent::__construct();  

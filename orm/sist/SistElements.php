@@ -15,7 +15,11 @@
   
     Autor:  Luis F Castaño
     Date:   26-Jun-2016
-    Desc:   Se agrega funcion init.  
+    Desc:   Se agrega funcion init. 
+  
+    Autor:  Luis F Castaño
+    Date:   27-Jun-2016
+    Desc:   Se agrega el valor null a la estructura principal de la orm. 
  
 */
 
@@ -33,20 +37,20 @@ class sistElements extends methods{
         $this->nameTable = "sistElements";  //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['elementUUID']         = "";
-        $this->entityObj['elementCode']         = "";
-        $this->entityObj['elementName']         = "";
-        $this->entityObj['elementBrand']        = "";
-        $this->entityObj['elementReferences']   = "";
-        $this->entityObj['elementQuantity']     = "";
-        $this->entityObj['FK_elementTypeCode']  = "";
-        $this->entityObj['CreatedDT']           = "";
-        $this->entityObj['CreatedBy']           = "";
-        $this->entityObj['UpdatedDT']           = "";
-        $this->entityObj['UpdatedBy']           = "";
-        $this->entityObj['Active']              = "";
-        $this->entityObj['ActiveDT']            = "";
-        $this->entityObj['ActiveBy']            = "";
+        $this->entityObj['elementUUID']         = null;
+        $this->entityObj['elementCode']         = null;
+        $this->entityObj['elementName']         = null;
+        $this->entityObj['elementBrand']        = null;
+        $this->entityObj['elementReferences']   = null;
+        $this->entityObj['elementQuantity']     = null;
+        $this->entityObj['FK_elementTypeCode']  = null;
+        $this->entityObj['CreatedDT']           = null;
+        $this->entityObj['CreatedBy']           = null;
+        $this->entityObj['UpdatedDT']           = null;
+        $this->entityObj['UpdatedBy']           = null;
+        $this->entityObj['Active']              = null;
+        $this->entityObj['ActiveDT']            = null;
+        $this->entityObj['ActiveBy']            = null;
         
         //Contructor para la conexion de los metodos
         parent::__construct();  

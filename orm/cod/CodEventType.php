@@ -18,6 +18,10 @@
     Autor:  Luis F Castaño
     Date:   26-Jun-2016
     Desc:   Se agrega funcion init.
+  
+    Autor:  Luis F Castaño
+    Date:   27-Jun-2016
+    Desc:   Se agrega el valor null a la estructura principal de la orm.
  
 */
 
@@ -35,16 +39,16 @@ class codEventType extends methods{
         $this->nameTable = "codEventType";  //nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['eventTypeUUID']   = "";
-        $this->entityObj['eventTypeDesc']   = "";
-        $this->entityObj['eventTypeCode']   = "";
-        $this->entityObj['CreatedDT']       = "";
-        $this->entityObj['CreatedBy']       = "";
-        $this->entityObj['UpdatedDT']       = "";
-        $this->entityObj['UpdatedBy']       = "";
-        $this->entityObj['Active']          = "";
-        $this->entityObj['ActiveDT']        = "";
-        $this->entityObj['ActiveBy']        = "";
+        $this->entityObj['eventTypeUUID']   = null;
+        $this->entityObj['eventTypeDesc']   = null;
+        $this->entityObj['eventTypeCode']   = null;
+        $this->entityObj['CreatedDT']       = null;
+        $this->entityObj['CreatedBy']       = null;
+        $this->entityObj['UpdatedDT']       = null;
+        $this->entityObj['UpdatedBy']       = null;
+        $this->entityObj['Active']          = null;
+        $this->entityObj['ActiveDT']        = null;
+        $this->entityObj['ActiveBy']        = null;
         
         //Contructor para la conexion de los metodos
         parent::__construct();  

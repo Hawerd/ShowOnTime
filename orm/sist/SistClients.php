@@ -16,6 +16,10 @@
     Autor:  Luis F Castaño
     Date:   26-Jun-2016
     Desc:   Se agrega funcion init.
+  
+    Autor:  Luis F Castaño
+    Date:   27-Jun-2016
+    Desc:   Se agrega el valor null a la estructura principal de la orm.
  
 */
 
@@ -33,25 +37,25 @@ class sistClients extends methods{
         $this->nameTable = "sistClients";   //Definir nombre de la tabla
         
         //Definir aqui los campos de la Tabla Requerida.
-        $this->entityObj['clientUUID']         = "";
-        $this->entityObj['clientFirstName']    = "";
-        $this->entityObj['clientLastName']     = "";
-        $this->entityObj['clientNumberID']     = "";
-        $this->entityObj['clientNIT']          = "";
-        $this->entityObj['clientAdress1']      = "";
-        $this->entityObj['clientAdress2']      = "";
-        $this->entityObj['clientPhoneR']       = "";
-        $this->entityObj['clientPhoneM']       = "";
-        $this->entityObj['clientEmail1']       = "";
-        $this->entityObj['clientEmail2']       = "";
-        $this->entityObj['FK_ClientTypeCode']  = "";
-        $this->entityObj['CreatedDT']          = "";
-        $this->entityObj['CreatedBy']          = "";
-        $this->entityObj['UpdatedDT']          = "";
-        $this->entityObj['UpdatedBy']          = "";
-        $this->entityObj['Active']             = "";
-        $this->entityObj['ActiveDT']           = "";
-        $this->entityObj['ActiveBy']           = "";
+        $this->entityObj['clientUUID']         = null;
+        $this->entityObj['clientFirstName']    = null;
+        $this->entityObj['clientLastName']     = null;
+        $this->entityObj['clientNumberID']     = null;
+        $this->entityObj['clientNIT']          = null;
+        $this->entityObj['clientAdress1']      = null;
+        $this->entityObj['clientAdress2']      = null;
+        $this->entityObj['clientPhoneR']       = null;
+        $this->entityObj['clientPhoneM']       = null;
+        $this->entityObj['clientEmail1']       = null;
+        $this->entityObj['clientEmail2']       = null;
+        $this->entityObj['FK_ClientTypeCode']  = null;
+        $this->entityObj['CreatedDT']          = null;
+        $this->entityObj['CreatedBy']          = null;
+        $this->entityObj['UpdatedDT']          = null;
+        $this->entityObj['UpdatedBy']          = null;
+        $this->entityObj['Active']             = null;
+        $this->entityObj['ActiveDT']           = null;
+        $this->entityObj['ActiveBy']           = null;
         
         //Contructor para la conexion de los metodos
         parent::__construct();  

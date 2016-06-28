@@ -18,6 +18,11 @@
     Date:   26-Jun-2016
     Desc:   se agrega llamado de la funcion init en la funcion entityNew
   
+    Autor:  Luis F Castaño
+    Date:   28-Jun-2016
+    Desc:   Se ajusta error en la funcion entityLoad cuando se crea la lista de campos, se agrega
+            en el ciclo la condicion key != New.
+  
 */
 
 require_once 'ConexionPDO.php';
@@ -51,7 +56,9 @@ class methods{
             
             //creamos la listas de los campos para completar la sentencia de Base de Datos
             foreach($this->entityObj as $key => $val ) {
-                $fieldName .= $key.",";
+                if($key != "New"){
+                    $fieldName .= $key.",";
+                }
             }//fin del ciclo
             
             $fieldName = substr ($fieldName, 0, strlen($fieldName) - 1); 

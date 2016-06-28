@@ -20,10 +20,14 @@
     Autor:  Luis F Castaño
     Date:   27-Jun-2016
     Desc:   Se agrega el valor null a la estructura principal de la orm. 
- * 
- *  Autor:  Hawerd Gonzalez
+  
+    Autor:  Hawerd Gonzalez
     Date:   27-Jun-2016
     Desc:   Agrego campo faltantes a la orm
+  
+    Autor:  Luis F Castaño
+    Date:   28-Jun-2016
+    Desc:   Se ajusta Orden de campos de la Orm.
  
 */
 
@@ -46,8 +50,8 @@ class sistElements extends methods{
         $this->entityObj['elementName']         = null;
         $this->entityObj['elementBrand']        = null;
         $this->entityObj['elementReferences']   = null;
-        $this->entityObj['elementScheduled']    = null;
         $this->entityObj['elementDesc']         = null;
+        $this->entityObj['elementScheduled']    = null;
         $this->entityObj['FK_elementTypeCode']  = null;
         $this->entityObj['CreatedDT']           = null;
         $this->entityObj['CreatedBy']           = null;

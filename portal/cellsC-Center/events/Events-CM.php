@@ -23,7 +23,11 @@
     Autor:  Luis F Castaño
     Date:   27-Jun-2016
     Desc:   Se corrige logica de la funcion loadDataGrid para cargar los datos 
-            en la estructura xml, se retiran validaciones y se agregan otras.     
+            en la estructura xml, se retiran validaciones y se agregan otras.
+  
+    Autor:  Luis F Castaño
+    Date:   28-Jun-2016
+    Desc:   Se realiza ajuste a la funcion updatedForm.
    
 */
 
@@ -463,16 +467,27 @@ try{
 
            //Campos No Requeridos en la Base de Datos.
            if($_POST[$ids.'_DateOfMounting'] != "" ){
-               $eventsDataObj['eventMountingDate']  = $_POST[$ids.'_DateOfMounting']; 
+               $eventsDataObj['eventMountingDate'] = $_POST[$ids.'_DateOfMounting']; 
+           }else{
+               $eventsDataObj['eventMountingDate'] = null;
            }
+           
            if($_POST[$ids.'_DateOfStart'] != "" ){
-               $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
+               $eventsDataObj['eventInitDate']  = $_POST[$ids.'_DateOfStart'];
+           }else{
+               $eventsDataObj['eventInitDate']  = null;
            }
+           
            if($_POST[$ids.'_DateFinal'] != "" ){
-               $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
+               $eventsDataObj['eventFinishDate'] = $_POST[$ids.'_DateFinal'];
+           }else{
+               $eventsDataObj['eventFinishDate'] = null;    
            }
+           
            if($_POST[$ids.'_FK_employeUUID'] != "?" ){
-               $eventsDataObj['FK_employeUUID']     = $_POST[$ids.'_FK_employeUUID'];
+               $eventsDataObj['FK_employeUUID'] = $_POST[$ids.'_FK_employeUUID'];
+           }else{
+               $eventsDataObj['FK_employeUUID'] = null;
            }
 
            $funcStage   = "EntitySaveOfDataObj";

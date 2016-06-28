@@ -19,7 +19,11 @@
     Autor:  Luis F Castaño
     Date:   25-Jun-2016
     Desc:   Se ajusta la funcion interna addform para agregar registros.
-          
+    
+    Autor:  Luis F Castaño
+    Date:   27-Jun-2016
+    Desc:   Se corrige logica de la funcion loadDataGrid para cargar los datos 
+            en la estructura xml, se retiran validaciones y se agregan otras.     
    
 */
 
@@ -111,17 +115,21 @@ try{
     //Evaluamos el Valor del Method Obtenido 
     switch($methodVal){
         case "loadDataGrid":
-        case "submitDataForm":
-            $actualFlds  = count($_POST);                 //Obtengo el numero total de campos del formulario  
+            //Adjunta archivos ORM necesarios para el CM.
+            require_once $rootORM."view/viewEvents.php";
             
-            require_once $rootORM."sist/SistEvents.php";    //Adjunta archivo ORM
-            require_once $rootORM."sist/SistClients.php";   //Adjunta archivo ORM
-            require_once $rootORM."sist/SistEmpleoyes.php"; //Adjunta archivo ORM
-            //
             //Se instancias clases necesarias 
-            $eventsClass    = new sistEvents();           //Instancia la clase sitsEvent de la ORM.
-            $clientsClass   = new sistClients();          //Instancia la clase sitsClients de la ORM.
-            $empleoyesClass = new sistEmpleoyes();        //Instancia la clase sitsEmpleoyes de la ORM.
+            $vEventsClass   = new viewEvents();   //Instancia la clase viewEvents de la ORM.
+            break;
+        case "submitDataForm":
+            //Obtengo el numero total de campos del formulario  
+            $actualFlds  = count($_POST);                 
+            
+            //Adjunta archivos ORM necesarios para el CM.
+            require_once $rootORM."sist/SistEvents.php";  
+
+            //Se instancias clases necesarias 
+            $eventsClass    = new sistEvents();   //Instancia la clase sitsEvents de la ORM.
             break;
         case "":
             $respMsg = "Method is blank";
@@ -168,75 +176,87 @@ try{
     /* Funcion que se encarga de cargar los datos que poblaran
     el xml de la Grilla en el Modulo general. */
     function loadDataGrid(){ 
-        
-        $gridErrMsg = "";
-        
+
+        //Variables locales de la funcion
         global $retXml;
-        global $eventsClass;
-        global $clientsClass;
-        global $empleoyesClass;
-        global $eventsDataObj;
-        global $clientDataObj;
-        global $empleoyesDataObj;
+        global $vEventsClass;
+        global $vEventsDataObj;
         
+        //Variables locales de la funcion
+        $gridErrMsg     = "";
+        $employeeName   = "";
+        $employeeUUID   = "";
+        $mountingDate   = "";
+        $initDate       = "";
+        $finishDate     = "";
+
         try{
 
-            //Cargo los datos de las tablas de base de Datos.
-            $eventsObj      = $eventsClass->entityLoad("Active = true");
-
-            //Se Valida que no haya Error en la Carga de datos.
-            if($eventsObj['error']){
-                throw new Exception($message=$eventsObj['msg']);
+            /* Cargo los datos de la tabla de base de datos */
+            $vEventsObj   = $vEventsClass->entityLoad("Active = true");
+            if($vEventsObj['error']){
+                throw new Exception($message=$vEventsObj['msg']);
             }
-
+            
             //Obtengo los datos del objeto cargado $eventsObj
-            $eventDataObj       = $eventsObj['data'];
+            $eventDataObj  = $vEventsObj['data'];
 
             header('Content-Type: application/xml');
             $retXml = "<rows>";
+            
             for($i=0; $i<count($eventDataObj); $i++){
 
                 $recActual = $eventDataObj[$i];
                 
-                $retXml .= "<row id='$i'>";
+                //si esiste empleado obtener nombre completo.
+                if($recActual['FK_employeUUID'] != null){
+                    $employeeUUID = $recActual['FK_employeUUID'];
+                    $employeeName = $recActual['empleoyeFirstName']." ".$recActual['empleoyeLastName'];
+                }else{
+                    $employeeUUID = "?";   
+                    $employeeName = "";   
+                }
+                //si existe fecha de montaje, obtenerla.
+                if($recActual['eventMountingDate']!= null){
+                    $mountingDate = $recActual['eventMountingDate'];
+                }else{
+                    $mountingDate = "";
+                }
+                //si existe fecha de inicio, obtenerla.
+                if($recActual['eventInitDate'] != null){
+                    $initDate = $recActual['eventInitDate'];
+                }else{
+                    $initDate = "";
+                }
+                //si existe fecha final, obtenerla.
+                if($recActual['eventFinishDate'] != null){
+                    $finishDate = $recActual['eventFinishDate'];
+                }else{
+                    $finishDate = "";
+                }
                 
-                   //cargo los datos del cliente actual
-                   $clientObj = $clientsClass->entityLoad("clientUUID = '".$recActual['FK_ClientUUID']."'",true);
-                   
-                   if($clientObj['error']){
-                        throw new Exception($message=$clientObj['msg']);
-                   }
-                   
-                   //Obtengo los datos del objeto cargado del cliente
-                   $clientDataObj  = $clientObj['data']; 
-                   $retXml .= '<cell>'.$clientDataObj['clientFirstName']." ".$clientDataObj['clientLastName'].'</cell>';
-             
-                   //cargo los datos del empleado actual
-                   $empleoyesObj   = $empleoyesClass->entityLoad("empleoyeUUID = '".$recActual['FK_employeUUID']."'",true);
-                   if($empleoyesObj['error']){
-                       throw new Exception($message=$empleoyesObj['msg']);
-                   }
-                   
-                   //Obtengo los datos del objeto cargado del empleado
-                   $empleoyesDataObj   = $empleoyesObj['data'];
-                   $retXml .= '<cell>'.$empleoyesDataObj['empleoyeFirstName']." ".$empleoyesDataObj['empleoyeLastName'].'</cell>';
-                   
-                   $retXml .= '<cell>'.$recActual['eventName'].'</cell>';
-                   $retXml .= '<cell>'.$recActual['eventCity'].'</cell>';
-                   $retXml .= '<cell>'.$recActual['eventAddress'].'</cell>';
-                   $retXml .= '<cell>'.$recActual['eventMountingDate'].'</cell>';
-                   $retXml .= '<cell>'.$recActual['eventInitDate'].'</cell>';
-                   $retXml .= '<cell>'.$recActual['eventFinishDate'].'</cell>';
-                   $retXml .= '<cell>'.'</cell>';
-                   $retXml .= '<cell>'.$recActual['eventUUID'].'</cell>';
-                   $retXml .= '<cell>'.$recActual['FK_EventTypeCode'].'</cell>';
-                   $retXml .= '<cell>'.$recActual['FK_ClientUUID'].'</cell>';
-                   $retXml .= '<cell>'.$recActual['FK_employeUUID'].'</cell>';
-                   $retXml .= "<cell>submitDataForm</cell>";
-                   $retXml .= "<cell>update</cell>";
+                //xml
+                $retXml .= "<row id='$i'>";
+                    $retXml .= '<cell>'.$recActual['eventTypeDesc'].'</cell>';
+                    $retXml .= '<cell>'.$recActual['clientFirstName']." ".$recActual['clientLastName'].'</cell>';
+                    $retXml .= '<cell>'.$employeeName.'</cell>';
+                    $retXml .= '<cell>'.$recActual['eventName'].'</cell>';
+                    $retXml .= '<cell>'.$recActual['eventCity'].'</cell>';
+                    $retXml .= '<cell>'.$recActual['eventAddress'].'</cell>';
+                    $retXml .= '<cell>'.$mountingDate.'</cell>';
+                    $retXml .= '<cell>'.$initDate.'</cell>';
+                    $retXml .= '<cell>'.$finishDate.'</cell>';
+                    $retXml .= '<cell>'.'</cell>';
+                    $retXml .= '<cell>'.$recActual['eventUUID'].'</cell>';
+                    $retXml .= '<cell>'.$recActual['FK_EventTypeCode'].'</cell>';
+                    $retXml .= '<cell>'.$recActual['FK_ClientUUID'].'</cell>';
+                    $retXml .= '<cell>'.$employeeUUID.'</cell>';
+                    $retXml .= "<cell>submitDataForm</cell>";
+                    $retXml .= "<cell>update</cell>";
                 $retXml .= "</row>";
                 
             }//fin del ciclo
+            
             $retXml .= "</rows>";
        
         }catch(Exception $e){
@@ -276,7 +296,7 @@ try{
             $submitStage = "initialization";
             
             //Numero de Campos esperados por parte del Fomrulario
-            $expectedFlds = 18;
+            $expectedFlds = 19;
             
             //Chequea el numero de campos del formulario
             if($expectedFlds != $actualFlds){
@@ -359,22 +379,33 @@ try{
            if($eventsObj['error']){
                throw new Exception($message = $eventsObj['msg']);
            }
-
+           
            //Obtengo mi entidad vacia de la tabla para poblarla
            $eventsDataObj = $eventsObj['data'];
 
            $funcStage   = "SetupEventsDataObj";
            
+           //Campos Requeridos en la Base de Datos.
            $eventsDataObj['eventName']          = $_POST[$ids.'_NameOfEvent'];
            $eventsDataObj['eventCity']          = $_POST[$ids.'_CityOfEvent'];
            $eventsDataObj['eventAddress']       = $_POST[$ids.'_AddrOfEvent'];
-           $eventsDataObj['eventMountingDate']  = $_POST[$ids.'_DateOfMounting'];
-           $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
-           $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
-           $eventsDataObj['FK_EventTypeCode']   = $_POST[$ids.'_FK_EventTypeCode']; 
-           $eventsDataObj['FK_employeUUID']     = $_POST[$ids.'_FK_employeUUID'];
+           $eventsDataObj['FK_EventTypeCode']   = $_POST[$ids.'_FK_EventTypeCode'];
            $eventsDataObj['FK_ClientUUID']      = $_POST[$ids.'_FK_ClientUUID'];
            $eventsDataObj['Active']             = true; 
+           
+           //Campos No Requeridos en la Base de Datos.
+           if($_POST[$ids.'_DateOfMounting'] != "" ){
+               $eventsDataObj['eventMountingDate']  = $_POST[$ids.'_DateOfMounting']; 
+           }
+           if($_POST[$ids.'_DateOfStart'] != "" ){
+               $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
+           }
+           if($_POST[$ids.'_DateFinal'] != "" ){
+               $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
+           }
+           if($_POST[$ids.'_FK_employeUUID'] != "?" ){
+               $eventsDataObj['FK_employeUUID']     = $_POST[$ids.'_FK_employeUUID'];
+           }
            
            $funcStage   = "EntitySaveOfDataObj";
            
@@ -414,7 +445,6 @@ try{
            
            //Cargo los datos de las tablas de base de Datos.
            $eventsObj   = $eventsClass->entityLoad("eventUUID = '".$_POST[$ids.'_eventUUID']."' and Active = true",true);
-           //Se Valida que no haya Error en la Carga de datos.
            if($eventsObj['error']){
                throw new Exception($message=$eventsObj['msg']);
            }
@@ -424,15 +454,26 @@ try{
            
            $funcStage   = "SetupEventsDataObj";
            
-           $eventsDataObj['FK_EventTypeCode']   = $_POST[$ids.'_FK_EventTypeCode']; 
-           $eventsDataObj['FK_employeUUID']     = $_POST[$ids.'_FK_employeUUID'];
-           $eventsDataObj['FK_ClientUUID']      = $_POST[$ids.'_FK_ClientUUID'];
+           //Campos Requeridos en la Base de Datos.
            $eventsDataObj['eventName']          = $_POST[$ids.'_NameOfEvent'];
            $eventsDataObj['eventCity']          = $_POST[$ids.'_CityOfEvent'];
            $eventsDataObj['eventAddress']       = $_POST[$ids.'_AddrOfEvent'];
-           $eventsDataObj['eventMountingDate']  = $_POST[$ids.'_DateOfMounting'];
-           $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
-           $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
+           $eventsDataObj['FK_EventTypeCode']   = $_POST[$ids.'_FK_EventTypeCode']; 
+           $eventsDataObj['FK_ClientUUID']      = $_POST[$ids.'_FK_ClientUUID'];
+
+           //Campos No Requeridos en la Base de Datos.
+           if($_POST[$ids.'_DateOfMounting'] != "" ){
+               $eventsDataObj['eventMountingDate']  = $_POST[$ids.'_DateOfMounting']; 
+           }
+           if($_POST[$ids.'_DateOfStart'] != "" ){
+               $eventsDataObj['eventInitDate']      = $_POST[$ids.'_DateOfStart'];
+           }
+           if($_POST[$ids.'_DateFinal'] != "" ){
+               $eventsDataObj['eventFinishDate']    = $_POST[$ids.'_DateFinal'];
+           }
+           if($_POST[$ids.'_FK_employeUUID'] != "?" ){
+               $eventsDataObj['FK_employeUUID']     = $_POST[$ids.'_FK_employeUUID'];
+           }
 
            $funcStage   = "EntitySaveOfDataObj";
            
@@ -472,8 +513,6 @@ try{
            
            //Cargo los datos de las tablas de base de Datos.
            $eventsObj   = $eventsClass->entityLoad("eventUUID = '".$_POST[$ids.'_eventUUID']."' and Active = true",true);
-
-           //Se Valida que no haya Error en la Carga de datos.
            if($eventsObj['error']){
                throw new Exception($message=$eventsObj['msg']);
            }
@@ -525,35 +564,23 @@ try{
               $validIndex += 1;
               $validMsg[$validIndex] = "El campo Nombre de Cliente es requerido."; 
            }
-           if($_POST[$ids.'_FK_employeUUID'] == "?"){
-              $validIndex += 1; 
-              $validMsg[$validIndex] = "El campo Nombre de Empleado es requerido."; 
-           }
            if($_POST[$ids.'_NameOfEvent'] == ""){
               $validIndex += 1; 
               $validMsg[$validIndex] = "El campo Nombre de Evento es requerido."; 
            }
-            if($_POST[$ids.'_CityOfEvent'] == ""){
+           if($_POST[$ids.'_CityOfEvent'] == ""){
               $validIndex += 1; 
               $validMsg[$validIndex] = "El campo Ciudad de Evento es requerido."; 
+           }
+           if(is_numeric($_POST[$ids.'_CityOfEvent'])){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Ciudad de Evento No puede contener valores Numericos."; 
            }
            if($_POST[$ids.'_AddrOfEvent'] == ""){
               $validIndex += 1; 
               $validMsg[$validIndex] = "El campo Direccion de Evento es requerido."; 
            }
-           if($_POST[$ids.'_DateOfMounting'] == ""){
-              $validIndex += 1; 
-              $validMsg[$validIndex] = "El campo Fecha de Montaje es requerido."; 
-           }
-            if($_POST[$ids.'_DateOfStart'] == ""){
-              $validIndex += 1; 
-              $validMsg[$validIndex] = "El campo Fecha de Inicio es requerido."; 
-           }
-            if($_POST[$ids.'_DateFinal'] == ""){
-              $validIndex += 1; 
-              $validMsg[$validIndex] = "El campo Fecha Final es requerido."; 
-           }
-           
+
            //Se evalua la validacion de los campos 
            if(count($validMsg) == 0){
               $retStruct['valid'] = true;

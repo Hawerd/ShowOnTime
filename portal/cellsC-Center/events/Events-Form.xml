@@ -21,7 +21,11 @@
             
     Autor:  Luis castaño
     Date:   25-Jun-2016  
-    Desc:   Se agrega los connector a los combos.      
+    Desc:   Se agrega los connector a los combos.  
+    
+    Autor:  Luis castaño
+    Date:   27-Jun-2016  
+    Desc:   Se agrega el (*) a los campos requeridos.        
 
 -->
 <items>
@@ -30,19 +34,19 @@
 
         <item type="block" width="auto" blockOffset="0" >
             
-            <item type="combo" name="FK_EventTypeCode"  label="Tipo de Evento:"     labelWidth="120"  inputWidth="130" 
+            <item type="combo" name="FK_EventTypeCode"  label="Tipo de Evento*:"     labelWidth="120"  inputWidth="130" 
                   connector="../../../services/Combo.php?method=getEventTypeCombo" />
             
-            <item type="combo" name="FK_ClientUUID"     label="Nombre de Cliente:"  labelWidth="120"  inputWidth="180" 
+            <item type="combo" name="FK_ClientUUID"     label="Nombre de Cliente*:"  labelWidth="120"  inputWidth="180" 
                   connector="../../../services/Combo.php?method=getClientsCombo"   />
                  
             <item type="combo" name="FK_employeUUID"    label="Nombre de Empleado:" labelWidth="120"  inputWidth="180" 
                   connector="../../../services/Combo.php?method=getEmpleoyesCombo" />
             
             <item type="newcolumn" offset="20" />
-            <item type="input" name="NameOfEvent"       label="Nombre de Evento:"    labelWidth="120" inputWidth="180" />
-            <item type="input" name="CityOfEvent"       label="Ciudad de Evento:"    labelWidth="120" inputWidth="180" />
-            <item type="input" name="AddrOfEvent"       label="Direccion de Evento:" labelWidth="120" inputWidth="180" />
+            <item type="input" name="NameOfEvent"       label="Nombre de Evento*:"    labelWidth="120" inputWidth="180" />
+            <item type="input" name="CityOfEvent"       label="Ciudad de Evento*:"    labelWidth="120" inputWidth="180" />
+            <item type="input" name="AddrOfEvent"       label="Direccion de Evento*:" labelWidth="120" inputWidth="180" />
             <item type="newcolumn" offset="20" />
             <item type="calendar" name="DateOfMounting" label="Fecha de Montaje:" readonly="true"   labelWidth="100" inputWidth="75" dateFormat="%m/%d/%Y" serverDateFormat="%Y-%m-%d" calendarPosition="bottom" weekStart="7" enableTime="false" />
             <item type="calendar" name="DateOfStart"    label="Fecha de Inicio:"  readonly="true"   labelWidth="100" inputWidth="75" dateFormat="%m/%d/%Y" serverDateFormat="%Y-%m-%d" calendarPosition="bottom" weekStart="7" enableTime="false" />

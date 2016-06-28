@@ -47,6 +47,10 @@
     Autor:  Luis castaño
     Date:   25-Jun-2016  
     Desc:   Se agrega evento onOptionLoaded para la carga de los combos.
+
+    Autor:  Luis castaño
+    Date:   25-Jun-2016  
+    Desc:   Se corrige valor de la variable eventUUIDCol.
    
 -->
 <html>
@@ -90,10 +94,10 @@ function eventsInit(){
     menuImg             = "../../../codebase/skyblue/imgs";
     
     /* Referencia para las columnas de la grilla */
-    eventUUIDCol        = 9;
+    eventUUIDCol        = 10;
     
     /* Variables Generales */
-    newRowData          = "Nuevo Evento,,,,,,,,,,?,?,?,submitDataForm,add,";// contiene la data de la nueva fila en la grilla para el nuevo registro.
+    newRowData          = "Nuevo Evento,,,,,,,,,,,?,?,?,submitDataForm,add,";// contiene la data de la nueva fila en la grilla para el nuevo registro.
     unexpMsg            = "<i>Unexpected Error</i>";            // Mensaje para los Erroes inexperados en el formulario
     newRowId            = "add";                                // contiene el id de la nueva fila para realizar un nuevo registro.
     selectedRow         = "";                                   // contiene el id a seleccionar en la grilla. 

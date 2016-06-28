@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Name:   GeneralMsg-Form.xml
+    Autor:  Hawerd Gonzalez
+    Date:   26-Jun-2016
+    Desc:   Estructura xml para el formulario de Mensajes de usuario 
+            del modulo General.
+
+-->
+<items>
+    <item type="label" name="textMsg" label=""/>
+    <item type="button" name="ok" value="Aceptar"/>	
+</items>

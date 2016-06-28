@@ -3,15 +3,14 @@
     Name:   General-CM.php
     Autor:  Hawerd GOnzalez
     Date:   17-Jun-2016
-    Desc:   Controlador para el Modulo Elementos.
-    
-    Change History|
-    
-    Autor:  Hawerd GOnzalez
-    Date:   22-Jun-2016
-    Desc:   Implementando la carga de la grilla
+    Desc:   Controlador para el Modulo General.
+  
+    Autor:  Luis F Castaño
+    Date:   28-Jun-2016
+    Desc:   Se actualiza controlador. se realizan las funciones de add, update, remove y
+            loadDataGrid.
             
-   
+
 */
 
 /* PRE-PROCESSING FOR VALIDATION OF METHOD AND FORMAT.
@@ -24,13 +23,14 @@ try{
     
     //Variables Globales del Modulo
     $unexpError = "This is an Unexpected Error";
-    $rootORM    = "../../../../orm/";
-                  
+    $rootORM    = "/../../../../orm/";
     $respXml    = "";
     $respMsg    = "";
     
     //Variables que contiene clases.
-    $elementsClass;
+    $eventsClass;
+    $clientsClass;
+    $empleoyesClass;
 
     //Variables Globales para el Metodo
     $retXml     = "";
@@ -98,17 +98,17 @@ try{
  
     }//fin de la condicion
     
-    
     //Evaluamos el Valor del Method Obtenido 
     switch($methodVal){
-        case "loadDataGrid":
         case "submitDataForm":
-            $actualFlds  = count($_POST);                   //Obtengo el numero total de campos del formulario  
-            require_once $rootORM."sist/SistElements.php";  //Adjunta archivo ORM
-            require_once $rootORM."sist/ViewSistElements.php";
-            //Se instancias clases necesarias 
-            $elementsClass          = new sistElements();         //Instancia la clase sitsEvent de la ORM.
-            $viewElementsClass      = new viewAudioElements();
+            //Obtengo el numero total de campos del formulario.  
+            $actualFlds  = count($_POST);
+        case "loadDataGrid":
+            //Adjunta archivos ORM necesarios para el CM.
+            require_once $rootORM."sist/SistElements.php";  
+            
+            //Instancia la clase sistElement de la ORM.
+            $elementsClass   = new sistElements();
             break;
         case "":
             $respMsg = "Method is blank";
@@ -119,7 +119,7 @@ try{
             throw new Exception($message = "Oops");
             break;
     }//fin del switch
-    
+
    //Se Ejecuta Funcion proveniente del Method
    eval('$respXml='.$methodVal.'();');  
    print($respXml);
@@ -152,55 +152,71 @@ try{
    funciones de Primer Orden, ejem: loadDataGrid, loadDataForm o
    SubmitModuleForm  */
 
-    /* Funcion que se encarga de cargar los datos que poblaran
+ /* Funcion que se encarga de cargar los datos que poblaran
     el xml de la Grilla en el Modulo general. */
     function loadDataGrid(){ 
-        
-        $gridErrMsg = "";
-        
+
+        //Variables locales de la funcion
         global $retXml;
         global $elementsClass;
-        global $empleoyesClass;
         global $elementsDataObj;
+        
+        //Variables locales de la funcion
+        $gridErrMsg = "";
+        $scheduled  = "";
         
         try{
 
             //Cargo los datos de las tablas de base de Datos.
             $elementsObj      = $elementsClass->entityLoad("Active = true");
-
-            //Se Valida que no haya Error en la Carga de datos.
             if($elementsObj['error']){
                 throw new Exception($message=$elementsObj['msg']);
             }
+            
             //Obtengo los datos del objeto cargado $elementsObj
             $elementsDataObj       = $elementsObj['data'];
+            
             header('Content-Type: application/xml');
             $retXml = "<rows>";
+            
             for($i=0; $i<count($elementsDataObj); $i++){
+               
+                //registro actual
                 $recActual = $elementsDataObj[$i];
+
+                //Elemento Agendado, Si o No.
+                if($recActual['elementScheduled']){
+                    $scheduled = "SI";
+                }else{
+                    $scheduled = "NO"; 
+                }
+                
+                //xml
                 $retXml .= "<row id='$i'>";
-                   $retXml .= '<cell><![CDATA['.$recActual['elementUUID'].']]></cell>';
-                   $retXml .= '<cell><![CDATA['.$recActual['elementCode'].']]></cell>';
-                   $retXml .= '<cell><![CDATA['.$recActual['elementName'].']]></cell>';
-                   $retXml .= '<cell><![CDATA['.$recActual['elementBrand'].']]></cell>';
-                   $retXml .= '<cell><![CDATA['.$recActual['elementReferences'].']]></cell>';
-                   $retXml .= '<cell><![CDATA['.$recActual['elementScheduled'].']]></cell>';
-                   $retXml .= '<cell><![CDATA['.$recActual['elementDesc'].']]></cell>';
-                   $retXml .= '<cell><![CDATA['.$recActual['FK_elementTypeCode'].']]></cell>';
-                   $retXml .= '<cell><![CDATA[1]]></cell>';
-                   $retXml .= "<cell>submitDataForm</cell>";
-                   $retXml .= "<cell>update</cell>";
+                    $retXml .= '<cell><![CDATA['.$recActual['elementCode'].']]></cell>';
+                    $retXml .= '<cell><![CDATA['.$recActual['elementName'].']]></cell>';
+                    $retXml .= '<cell><![CDATA['.$recActual['elementBrand'].']]></cell>';
+                    $retXml .= '<cell><![CDATA['.$recActual['elementReferences'].']]></cell>';
+                    $retXml .= '<cell><![CDATA['.$recActual['elementDesc'].']]></cell>';
+                    $retXml .= '<cell><![CDATA['.$scheduled.']]></cell>';
+                    $retXml .= '<cell><![CDATA['.$recActual['FK_elementTypeCode'].']]></cell>';
+                    $retXml .= '<cell><![CDATA['.$recActual['elementUUID'].']]></cell>';
+                    $retXml .= "<cell>submitDataForm</cell>";
+                    $retXml .= "<cell>update</cell>";
                 $retXml .= "</row>";
                 
             }//fin del ciclo
-            $retXml .="<userdata name='NewRow'>,,,,,Bodega,,,1,submitDataForm,add</userdata>";
+            
             $retXml .= "</rows>";
             
         }catch(Exception $e){
+            
             global $unexpError;
             $gridErrMsg = $unexpError." : ".$e->getMessage();
             $retXml = gridError($gridErrMsg);
+            
         }//fin del catch
+        
         return $retXml;
     }//fin de la funcion loadDataGrid
     
@@ -217,6 +233,7 @@ try{
         global $actualFlds;
         global $operation;
         global $ids;
+        global $tid;
         
         //Variables locales de la funcion
         $submitStage    = "";
@@ -229,7 +246,7 @@ try{
             $submitStage = "initialization";
             
             //Numero de Campos esperados por parte del Fomrulario
-            $expectedFlds = 14;
+            $expectedFlds = 13;
             
             //Chequea el numero de campos del formulario
             if($expectedFlds != $actualFlds){
@@ -240,17 +257,23 @@ try{
             //se obtiene la operation
             $operation = $_POST[$ids.'_op'];
             
-            //Se valida los campos del formulario
-            $submitStage = $operation."Validation";
-            
-            $doValidation = validateForm();
-            if($doValidation['error']){
-                throw new Exception($message = $doValidation['msg']);//retorna un error inesperado de la funcion de validacion
-            }
-            if(!$doValidation['valid']){
-                $retMsg = $doValidation['msg'];
-                throw new Exception($message = "Oops"); //retorna los mensajes de los campos no validados
-            }
+           //operaciones que requieren de validaciones.(remove, no requiere).
+            switch($operation){
+                case "update":
+                case "add":
+                    //Se valida los campos del formulario
+                    $submitStage = $operation."Validation";
+
+                    $doValidation = validateForm();
+                    if($doValidation['error']){
+                        throw new Exception($message = $doValidation['msg']);//retorna un error inesperado de la funcion de validacion
+                    }
+                    if(!$doValidation['valid']){
+                        $retMsg = $doValidation['msg'];
+                        throw new Exception($message = "Oops"); //retorna los mensajes de los campos no validados
+                    }
+                    break;
+            }//fin del switch
             
             //Se invoca la funcion de segunda orden
             $submitStage = $operation;
@@ -288,73 +311,213 @@ try{
    de apoyo para el proceso requerido  */ 
    
    /* funcion que se encarga de insertar nuevos datos */
-    function addForm(){
-           
-        $retStruct   = Array();
-        $funcStage   = "";
-        global $elementsClass;
-        global $elementsDataObj;
-        global $ids;
+   function addForm(){
+
+       //Variables Globales del modulo
+       global $elementsClass;
+       global $elementsDataObj;
+       global $ids;
+       global $tid;
        
-        try{
+       //Variables locales de la funcion
+       $retStruct   = Array();
+       $funcStage   = "";
+       $countRec    = 0;
+       
+       try{
+
+           $funcStage   = "LoadEntityNew";
            
-            $funcStage   = "LoadEntityNew";
+           //cargamos nueva entidad de la tabla Elementos     
+           $elementsObj   = $elementsClass->entityNew();
+           if($elementsObj['error']){
+               throw new Exception($message = $elementsObj['msg']);
+           }
+           
+           //Obtengo mi entidad vacia de la tabla para poblarla
+           $elementsDataObj = $elementsObj['data'];
+           
+           $funcStage   = "LoadEntity";
+            
+           //cargamos los datos del tipo de Elemento a Guardar
+           $elementsLoadObj = $elementsClass->entityLoad("FK_elementTypeCode = '".$_POST[$ids.'_FK_elementTypeCode']."' and Active = true");
+           if($elementsLoadObj['error']){
+               throw new Exception($message = $elementsLoadObj['msg']);
+           }
 
-            $elementsQuantity = $_POST[$ids.'_quantity'];
-            $funcStage   = "SetupElementsDataObj";
-            
-            $elementTypeCode = $_POST[$ids.'_FK_elementTypeCode'];
-            
-            $numsec             = 1;
-            $elementTypeCode    = $elementTypeCode;
-            $typeNum            = '00000';
-            $currentCode        = $elementTypeCode.$typeNum;
-            
-            $viewElementsObj      = $viewElementsClass->entityLoad();
+           //Obtenemos los datos del tipo de Elemento Cargado.
+           $elementsLoadDataObj = $elementsLoadObj['data'];
+           $countRec            = count($elementsLoadDataObj);
+           
+           $funcStage   = "SetupDataObj";
 
-            var_dump($viewElementsObj);
-            exit();
-            // Ciclo para gardar la informacion en la base de datos.
-            for( $i=1; $i<=$elementsQuantity; $i++){
-                $elementsObj   = $elementsClass->entityNew();
-                if($elementsObj['error']){
-                    throw new Exception($message = $elementsObj['msg']);
-                }
-                //Obtengo mi entidad vacia de la tabla para poblarla
-                $elementsDataObj = $elementsObj['data'];
-                $elementsDataObj['elementUUID']         = uniqid(mt_rand(),true);
-                $elementsDataObj['elementCode']         = ++$currentCode . PHP_EOL;
-                $elementsDataObj['elementName']         = $_POST[$ids.'_elementName'];
-                $elementsDataObj['elementBrand']        = $_POST[$ids.'_elementBrand'];
-                $elementsDataObj['elementReferences']   = $_POST[$ids.'_elementRef'];
-                $elementsDataObj['elementDesc']         = $_POST[$ids.'_elementDesc'];
-                if( $_POST[$ids.'_elementScheduled'] != '' ){
-                    $elementsDataObj['elementScheduled']    = $_POST[$ids.'_elementScheduled'];
-                }
-                $elementsDataObj['FK_elementTypeCode']  = $_POST[$ids.'_FK_elementTypeCode'];
-                $elementsDataObj['Active']              = true;
-                
-                $funcStage   = "EntitySaveOfDataObj";
-                //Guarda el registro
-                $elementsSaveObj   = $elementsClass->entitySave($elementsDataObj); 
-                if($elementsSaveObj['error']){
-                    throw new Exception($message = $elementsSaveObj['msg']);
-                }
-                
-            }
+           //Campos Requeridos en la Base de Datos.
+           $elementsDataObj['elementCode']          = $_POST[$ids.'_FK_elementTypeCode'].($countRec + 1);
+           $elementsDataObj['elementName']          = $_POST[$ids.'_elementName'];
+           $elementsDataObj['elementBrand']         = $_POST[$ids.'_elementBrand'];
+           $elementsDataObj['elementReferences']    = $_POST[$ids.'_elementReference'];
+           $elementsDataObj['FK_elementTypeCode']   = $_POST[$ids.'_FK_elementTypeCode'];
+           $elementsDataObj['elementScheduled']     = false;
+           $elementsDataObj['Active']               = true;
+           
+           //Campos No Requeridos en la Base de Datos.
+           if($_POST[$ids.'_elementDesc'] != "" ){
+              $elementsDataObj['elementDesc']  = $_POST[$ids.'_elementDesc']; 
+           }else{
+              $elementsDataObj['elementDesc']  = null; 
+           }
+
+           $funcStage   = "EntitySaveOfDataObj";
+           
+           //Guardar el registro
+           $elementsSaveObj   = $elementsClass->entitySave($elementsDataObj);
+           if($elementsSaveObj['error']){
+               throw new Exception($message = $elementsSaveObj['msg']);
+           }
 
            $funcStage           = "Finish";
            $tid                 = $elementsDataObj['elementUUID'];
            $retStruct['msg']    = "El registro se ha Agregado satisfactoriamente.";
            $retStruct['error']  = false;
            
-        }catch(Exception $e){
-            $retStruct['msg']    = $funcStage." : ".$e->getMessage();
-            $retStruct['error']  = true; 
-        }
+       }catch(Exception $e){
+           
+           $retStruct['msg']    = $funcStage." : ".$e->getMessage();
+           $retStruct['error']  = true;      
+       }
        
-        return $retStruct;
-    }//fin de la funcion addForm
+       return $retStruct;
+   }//fin de la funcion addForm
+   
+   /* funcion que se encarga de actualizar los datos */
+   function updateForm(){
+       
+       //Variables Globales del modulo
+       global $elementsClass;
+       global $elementsDataObj;
+       global $ids;
+       global $tid;
+       
+       //Variables locales de la funcion
+       $retStruct   = Array();
+       $funcStage   = "";
+
+       try{
+           
+           $funcStage   = "EntityLoadOfDataObj";
+           
+           //Cargo los datos de las tablas de base de Datos.
+           $elementsObj   = $elementsClass->entityLoad("elementUUID = '".$_POST[$ids.'_elementUUID']."' and Active = true",true);
+           if($elementsObj['error']){
+               throw new Exception($message=$elementsObj['msg']);
+           }
+           
+           //Obtengo la entidad con los datos consultados
+           $elementsDataObj = $elementsObj['data'];
+           
+           $funcStage   = "SetupDataObj";
+           
+           //Campos Requeridos en la Base de Datos.
+           $elementsDataObj['elementName']          = $_POST[$ids.'_elementName'];
+           $elementsDataObj['elementBrand']         = $_POST[$ids.'_elementBrand'];
+           $elementsDataObj['elementReferences']    = $_POST[$ids.'_elementReference'];
+           $elementsDataObj['elementScheduled']     = false;
+   
+           //Si cambia el tipo de Elemento se realiza esta operacion logica.
+           if($_POST[$ids.'_FK_elementTypeCode'] != $elementsDataObj['FK_elementTypeCode'] ){
+               
+                //cargamos los datos del tipo de Elemento que ha cambiado
+                $elementsLoadObj = $elementsClass->entityLoad("FK_elementTypeCode = '".$_POST[$ids.'_FK_elementTypeCode']."' and Active = true");
+                if($elementsLoadObj['error']){
+                    throw new Exception($message = $elementsLoadObj['msg']);
+                }
+
+                //Obtenemos los datos del tipo de Elemento Cargado.
+                $elementsLoadDataObj = $elementsLoadObj['data'];
+                $countRec            = count($elementsLoadDataObj);
+
+                $elementsDataObj['elementCode']             = $_POST[$ids.'_FK_elementTypeCode'].($countRec + 1);
+                $elementsDataObj['FK_elementTypeCode']      = $_POST[$ids.'_FK_elementTypeCode'];
+
+           }//fin de la condicion
+           
+           //Campos No Requeridos en la Base de Datos.
+           if($_POST[$ids.'_elementDesc'] != "" ){
+              $elementsDataObj['elementDesc']  = $_POST[$ids.'_elementDesc']; 
+           }else{
+              $elementsDataObj['elementDesc']  = null; 
+           }
+
+           $funcStage   = "EntitySaveOfDataObj";
+
+           //Guardar el registro
+           $elementsSaveObj   = $elementsClass->entitySave($elementsDataObj);
+           if($elementsSaveObj['error']){
+               throw new Exception($message = $elementsSaveObj['msg']);
+           }
+
+           $funcStage           = "Finish";
+           $tid                 = $elementsDataObj['elementUUID'];
+           $retStruct['msg']    = "El registro se ha Actualizado satisfactoriamente.";
+           $retStruct['error']  = false; 
+           
+       }catch(Exception $e){
+           
+           $retStruct['msg']    = $funcStage." : ".$e->getMessage();
+           $retStruct['error']  = true;      
+       }
+       
+       return $retStruct;
+   }//fin de la funcion updateForm
+   
+   /* funcion que se encarga de desactivar los datos */
+   function removeForm(){
+       
+       //Variables Globales del modulo
+       global $elementsClass;
+       global $elementsDataObj;
+       global $ids;
+       global $tid;
+       
+       //Variables locales de la funcion
+       $retStruct   = Array();
+       $funcStage   = "";
+       
+       try{
+           
+           $funcStage   = "EntityLoadOfDataObj";
+           
+           //Cargo los datos de las tablas de base de Datos.
+           $elementsObj   = $elementsClass->entityLoad("elementUUID = '".$_POST[$ids.'_elementUUID']."' and Active = true",true);
+           if($elementsObj['error']){
+               throw new Exception($message=$elementsObj['msg']);
+           }
+           
+           //Obtengo la entidad con los datos consultados
+           $elementsDataObj = $elementsObj['data'];
+
+           $funcStage   = "EntitySaveOfDataObj";
+           
+           /* Activo el segundo parametro de la funcion entitySave, que le indica a la funcion
+            que quiero desactivar de la base de datos el objeto que le paso como parametro */
+           $elementsSaveObj   = $elementsClass->entitySave($elementsDataObj,true);
+           if($elementsSaveObj['error']){
+               throw new Exception($message = $elementsSaveObj['msg']);
+           }
+
+           $funcStage           = "Finish";
+           $tid                 = $elementsDataObj['elementUUID'];
+           $retStruct['msg']    = "El registro se ha Eliminado satisfactoriamente.";
+           $retStruct['error']  = false;
+           
+       }catch(Exception $e){
+           
+           $retStruct['msg']    = $funcStage." : ".$e->getMessage();
+           $retStruct['error']  = true;      
+       }
+       
+       return $retStruct;
+   }//fin de la funcion removeForm
    
    /* funcion que se encarga de validar los campos del formulario */
    function validateForm(){
@@ -366,29 +529,26 @@ try{
        global $ids;
        
        try{
-            //Se validan los campos del formulario
-            $funcStage = "ValidationFields";
+           
+           //Se validan los campos del formulario
+           $funcStage = "ValidationFields";
+           
+           if($_POST[$ids.'_FK_elementTypeCode'] == "?"){
+              $validMsg[$validIndex] = "El campo Tipo de Elemento es requerido."; 
+           }
+           if($_POST[$ids.'_elementName'] == ""){
+              $validIndex += 1;
+              $validMsg[$validIndex] = "El campo Nombre de Elemento es requerido."; 
+           }
+           if($_POST[$ids.'_elementBrand'] == ""){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Marca es requerido."; 
+           }
+           if($_POST[$ids.'_elementReference'] == ""){
+              $validIndex += 1; 
+              $validMsg[$validIndex] = "El campo Referencia es requerido."; 
+           }
 
-            if($_POST[$ids.'_elementName'] == ""){
-               $validMsg[$validIndex] = "El campo Nombre de Elemento es Requerido."; 
-            }
-            if($_POST[$ids.'_elementRef'] == ""){
-               $validIndex += 1;
-               $validMsg[$validIndex] = "El campo Nombre de Referencia es Requerido."; 
-            }
-            if($_POST[$ids.'_FK_elementTypeCode'] == "none"){
-               $validIndex += 1; 
-               $validMsg[$validIndex] = "El Campo Tipo de Elemento es Requerido."; 
-            }
-            if($_POST[$ids.'_quantity'] < 1){
-               $validIndex += 1; 
-               $validMsg[$validIndex] = "La Cantidad de Elementos No Debe Ser Menor que 1."; 
-            }
-            if($_POST[$ids.'_elementScheduled'] == ""){
-               $validIndex += 1; 
-               $validMsg[$validIndex] = "El Campo Bodega Es Requerido."; 
-            }
-            
            //Se evalua la validacion de los campos 
            if(count($validMsg) == 0){
               $retStruct['valid'] = true;
@@ -401,12 +561,14 @@ try{
            $retStruct['error']  = false;
 
        }catch(Exception $e){
+           
           if($e->getMessage()!= "Oops"){
              $retStruct['msg']   = $funcStage." : ".$e->getMessage();
              $retStruct['error'] = true;    
           }
           $retStruct['valid'] = false;
        }
+       
        return $retStruct;	
    }//fin de la funcion validateForm
     
@@ -430,8 +592,8 @@ try{
                 $errMsgXML .= "<cell>ERROR</cell>";
                 $errMsgXML .= "<cell></cell>";
                 $errMsgXML .= "<cell></cell>";
-                $errMsgXML .= "<cell><![CDATA[$errMsg]]></cell>";
                 $errMsgXML .= "<cell></cell>";
+                $errMsgXML .= "<cell><![CDATA[$errMsg]]></cell>";
                 $errMsgXML .= "<cell></cell>";
                 $errMsgXML .= "<cell></cell>";
                 $errMsgXML .= "<cell></cell>";
@@ -449,10 +611,12 @@ try{
        que pertenecen a la carga de datos del formulario */    
     function formError($errMsg){
         $errMsgXML = "";
+        
         header('Content-Type: application/xml');
         $errMsgXML = "<data>";
             $errMsgXML .= "<action type='fail' tid=''><![CDATA[$errMsg]]></action>";
         $errMsgXML .= "</data>";
+        
         return $errMsgXML; 
     }//fin de la funcion formError
     

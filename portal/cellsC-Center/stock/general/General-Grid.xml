@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Name:   Stock-V.php
+    Name:   General-Grid.xml
     Autor:  Hawerd Gonzalez
     Date:   24-May-2016
-    Desc:   Estructura de grilla.
+    Desc:   Estructura xml para la Grilla de el modulo General.
+    
+    Autor:  Luis F Castaño
+    Date:   28-May-2016
+    Desc:   Se actualiza xml de la grilla
   
 -->
 <rows>
     <head>
-        <column type="ro"   id="elementUUID"        hidden="true"/>
-        <column type="ro"   id="code"               width="80">Codigo           </column>
-        <column type="ro"   id="elementName"        width="120">Nombre          </column>
-        <column type="ro"   id="elementBrand"       width="120">Marca            </column>
-        <column type="ro"   id="elementRef"         width="150">Referencia      </column>
-        <column type="ro"   id="elementScheduled"   width="80">Estado           </column>       
-        <column type="ro"   id="elementDesc"        width="300">Descripcion     </column>
-        <column type="ro"   id="FK_elementTypeCode" hidden="true"/>
-        <column type="ro"   id="quantity"           hidden="true"/>
-        <column type='ro'   id='method'             hidden="true">method	</column>	
-        <column type='ro'   id='op'                 hidden="true">op		</column>
+        <beforeInit>
+            <call command='setEditable'>
+                <param>false</param>
+            </call>
+            <call command='enableMultiline'>
+                <param>true</param>
+            </call>
+        </beforeInit>
+        <column type="ro"   id="elementCode"        width="100"  >Codigo de Elemento        </column>
+        <column type="ro"   id="elementName"        width="200"  >Nombre de Elemento        </column>
+        <column type="ro"   id="elementBrand"       width="200"  >Marca de Elemento         </column>
+        <column type="ro"   id="elementReference"   width="200"  >Referencia de Elemento    </column>
+        <column type="ro"   id="elementDesc"        width="200"  >Descripcion de Elemento   </column>
+        <column type="ro"   id="elementScheduled"   width="100"  >Elemento Agendado         </column>
+        <column type="ro"   id="FK_elementTypeCode" hidden="true">FK_elementTypeCode        </column>      
+        <column type="ro"   id="elementUUID"        hidden="true">elementUUID               </column>   
+        <column type='ro'   id='method'             hidden="true">method                    </column>	
+        <column type='ro'   id='op'                 hidden="true">op                        </column>
+        <afterInit> 	
+            <call command="attachHeader"> 	
+                <param>#select_filter,#text_filter,#text_filter,#text_filter,#text_filter,#select_filter</param>	
+            </call>
+        </afterInit>
     </head>
 </rows>

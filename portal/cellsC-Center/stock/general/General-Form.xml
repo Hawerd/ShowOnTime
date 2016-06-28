@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Name:   Events-Form.xml
-    Autor:  Luis F Castaño
-    Date:   24-May-2016
-    Desc:   Estructura xml para el formulario de el modulo Eventos.
+    Name:   General-Form.xml
+    Autor:  Hawerd Gonzalez
+    Date:   28-Jun-2016
+    Desc:   Estructura xml para el formulario de el modulo General.
     
-    Autor:  Luis castaño
-    Date:   11-Jun-2016  
-    Desc:   Se retira el campo Cedula y el se esconde el campo numero de remision.
+    Autor:  Luis F Castaño
+    Date:   28-Jun-2016
+    Desc:   Se actualiza xml del formulario.
 
 -->
 <items>
-    <!--  Fieldset Info Events -->
-    <item type="fieldset" name="fieldsetEvents" width="auto" offsetLeft="5" offsetTop="5" labelWidth="110"
+    <!--  Fieldset Info General -->
+    <item type="fieldset" name="fieldsetGeneral" width="auto" offsetLeft="5" offsetTop="5" labelWidth="110"
             label="Por favor, ingrese los siguientes campos necesarios para crear o actualizar un elemento" >
 
         <item type="block" width="auto" blockOffset="0" >
             
-            <item type="combo" name="FK_elementTypeCode"   label="Tipo de Elemento:"   labelWidth="110"  
-                  inputWidth="200" connector="../../../../services/Combo.php?method=getElementTypeCombo"/>
-            <item type="input" name="elementName"       label="Nombre Elemento:"   labelWidth="110"  inputWidth="200" />
-            <item type="input" name="elementBrand"      label="Marca:"       labelWidth="110"  inputWidth="200" />
+            <item type="input" name="elementCode"       label="Codigo de Elemento:" labelWidth="110"  inputWidth="100" disabled="true" />         
+            <item type="combo" name="FK_elementTypeCode"   label="Tipo de Elemento*:"   labelWidth="110"  
+                  inputWidth="130" connector="../../../../services/Combo.php?method=getElementTypeCombo"/>
+            <item type="input" name="elementName"       label="Nombre Elemento*:"    labelWidth="110"  inputWidth="180" />
+
             <item type="newcolumn" offset="20" />
-            <item type="input" name="elementRef"        label="Referencia:"  labelWidth="90" inputWidth="200" />
-            <item type="input" name="elementDesc"       label="Descripcion:" labelWidth="90" inputWidth="200" />
-            <item type="input" name="quantity"          label="Cantidad:"    labelWidth="90" inputWidth="200" />
-            <item type="input" name="elementScheduled"  label="Estado:"      labelWidth="90" inputWidth="200" />
+            
+            <item type="input" name="elementBrand"      label="Marca*:"        labelWidth="70"   inputWidth="180" />
+            <item type="input" name="elementReference"  label="Referencia*:"   labelWidth="70"   inputWidth="180" />
+            <item type="input" name="elementDesc"       label="Descripcion:"  labelWidth="70"   inputWidth="180" />
+            
+            <item type="newcolumn" offset="20" />
+            
+            <item type="input" name="elementScheduled"  label="Elemento Agendado:"  labelWidth="110" inputWidth="40" disabled="true" />
+            
         </item>
          
         <item type="label" label="" labelHeight="1"/>
 
-        <item type="block" width="auto" blockOffset="190">
-            <item type="button" name="update" width="110" value="Aceptar" tooltip=""/>
+       <item type="block" width="auto" blockOffset="190">
+            <item type="button" name="update" width="110" value="Actualizar Elemento" tooltip=""/>
             <item type="newcolumn" offset="5" />
             <item type="button" name="clear"  width="110" value="Limpiar Cambios"   tooltip="" />
             <item type="newcolumn" offset="5" />
-            <item type="button" name="cancel" width="110" value="Cancelar"  tooltip="" />
+            <item type="button" name="cancel" width="100" value="Cancelar"  tooltip="" />
         </item>
         
     </item>
-    <item type="input" name ="method" value="submitDataForm"/>
-    <item type="input" name="op"/>  
+    
+    <item type="hidden" name ="elementUUID" value=""/>
+    <item type="hidden" name ="method" value="submitDataForm"/>
+    <item type="hidden" name="op"/>  
 </items>

@@ -212,7 +212,7 @@ try{
 
                 $recActual = $eventDataObj[$i];
                 
-                //si esiste empleado obtener nombre completo.
+                // Si existe empleado obtener nombre completo.
                 if($recActual['FK_employeUUID'] != null){
                     $employeeUUID = $recActual['FK_employeUUID'];
                     $employeeName = $recActual['empleoyeFirstName']." ".$recActual['empleoyeLastName'];

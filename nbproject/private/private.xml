@@ -4,6 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/html/ShowOnTime/portal/cellsC-Center/events/Events-CM.php</file>
+            <file>file:/var/www/html/ShowOnTime/portal/cellsC-Center/stock/general/General-CM.php</file>
+            <file>file:/var/www/html/ShowOnTime/orm/sist/SistClients.php</file>
+            <file>file:/var/www/html/ShowOnTime/portal/cellsC-Center/clients/Clients-CM.php</file>
         </group>
     </open-files>
 </project-private>

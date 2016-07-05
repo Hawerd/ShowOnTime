@@ -1,7 +1,7 @@
 <?php
 
 /*
-    Name:   Clients-Controller.php
+    Name:   Clients-CM.php
     Autor:  Victor Gutiérrez
     Date:   28-Jun-2016
     Desc:   Controlador para el Modulo Clientes.
@@ -103,10 +103,10 @@ try {
     switch($methodVal){
         case "loadDataGrid":
             //Adjunta archivos ORM necesarios para el CM.
-            require_once $rootORM."view/viewEvents.php";
+            require_once $rootORM."sist/SistClients.php";
             
             //Se instancias clases necesarias 
-            $vEventsClass   = new viewEvents();   //Instancia la clase viewEvents de la ORM.
+            $ClientsClass   = new viewEvents();   //Instancia la clase viewEvents de la ORM.
             break;
         case "submitDataForm":
             //Obtengo el numero total de campos del formulario  
@@ -116,7 +116,7 @@ try {
             require_once $rootORM."sist/SistEvents.php";  
 
             //Se instancias clases necesarias 
-            $eventsClass    = new sistEvents();   //Instancia la clase sitsEvents de la ORM.
+            $ClientsClass    = new sistEvents();   //Instancia la clase sitsEvents de la ORM.
             break;
         case "":
             $respMsg = "Method is blank";

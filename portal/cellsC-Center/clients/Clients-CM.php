@@ -7,7 +7,7 @@
     Desc:   Controlador para el Modulo Clientes.
   
 ***************************************************************************************
-  
+
     Autor:  Victor Gutiérrez
     Date:   04-Jun-2016
     Desc:   Avances en la implementación de la funcion loadDataGrid.
@@ -193,9 +193,6 @@ try {
             for($clientIndex=0; $clientIndex<count($clientsDataObj); $clientIndex++){
 
                 $recActual = $clientsDataObj[$clientIndex];
-                
-                
-                // PENDIENTE
                 
                 // Si existe empleado obtener nombre completo.
                 if($recActual['FK_employeUUID'] != null){
